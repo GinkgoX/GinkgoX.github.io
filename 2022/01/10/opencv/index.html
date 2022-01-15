@@ -17,16 +17,16 @@
 <meta property="og:site_name" content="Maxwell">
 <meta property="og:description" content="题目要求：了解opencv的DNN库，给定一张自然场景图片，使用训练好的yolov3模型，进行目标检测结果输出。  分析：1）opencv的DNN模块集成了很多深度学习模型，包括人脸检测、图像分类、分割、目标检测等，集成了Pytorch、tensorflow、paddlepaddle等模型框架（参看代码库OpenCV&#x2F;dnn）2）深度学习推理模型一般步骤：加载模型，包括配置文件和权重文件；输入图像">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2022/01/10/opencv/figs/output.jpg">
+<meta property="og:image" content="http://example.com/2022/01/10/opencv/output.jpg">
 <meta property="article:published_time" content="2022-01-10T12:50:21.000Z">
-<meta property="article:modified_time" content="2022-01-15T10:21:36.521Z">
+<meta property="article:modified_time" content="2022-01-15T10:43:12.667Z">
 <meta property="article:author" content="Max well">
 <meta property="article:tag" content="opencv">
 <meta property="article:tag" content="dnn">
 <meta property="article:tag" content="yolov3">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/01/10/opencv/figs/output.jpg">
+<meta name="twitter:image" content="http://example.com/2022/01/10/opencv/output.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Maxwell" type="application/atom+xml">
   
@@ -278,6 +278,8 @@
 <blockquote>
 <p>分析：<br>1）opencv的DNN模块集成了很多深度学习模型，包括人脸检测、图像分类、分割、目标检测等，集成了Pytorch、tensorflow、paddlepaddle等模型框架（参看代码库<a target="_blank" rel="noopener" href="https://github.com/opencv/opencv/tree/master/samples/dnn">OpenCV/dnn</a>）<br>2）深度学习推理模型一般步骤：加载模型，包括配置文件和权重文件；输入图像预处理，转换成模型可接受的文件类型和尺寸；模型预测后处理，对于目标检测，主要是NMS后处理方法；</p>
 </blockquote>
+<span id="more"></span>
+
 <ul>
 <li>结果展示：</li>
 </ul>
@@ -285,7 +287,7 @@
 
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/yolov3Predict data/test.jpg</span><br></pre></td></tr></table></figure>
 
-<p><img src="figs/output.jpg" alt="output"></p>
+<p><img src="/2022/01/10/opencv/output.jpg" alt="output"></p>
 <ul>
 <li>代码示例：</li>
 </ul>
@@ -434,18 +436,9 @@
 
 <nav id="article-nav">
   
-    <a href="/2022/01/13/topics/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          (no title)
-        
-      </div>
-    </a>
   
-  
-    <a href="/2022/01/10/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hello World</div>
+    <a href="/2022/01/10/topics/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Outline for topics</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -630,6 +623,26 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">VScode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Tensorflow</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Pytorch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Ubuntu</a>
               </li>
             
             <div class="clearfix"></div>
