@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2022 | Maxwell</title>
+  <title>Pytorch学习基础——损失函数 | Maxwell</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="This is my public web page">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Maxwell">
-<meta property="og:url" content="http://example.com/archives/2022/index.html">
+  <meta name="description" content="Pytorch学习基础——损失函数文章目录   Pytorch学习基础——损失函数    1. 分类损失    1.1 二分类 B C E L o s s   f a m i l y BCELoss \ family BCELossfamily   1.2多分类 C r o s s E n t r o p y L o s s   f a m i l y CrossEntropyLoss \ f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pytorch学习基础——损失函数">
+<meta property="og:url" content="http://example.com/2022/01/19/Pytorch%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/index.html">
 <meta property="og:site_name" content="Maxwell">
-<meta property="og:description" content="This is my public web page">
+<meta property="og:description" content="Pytorch学习基础——损失函数文章目录   Pytorch学习基础——损失函数    1. 分类损失    1.1 二分类 B C E L o s s   f a m i l y BCELoss \ family BCELossfamily   1.2多分类 C r o s s E n t r o p y L o s s   f a m i l y CrossEntropyLoss \ f">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-01-19T14:59:35.191Z">
+<meta property="article:modified_time" content="2022-01-19T15:01:38.990Z">
 <meta property="article:author" content="Max well">
 <meta property="article:tag" content="C++, deep learning, machine learning">
 <meta name="twitter:card" content="summary">
@@ -214,346 +216,686 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-Pytorch学习基础——损失函数" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
   
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
+    <h1 class="article-title" itemprop="name">
+      Pytorch学习基础——损失函数
+    </h1>
+  
+
+
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
 <a href="/2022/01/19/Pytorch%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/" class="archive-article-date">
         <time datetime="2022-01-19T14:59:35.191Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
 </a>
 
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">3.2k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">17分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<h3 id="Pytorch学习基础——损失函数"><a href="#Pytorch学习基础——损失函数" class="headerlink" title="Pytorch学习基础——损失函数"></a>Pytorch学习基础——损失函数</h3><h3 id="文章目录"><a href="#文章目录" class="headerlink" title="文章目录"></a>文章目录</h3><ul>
+<li><ul>
+<li><ul>
+<li><a href="#Pytorch_0">Pytorch学习基础——损失函数</a><ul>
+<li><ul>
+<li>  <a href="#1__5">1. 分类损失</a></li>
+<li><ul>
+<li>  <a href="#11__BCELoss__family_7">1.1 二分类 B C E L o s s   f a m i l y BCELoss \ family BCELossfamily</a></li>
+<li>  <a href="#12__CrossEntropyLoss__family_66">1.2多分类 C r o s s E n t r o p y L o s s   f a m i l y CrossEntropyLoss \ family CrossEntropyLossfamily</a></li>
+</ul>
+</li>
+<li>  <a href="#2_113">2.回归损失</a></li>
+<li><ul>
+<li>  <a href="#21_L1__loss_MAE_115">2.1 L 1   l o s s ( M A E ) L1 \ loss (MAE) L1loss(MAE)</a></li>
+<li>  <a href="#22_L2__loss__161">2.2 L 2   l o s s ( ) L2 \ loss () L2loss()</a></li>
+<li>  <a href="#22_L2__loss__MSE_163">2.2 L 2   l o s s   ( M S E ) L2 \ loss \ (MSE) L2loss(MSE)</a></li>
+</ul>
+</li>
+<li>  <a href="#3one_hot__198">3.one_hot 编码</a></li>
+<li>  <a href="#4_256">4.自定义损失的两种方法</a></li>
+<li><ul>
+<li>  <a href="#41_nnModule_258">4.1 继承自 n n . M o d u l e nn.Module nn.Module</a></li>
+<li>  <a href="#42__297">4.2 自定义损失函数</a></li>
+<li>  <a href="#43__312">4.3 两个常见的自定义损失函数</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>损失函数的形式化表示： L l o s s = ∑ i = 1 N b c r i t e r i o n ( y ∗ , y ) L_{loss} = \sum_{i=1}^{N_b}criterion(y^{<em>},y) Lloss​=∑i=1Nb​​criterion(y∗,y)， 其中 y ∗ ∈ R B × C y^{</em>}\in \R^{B\times C} y∗∈RB×C为模型预测输出， y ∈ R B × C y\in \R^{B\times C} y∈RB×C为真实标签或标注, B B B为 b a t c h _ s i z e batch\_size batch_size, C C C为全连接层输出，当损失函数对每个 b a t c h batch batch计算损失时，此时有 B = 1 B=1 B=1。根据实际问题的属性，损失函数大致可分类为两类，即分类损失和回归损失。</p>
+<h4 id="1-分类损失"><a href="#1-分类损失" class="headerlink" title="1. 分类损失"></a>1. 分类损失</h4><h5 id="1-1-二分类-B-C-E-L-o-s-s-f-a-m-i-l-y-BCELoss-family-BCELossfamily"><a href="#1-1-二分类-B-C-E-L-o-s-s-f-a-m-i-l-y-BCELoss-family-BCELossfamily" class="headerlink" title="1.1 二分类 B C E L o s s   f a m i l y BCELoss \ family BCELossfamily"></a>1.1 二分类 B C E L o s s   f a m i l y BCELoss \ family BCELossfamily</h5><p>L l o s s ( y ′ , y ) = ∑ i = 1 N b y i log ⁡ ( y i ′ ) L_{loss} (y^{‘},y)= \sum_{i=1}^{N_b}y_i\log(y_{i}^{‘}) Lloss​(y′,y)=i=1∑Nb​​yi​log(yi′​)</p>
+<pre><code>import torch
+import torch.nn as nn
+
+def tensor_info(tensor):
+    print(&#39;tensor type: &#123;&#125;&#39;.format(tensor.type()))
+    print(&#39;tensor value: &#123;&#125;&#39;.format(tensor.data))
+    print(&#39;tensor shape: &#123;&#125;&#39;.format(tensor.shape))
+
+criterion = nn.BCELoss()
+batchsize = 2
+num_class = 2
+y_ = torch.randn(batchsize,num_class)
+y = torch.empty(batchsize,num_class).random_(num_class)
+loss = criterion(nn.Sigmoid()(y_), y)
+
+tensor_info(y_)
+tensor_info(y)
+tensor_info(loss)
+&quot;&quot;&quot;
+tensor type: torch.FloatTensor
+tensor value: tensor([[-0.0734,  1.1474],
+                      [-0.1513, -0.3409]])
+                      
+tensor shape: torch.Size([2, 2])
+tensor type: torch.FloatTensor
+tensor value: tensor([[0., 1.],
+                      [0., 0.]])
+                      
+tensor shape: torch.Size([2, 2])
+tensor type: torch.FloatTensor
+tensor value: 0.5225892663002014
+tensor shape: torch.Size([])
+&quot;&quot;&quot;
+</code></pre>
+<p><strong>note</strong>:</p>
+<ol>
+<li>B C E L o s s BCELoss BCELoss用于二分类问题，tensor的类型为 t o r c h . F l o a t T e n s o r torch.FloatTensor torch.FloatTensor,模型的输出为 s i g m o i d sigmoid sigmoid类型，即要求输出为 [ 0 , 1 ] [0,1] [0,1];</li>
+<li>B C E L o s s BCELoss BCELoss较 C r o s s E n t r o p y L o s s CrossEntropyLoss CrossEntropyLoss训练更稳定；</li>
+<li>当二分类类别不平衡时可以考虑 B C E W i t h L o g i t s L o s s BCEWithLogitsLoss BCEWithLogitsLoss,此时的模型输出为 l o g i t s logits logits形式，同时需要传入 w e i g h t weight weight权重参数；<pre><code> w_0 = 1
+ w_1 = 5
+ class_weights = Variable(torch.FloatTensor[w_0, w_1])
+ criterion = nn.BCEWithLogitsLoss(class_weights)
+ ...
+ loss = criterion(y_, y)
+ 
+</code></pre>
+</li>
+</ol>
+<h5 id="1-2多分类-C-r-o-s-s-E-n-t-r-o-p-y-L-o-s-s-f-a-m-i-l-y-CrossEntropyLoss-family-CrossEntropyLossfamily"><a href="#1-2多分类-C-r-o-s-s-E-n-t-r-o-p-y-L-o-s-s-f-a-m-i-l-y-CrossEntropyLoss-family-CrossEntropyLossfamily" class="headerlink" title="1.2多分类 C r o s s E n t r o p y L o s s   f a m i l y CrossEntropyLoss \ family CrossEntropyLossfamily"></a>1.2多分类 C r o s s E n t r o p y L o s s   f a m i l y CrossEntropyLoss \ family CrossEntropyLossfamily</h5><p>L l o s s ( y ′ , y ) = − log ⁡ ( exp ⁡ ( y [ y ] ′ ) ∑ j exp ⁡ [ y [ j ] ′ ] ) = − y [ y ] ′ + l o g ( ∑ j exp ⁡ ( y [ j ] ′ ) L_{loss} (y^{‘},y)= -\log(\dfrac{\exp(y^{‘}<em>{[y]})}{\sum</em>{j}\exp[y^{‘}<em>{[j]}]}) = -y^{‘}</em>{[y]}+log(\sum_{j}\exp(y^{‘}_{[j]}) Lloss​(y′,y)=−log(∑j​exp[y[j]′​]exp(y[y]′​)​)=−y[y]′​+log(j∑​exp(y[j]′​)</p>
+<pre><code>criterion = nn.CrossEntropyLoss()
+batchsize = 2
+num_class = 3
+y_ = torch.randn(batchsize,num_class)
+y = torch.empty(batchsize, dtype=torch.long).random_(num_class)
+loss = criterion(nn.Softmax()(y_), y)
+
+tensor_info(y_)
+tensor_info(y)
+tensor_info(loss)
+&quot;&quot;&quot;
+tensor type: torch.FloatTensor
+tensor value: tensor([[ 0.9964,  0.7243, -1.0832],
+                      [ 1.2502,  0.9600, -0.1909]])
+tensor shape: torch.Size([2, 3])
+
+tensor type: torch.LongTensor
+tensor value: tensor([2, 0])
+tensor shape: torch.Size([2])
+
+tensor type: torch.FloatTensor
+tensor value: 1.1623895168304443
+tensor shape: torch.Size([])
+&quot;&quot;&quot;
+</code></pre>
+<p><strong>note</strong>:</p>
+<ol>
+<li>C r o s s E n t r o p y L o s s CrossEntropyLoss CrossEntropyLoss既可以用于二分类问题也可以用于多分类，target tensor的类型为 t o r c h . L o n g T e n s o r torch.LongTensor torch.LongTensor，维度为 y ∈ R B y\in \R^{B} y∈RB,代码自动将输出转换为 o n e _ h o t one\_hot one_hot编码,模型的输出为 s o f t m a t softmat softmat类型，即要求输出为多维 [ 0 , 1 ] [0,1] [0,1];</li>
+<li>由于 B C E L o s s BCELoss BCELoss较 C r o s s E n t r o p y L o s s CrossEntropyLoss CrossEntropyLoss训练更稳定，因此二分类多使用前者，而多分类时只能使用后者；</li>
+<li>多类别数据不平衡时，可以考虑多分类负对数损失函数 n n . N L L L o s s nn.NLLLoss nn.NLLLoss；<pre><code> criterion = nn.NLLLoss()
+ ...
+ loss = criterion(nn.LogSoftmax(dim=1)(y_), y)
+ 
+</code></pre>
+</li>
+</ol>
+<h4 id="2-回归损失"><a href="#2-回归损失" class="headerlink" title="2.回归损失"></a>2.回归损失</h4><h5 id="2-1-L-1-l-o-s-s-M-A-E-L1-loss-MAE-L1loss-MAE"><a href="#2-1-L-1-l-o-s-s-M-A-E-L1-loss-MAE-L1loss-MAE" class="headerlink" title="2.1 L 1   l o s s ( M A E ) L1 \ loss (MAE) L1loss(MAE)"></a>2.1 L 1   l o s s ( M A E ) L1 \ loss (MAE) L1loss(MAE)</h5><p>L l o s s ( y ′ , y ) = ∣ y − y ′ ∣ L_{loss} (y^{‘},y)= |y-y^{‘}| Lloss​(y′,y)=∣y−y′∣</p>
+<pre><code>criterion = nn.L1Loss()
+batchsize = 2
+data_dim = 5
+y_ = torch.randn(batchsize,data_dim)
+y = torch.randn(batchsize, data_dim)
+loss = criterion(y_, y)
+
+tensor_info(y_)
+tensor_info(y)
+tensor_info(loss)
+&quot;&quot;&quot;
+tensor type: torch.FloatTensor
+tensor value: tensor([[-0.8535, -0.3021,  0.2806,  0.6997, -0.3428],
+                      [ 1.0466, -0.7761,  1.5299,  1.8677,  0.3375]])
+tensor shape: torch.Size([2, 5])
+
+tensor type: torch.FloatTensor
+tensor value: tensor([[ 0.4172,  0.3862,  1.9460,  0.3330, -0.6183],
+                      [ 0.4837, -0.8353,  0.4653, -0.3128,  1.7366]])
+tensor shape: torch.Size([2, 5])
+
+tensor type: torch.FloatTensor
+tensor value: 0.953281581401825
+tensor shape: torch.Size([])
+&quot;&quot;&quot;
+</code></pre>
+<p><strong>note</strong>:</p>
+<ol>
+<li>L 1   l o s s L1 \ loss L1loss的输入和输出维度相同；</li>
+<li>L 1   l o s s L1 \ loss L1loss在零点处不平滑，相应地使用 L 1 L1 L1正则容易产生稀疏特征； L 2   l o s s L2 \ loss L2loss对离散点比较敏感，使用梯度下降时可能导致梯度爆炸；</li>
+<li>使用 n n . S m o o t h L 1 L o s s nn.SmoothL1Loss nn.SmoothL1Loss可以在$L1 \ loss 和 和 和L2 \ loss 中 折 中 ， 其 表 达 式 为 ： 中折中，其表达式为： 中折中，其表达式为：L_{loss}(y^{’},y) = \begin{cases} 0.5(y’ -y )^2 \ \ \ \ \ \ \ if \ |y’-y|&lt;1 \ |y’-y|-0.5\ \ \ \ if \ otherwise \end{cases} $<pre><code> criterion = nn.SmoothL1Loss()
+ 
+</code></pre>
+</li>
+</ol>
+<h5 id="2-2-L-2-l-o-s-s-L2-loss-L2loss"><a href="#2-2-L-2-l-o-s-s-L2-loss-L2loss" class="headerlink" title="2.2 L 2   l o s s ( ) L2 \ loss () L2loss()"></a>2.2 L 2   l o s s ( ) L2 \ loss () L2loss()</h5><h5 id="2-2-L-2-l-o-s-s-M-S-E-L2-loss-MSE-L2loss-MSE"><a href="#2-2-L-2-l-o-s-s-M-S-E-L2-loss-MSE-L2loss-MSE" class="headerlink" title="2.2 L 2   l o s s   ( M S E ) L2 \ loss \ (MSE) L2loss(MSE)"></a>2.2 L 2   l o s s   ( M S E ) L2 \ loss \ (MSE) L2loss(MSE)</h5><p>L l o s s ( y ′ , y ) = ( y ′ − y ) 2 L_{loss}(y^{‘}, y) = (y^{‘}-y)^2 Lloss​(y′,y)=(y′−y)2</p>
+<pre><code>criterion = nn.MSELoss()
+batchsize = 2
+data_dim = 5
+y_ = torch.randn(batchsize,data_dim)
+y = torch.randn(batchsize, data_dim)
+loss = criterion(y_, y)
+
+tensor_info(y_)
+tensor_info(y)
+tensor_info(loss)
+
+&quot;&quot;&quot;
+tensor type: torch.FloatTensor
+tensor value: tensor([[-0.9645, -1.3637, -0.3499,  0.1778,  1.4501],
+                      [ 0.0399, -0.7981,  0.2331, -0.8327, -0.1414]])
+tensor shape: torch.Size([2, 5])
+
+tensor type: torch.FloatTensor
+tensor value: tensor([[ 0.6230,  0.6931,  0.0585, -0.1514, -1.6614],
+                      [-0.8120, -0.3299, -0.0762, -1.5901,  1.2696]])
+tensor shape: torch.Size([2, 5])
+
+tensor type: torch.FloatTensor
+tensor value: 2.0312931537628174
+tensor shape: torch.Size([])
+&quot;&quot;&quot;
+</code></pre>
+<h4 id="3-one-hot-编码"><a href="#3-one-hot-编码" class="headerlink" title="3.one_hot 编码"></a>3.one_hot 编码</h4><p>当我们想在一个含有 C r o s s E n t r o p y L o s s CrossEntropyLoss CrossEntropyLoss中增加新的损失函数时，需要对模型的输出进行 o n e _ h o t one\_hot one_hot编码，从而能与其他损失联合使用，进而设计自己的损失函数，为自定义损失函数做铺垫。</p>
+<p>一个高效简洁的 o n e _ h o t one\_hot one_hot编码转换如下：</p>
+<pre><code>def tensor_info(tensor):
+    print(&#39;tensor type: &#123;&#125;&#39;.format(tensor.type()))
+    print(&#39;tensor value: &#123;&#125;&#39;.format(tensor.data))
+    print(&#39;tensor shape: &#123;&#125;&#39;.format(tensor.shape))
+
+def make_one_hot(label, classes):
+    label = label.unsqueeze(dim=1)
+    tensor_info(label)
+    tensor = torch.zeros(label.size()[0], classes, 
+                         label.size()[2], label.size()[3]).scatter_(1, label, 1)
+    tensor_info(tensor)
+
+class_num = 2
+batch_size = 2
+label = torch.LongTensor(batch_size, 3, 3).random_() % class_num
+tensor = make_one_hot(label, class_num)
+print(tensor)
+
+&quot;&quot;&quot;
+tensor type: torch.LongTensor
+tensor value: tensor([[[[1, 0, 0],
+                          [0, 1, 0],
+                          [1, 0, 1]]],
+
+                    [[[0, 0, 0],
+                          [0, 0, 0],
+                          [0, 1, 1]]]])
+tensor shape: torch.Size([2, 1, 3, 3])
+
+tensor type: torch.FloatTensor
+tensor value: tensor([[[[0., 1., 1.],
+                          [1., 0., 1.],
+                          [0., 1., 0.]],
+                         [[1., 0., 0.],
+                          [0., 1., 0.],
+                          [1., 0., 1.]]],
+
+                        [[[1., 1., 1.],
+                          [1., 1., 1.],
+                          [1., 0., 0.]],
+                         [[0., 0., 0.],
+                          [0., 0., 0.],
+                          [0., 1., 1.]]]])
+tensor shape: torch.Size([2, 2, 3, 3])
+&quot;&quot;&quot;
+</code></pre>
+<p><strong>note</strong>:</p>
+<ol>
+<li> 上述例子多用于分割图像标注的one_hot编码，一般地，标注的 G r o u n d T r u t h GroundTruth GroundTruth维度为 y ∈ R B × H × W y\in \R^{B \times H\times W} y∈RB×H×W预测的输出为 y ′ ∈ R B × C × H × W y ^{‘}\in \R^{B\times C \times H \times W} y′∈RB×C×H×W，因此需要对 y y y进行 o n e _ h o t one\_hot one_hot编码;</li>
+</ol>
+<h4 id="4-自定义损失的两种方法"><a href="#4-自定义损失的两种方法" class="headerlink" title="4.自定义损失的两种方法"></a>4.自定义损失的两种方法</h4><h5 id="4-1-继承自-n-n-M-o-d-u-l-e-nn-Module-nn-Module"><a href="#4-1-继承自-n-n-M-o-d-u-l-e-nn-Module-nn-Module" class="headerlink" title="4.1 继承自 n n . M o d u l e nn.Module nn.Module"></a>4.1 继承自 n n . M o d u l e nn.Module nn.Module</h5><pre><code>class MyLoss(nn.Module):
+    def __init__(self):
+        super().__init__()
+    
+    def forward(self, input, target):
+        return torch.mean(torch.pow(input-target, 2))
+
+criterion = MyLoss()
+
+batchsize = 2
+data_dim = 5
+y_ = torch.randn(batchsize,data_dim)
+y = torch.randn(batchsize, data_dim)
+loss = criterion(y_, y)
+
+tensor_info(y_)
+tensor_info(y)
+tensor_info(loss)
+
+&quot;&quot;&quot;
+tensor type: torch.FloatTensor
+tensor value: tensor([[-1.0173,  0.4739, -0.7022, -1.2392, -0.9483],
+                      [-0.8169,  1.3850, -0.5899, -0.1689, -0.6612]])
+tensor shape: torch.Size([2, 5])
+
+tensor type: torch.FloatTensor
+tensor value: tensor([[ 0.6348, -0.9740,  1.2326,  0.5315, -1.0824],
+                      [-0.8435,  0.6862,  0.3101, -0.1409,  0.8937]])
+tensor shape: torch.Size([2, 5])
+
+tensor type: torch.FloatTensor
+tensor value: 1.543942928314209
+tensor shape: torch.Size([])
+&quot;&quot;&quot;
+</code></pre>
+<h5 id="4-2-自定义损失函数"><a href="#4-2-自定义损失函数" class="headerlink" title="4.2 自定义损失函数"></a>4.2 自定义损失函数</h5><pre><code>def myLoss(input, target):
+    return torch.mean(torch.pow(input-target, 2))
+...
+loss = myLoss(y_, y)
+...
+</code></pre>
+<p><strong>note</strong>:</p>
+<ol>
+<li> 继承自 n n . M o d u l e nn.Module nn.Module类的损失损失函数需要重写 f o r w a r d forward forward方法，定义相关的 t o r c h torch torch运算，设计相对灵活；使用自定义的损失函数相当于间接使用 t o r c h torch torch的损失函数，不需要维护 f o r w a r d forward forward方法，使用时相当于函数调用；</li>
+<li> 损失函数在进行梯度回传时必然要使用 l o s s . b a c k w a r d loss.backward loss.backward方法，上述两种自定义的损失函数都支持该方法，本质上都是间接调用的 t o r c h torch torch的损失函数；</li>
+</ol>
+<h5 id="4-3-两个常见的自定义损失函数"><a href="#4-3-两个常见的自定义损失函数" class="headerlink" title="4.3 两个常见的自定义损失函数"></a>4.3 两个常见的自定义损失函数</h5><p>F o c a l L o s s FocalLoss FocalLoss<br>F L ( p t ) = − ( 1 − p y ) γ l o g ( p t ) FL(p_t)=-(1-p_y)^{\gamma}log(p_t) FL(pt​)=−(1−py​)γlog(pt​)</p>
+<pre><code>class FocalLoss(nn.Module):
+    def __init__(self, gamma=2, alpha=None, ignore_index=255, size_average=True):
+        super(FocalLoss, self).__init__()
+        self.gamma = gamma
+        self.size_average = size_average
+        self.CE_loss = nn.CrossEntropyLoss(reduce=False, 
+                                           ignore_index=ignore_index, weight=alpha)
+
+    def forward(self, output, target):
+        logpt = self.CE_loss(output, target)
+        pt = torch.exp(-logpt)
+        loss = ((1-pt)**self.gamma) * logpt
+        if self.size_average:
+            return loss.mean()
+        return loss.sum()
+
+criterion = FocalLoss()
+
+batchsize = 2
+data_dim = 5
+y_ = torch.randn(batchsize,data_dim)
+y = torch.empty(batchsize,dtype=torch.long).random_(data_dim)
+loss = criterion(nn.Softmax()(y_), y)
+
+tensor_info(y_)
+tensor_info(y)
+tensor_info(loss)
+
+&quot;&quot;&quot;
+tensor type: torch.FloatTensor
+tensor value: tensor([[ 0.1728,  1.1785,  0.2764, -0.3511,  0.4180],
+                      [ 0.3613,  0.7521,  1.2390,  2.0650, -0.6268]])
+tensor shape: torch.Size([2, 5])
+
+tensor type: torch.LongTensor
+tensor value: tensor([2, 2])
+tensor shape: torch.Size([2])
+
+tensor type: torch.FloatTensor
+tensor value: 1.0486319065093994
+tensor shape: torch.Size([])
+&quot;&quot;&quot;
+</code></pre>
+<p>D I C E   L o s s DICE\ Loss DICELoss<br>L l o s s ( y ′ , y ) = 1 − 2 × ∣   y ′ ⋂ y   ∣ ∣ y ′ ∣ + ∣ y ∣ L_{loss}(y’, y) = 1 - 2\times\dfrac{|\ y’\bigcap y\ |}{|y’|+|y|} Lloss​(y′,y)=1−2×∣y′∣+∣y∣∣y′⋂y∣​</p>
+<pre><code>class DiceLoss(nn.Module):
+    def __init__(self, smooth=1., ignore_index=255):
+        super(DiceLoss, self).__init__()
+        self.ignore_index = ignore_index
+        self.smooth = smooth
+
+    def forward(self, output, target):
+        if self.ignore_index not in range(target.min(), target.max()):
+            if (target == self.ignore_index).sum() &gt; 0:
+                target[target == self.ignore_index] = target.min()
+        target = make_one_hot(target, classes=output.size()[1])
+        output = F.softmax(output, dim=1)
+        output_flat = output.contiguous().view(-1)
+        target_flat = target.contiguous().view(-1)
+        intersection = (output_flat * target_flat).sum()
+        loss = 1 - ((2. * intersection + self.smooth) /
+                    (output_flat.sum() + target_flat.sum() + self.smooth))
+        return loss
+
+criterion = DiceLoss()
+batchsize = 2
+data_dim = 5
+y_ = torch.randn(batchsize,data_dim, 3, 3)
+y = torch.empty(batchsize,3, 3, dtype=torch.long).random_(data_dim)
+loss = criterion(y_, y)
+
+tensor_info(y_)
+tensor_info(y)
+tensor_info(loss)
+
+&quot;&quot;&quot;
+tensor type: torch.LongTensor
+tensor value: tensor([[[[0, 3, 1],
+          [0, 2, 2],
+          [1, 0, 1]]],
+        [[[2, 1, 2],
+          [3, 3, 2],
+          [1, 3, 4]]]])
+tensor shape: torch.Size([2, 1, 3, 3])
+
+tensor type: torch.FloatTensor
+tensor value: tensor([[[[1., 0., 0.],
+                      [1., 0., 0.],
+                      [0., 1., 0.]],
+                     [[0., 0., 1.],
+                      [0., 0., 0.],
+                      [1., 0., 1.]],
+                     [[0., 0., 0.],
+                      [0., 1., 1.],
+                      [0., 0., 0.]],
+                     [[0., 1., 0.],
+                      [0., 0., 0.],
+                      [0., 0., 0.]],
+                     [[0., 0., 0.],
+                      [0., 0., 0.],
+                      [0., 0., 0.]]],
+                    [[[0., 0., 0.],
+                      [0., 0., 0.],
+                      [0., 0., 0.]],
+                     [[0., 1., 0.],
+                      [0., 0., 0.],
+                      [1., 0., 0.]],
+                     [[1., 0., 1.],
+                      [0., 0., 1.],
+                      [0., 0., 0.]],
+                     [[0., 0., 0.],
+                      [1., 1., 0.],
+                      [0., 1., 0.]],
+                     [[0., 0., 0.],
+                      [0., 0., 0.],
+                      [0., 0., 1.]]]])
+tensor shape: torch.Size([2, 5, 3, 3])
+
+tensor type: torch.FloatTensor
+tensor value: tensor([[[[ 0.2699,  2.0570,  0.3527],
+                      [ 0.1577, -0.4064,  0.1343],
+                      [ 1.5966,  1.7491,  1.0151]],
+
+                     [[-0.8926,  0.1622,  1.9066],
+                      [ 0.5218,  0.4823, -1.1344],
+                      [-1.0118, -0.8615, -2.1888]],
+
+                     [[-0.3432, -0.3939,  0.1995],
+                      [-0.1927,  0.1906, -0.9791],
+                      [-0.7473, -1.4993,  0.3817]],
+
+                     [[ 1.9844, -0.3772,  0.0379],
+                      [-0.3522,  0.3117,  3.4582],
+                      [ 0.1093, -1.1035,  1.7196]],
+
+                     [[-0.3047, -0.0412,  0.4407],
+                      [ 0.1961,  0.7687,  0.2264],
+                      [-0.7968, -3.2159,  1.1114]]],
+
+
+                    [[[ 0.2529, -0.2005,  1.4892],
+                      [-0.6280, -0.5346, -0.8372],
+                      [ 2.1497, -0.9360,  0.4647]],
+
+                     [[ 0.1600, -0.4615, -0.0581],
+                      [-0.8772, -2.2099, -0.4701],
+                      [-0.0854, -0.6858,  1.1420]],
+
+                     [[-0.5037, -1.4045,  0.3457],
+                      [ 0.4000,  0.8670,  0.2310],
+                      [ 0.1687,  2.2899,  1.3715]],
+
+                     [[ 0.6839,  0.0109, -1.9138],
+                      [-0.9788, -0.9355,  0.8609],
+                      [ 1.4093, -0.5079,  0.1082]],
+
+                     [[ 0.8306, -0.9631, -0.8329],
+                      [-0.0351, -1.1003,  0.2656],
+                      [-1.8068, -0.5764, -1.0488]]]])
+tensor shape: torch.Size([2, 5, 3, 3])
+
+tensor type: torch.LongTensor
+tensor value: tensor([[[0, 3, 1],
+         [0, 2, 2],
+         [1, 0, 1]],
+
+        [[2, 1, 2],
+         [3, 3, 2],
+         [1, 3, 4]]])
+tensor shape: torch.Size([2, 3, 3])
+
+tensor type: torch.FloatTensor
+tensor value: 0.8061555624008179
+tensor shape: torch.Size([])
+
+&quot;&quot;&quot;
+</code></pre>
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  
+                </div>
+              </span>
+            </span>
+          </span>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/Pytorch%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/" target="_blank">Pytorch学习基础——损失函数</a>
-  
-    </h1>
-  
+      </a>
+    </div>
+    
 
-
-        <div class="article-info info-on-right">
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          Max well
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="http://example.com/2022/01/19/Pytorch学习基础——损失函数/" title="Pytorch学习基础——损失函数" target="_blank">http://example.com/2022/01/19/Pytorch学习基础——损失函数/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
-          
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
 
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/01/19/Pytorch%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%9B%BE%E5%83%8F%E8%AF%BB%E5%8F%96%E5%BA%93%E5%90%88%E9%9B%86%E2%80%94%E2%80%94cv2,%20PIL,%20skimage%E4%B8%8Enumpy,%20pytorch(ToPILimage)/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.855Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
 
+
+<nav id="article-nav">
+  
+  
+    <a href="/2022/01/19/%E5%9B%BE%E5%83%8F%E8%AF%BB%E5%8F%96%E5%BA%93%E5%90%88%E9%9B%86%E2%80%94%E2%80%94cv2,%20PIL,%20skimage%E4%B8%8Enumpy,%20pytorch(ToPILimage)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">图像读取库合集——cv2, PIL, skimage与numpy, pytorch(ToPILimage)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%9B%BE%E5%83%8F%E8%AF%BB%E5%8F%96%E5%BA%93%E5%90%88%E9%9B%86%E2%80%94%E2%80%94cv2,%20PIL,%20skimage%E4%B8%8Enumpy,%20pytorch(ToPILimage)/" target="_blank">图像读取库合集——cv2, PIL, skimage与numpy, pytorch(ToPILimage)</a>
-  
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B20----%E6%95%B0%E5%80%BC%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.511Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B20----%E6%95%B0%E5%80%BC%E5%AD%97%E7%AC%A6%E4%B8%B2/" target="_blank">剑指OFFER系列之20----数值字符串</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B17----%E6%89%93%E5%8D%B0n%E4%BD%8D%E6%95%B4%E6%95%B0/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.399Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B17----%E6%89%93%E5%8D%B0n%E4%BD%8D%E6%95%B4%E6%95%B0/" target="_blank">剑指OFFER系列之17----打印n位整数</a>
-  
-    </h1>
-  
+<div id="SOHUCS" sid="Pytorch学习基础——损失函数" ></div> 
+<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+    window.changyan.api.config({
+        appid: "cyvRdX3ll",
+        conf: "8eecdc589cba82130de0b5f15d8a1c91"
+    });
+</script>
+</script>
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B18----%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E8%8A%82%E7%82%B9/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.339Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B18----%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E8%8A%82%E7%82%B9/" target="_blank">剑指OFFER系列之18----删除重复节点</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B12----%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.291Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B12----%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/" target="_blank">剑指OFFER系列之12----矩阵中的路径</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B25----%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%EF%BC%88%E6%8B%93%E5%B1%95%EF%BC%9A%E5%90%88%E5%B9%B6K%E4%B8%AA%E9%93%BE%E8%A1%A8%EF%BC%89/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.223Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B25----%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%EF%BC%88%E6%8B%93%E5%B1%95%EF%BC%9A%E5%90%88%E5%B9%B6K%E4%B8%AA%E9%93%BE%E8%A1%A8%EF%BC%89/" target="_blank">剑指OFFER系列之25----合并两个排序链表（拓展：合并K个链表）</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B36----%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.155Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B36----%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/" target="_blank">剑指OFFER系列之36----二叉搜索树与双向链表</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B31----%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%92%8C%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.059Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B31----%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%92%8C%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/" target="_blank">剑指OFFER系列之31----栈的压入和弹出序列</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B40----%E6%9C%80%E5%B0%8F%E7%9A%84K%E4%B8%AA%E6%95%B0/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.027Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B40----%E6%9C%80%E5%B0%8F%E7%9A%84K%E4%B8%AA%E6%95%B0/" target="_blank">剑指OFFER系列之40----最小的K个数</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2022/page/2/">2</a><a class="page-number" href="/archives/2022/page/3/">3</a><a class="page-number" href="/archives/2022/page/4/">4</a><a class="extend next" rel="next" href="/archives/2022/page/2/">Next &amp;raquo;</a>
-    </nav>
-  
 
 
           </div>
@@ -594,8 +936,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,

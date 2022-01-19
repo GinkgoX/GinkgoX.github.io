@@ -6,14 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2022 | Maxwell</title>
+  <title>Maxwell</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    
+    <!-- <meta name="keywords" content="C++, deep learning, machine learning">
+    <meta name="description" content="This is my public web page"> -->
   
   <meta name="description" content="This is my public web page">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Maxwell">
-<meta property="og:url" content="http://example.com/archives/2022/index.html">
+<meta property="og:url" content="http://example.com/page/4/index.html">
 <meta property="og:site_name" content="Maxwell">
 <meta property="og:description" content="This is my public web page">
 <meta property="og:locale" content="en_US">
@@ -215,343 +219,857 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/Pytorch%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:35.191Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
 
-        </div>
-    	 
+  
+    <article id="post-Leetcode前缀和问题集锦" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
   
     <h1 itemprop="name">
 	
-	  <a class="archive-article-title" href="/2022/01/19/Pytorch%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/" target="_blank">Pytorch学习基础——损失函数</a>
+	  <a class="article-title" href="/2022/01/19/Leetcode%E5%89%8D%E7%BC%80%E5%92%8C%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/" target="_blank">Leetcode前缀和问题集锦</a>
   
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%9B%BE%E5%83%8F%E8%AF%BB%E5%8F%96%E5%BA%93%E5%90%88%E9%9B%86%E2%80%94%E2%80%94cv2,%20PIL,%20skimage%E4%B8%8Enumpy,%20pytorch(ToPILimage)/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.855Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+  
+<a href="/2022/01/19/Leetcode%E5%89%8D%E7%BC%80%E5%92%8C%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:31.283Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
 </a>
 
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<p>相关题目<br><a target="_blank" rel="noopener" href="https://leetcode.com/problems/subarray-sum-equals-k/">leetcode 560 subarraySum</a></p>
+<pre><code>int subarraySum(vector&lt;int&gt;&amp; nums, int k) &#123;
+      unordered_map&lt;int, int&gt; hash;
+      int count = 0, psum = 0;
+      hash[0] = 1;
+      for(int i = 0; i &lt; nums.size(); i++)&#123;
+          psum += nums[i];
+          count += hash[psum - k];
+          hash[psum]++;
+      &#125;
+      return count;
+  &#125;
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/subarray-sums-divisible-by-k/">leetcode 974 subarraysDivByK</a></p>
+<pre><code>int subarraysDivByK(vector&lt;int&gt;&amp; nums, int k) &#123;
+     int ans = 0, n = nums.size(), curSum = 0;
+     unordered_map&lt;int, int&gt; hash;
+     hash[0] = 1;
+     int mod;
+     for(int i = 0; i &lt; n; i++)&#123;
+         curSum += nums[i];
+         mod = (curSum % k + k) % k;
+         ans += hash[mod];
+         hash[mod]++;
+     &#125;
+     return ans;
+&#125;
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/count-number-of-nice-subarrays/">leetcode 1248 numberOfSubarrays</a></p>
+<pre><code>int numberOfSubarrays(vector&lt;int&gt;&amp; nums, int k) &#123;
+      unordered_map&lt;int, int&gt; m;
+      const int n = nums.size();
+      int rst = 0;
+      int acc = 0;
+      m[0] = 1;
+      for (int i = 0; i &lt; n; ++i) &#123;
+          acc += (nums[i]%2);
+          rst += m[acc-k];
+          m[acc]++;
+      &#125;
+      return rst;
+  &#125;
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/sum-of-all-odd-length-subarrays/">leetcode 1588 sumOddLengthSubarrays</a></p>
+<pre><code>int sumOddLengthSubarrays(vector&lt;int&gt;&amp; nums) &#123;
+      int ans = 0, n = nums.size();
+      vector&lt;int&gt; preSum(n + 1, 0);
+      for(int i = 0; i &lt; n; i++)&#123;
+          preSum[i+1] = preSum[i] + nums[i];
+      &#125;
+      for(int i = 0; i &lt; n; i++)&#123;
+          for(int j = i + 1; j &lt;= n; j+=2)&#123;
+              ans += preSum[j] - preSum[i];
+          &#125;
+      &#125;
+      return ans;
+  &#125;
+</code></pre>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/01/19/Leetcode%E5%89%8D%E7%BC%80%E5%92%8C%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-FastAPI+TensorFlow1.14常见错误" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
   
     <h1 itemprop="name">
 	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%9B%BE%E5%83%8F%E8%AF%BB%E5%8F%96%E5%BA%93%E5%90%88%E9%9B%86%E2%80%94%E2%80%94cv2,%20PIL,%20skimage%E4%B8%8Enumpy,%20pytorch(ToPILimage)/" target="_blank">图像读取库合集——cv2, PIL, skimage与numpy, pytorch(ToPILimage)</a>
+	  <a class="article-title" href="/2022/01/19/FastAPI+TensorFlow1.14%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/" target="_blank">FastAPI+TensorFlow1.14常见错误</a>
   
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B20----%E6%95%B0%E5%80%BC%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.511Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+  
+<a href="/2022/01/19/FastAPI+TensorFlow1.14%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:31.155Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
 </a>
 
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<p><strong>背景：</strong><br>在用keras/tensorflow训练好模型后，使用fastAPI部署服务时的两个常见错误</p>
+<p>错误1：<code>ValueError: Tensor Tensor(“dense_1/Softmax:0”, shape=(?, 5), dtype=float32) is not an element of this graph.</code></p>
+<p>错误2：<code>tensorflow.python.framework.errors_impl.FailedPreconditionError: Attempting to use uninitialized val</code></p>
+<p>解决方法：</p>
+<pre><code>from tensorflow.python.keras.backend import set_session
+# 解决问题1
+sess = tf.Session()
+graph = tf.get_default_graph()
+# tf2： graph = tf.compat.v1.get_default_graph()
+# 解决问题2
+set_session(sess)
+model = models.load_model(model_path)
+# 每次使用有关模型请求时
+# for each request:
+global sess
+global graph
+with graph.as_default():
+    set_session(sess)
+    model.predict(...)
+</code></pre>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/01/19/FastAPI+TensorFlow1.14%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-视觉十四讲之代码编译" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
   
     <h1 itemprop="name">
 	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B20----%E6%95%B0%E5%80%BC%E5%AD%97%E7%AC%A6%E4%B8%B2/" target="_blank">剑指OFFER系列之20----数值字符串</a>
+	  <a class="article-title" href="/2022/01/19/%E8%A7%86%E8%A7%89%E5%8D%81%E5%9B%9B%E8%AE%B2%E4%B9%8B%E4%BB%A3%E7%A0%81%E7%BC%96%E8%AF%91/" target="_blank">视觉十四讲之代码编译</a>
   
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B17----%E6%89%93%E5%8D%B0n%E4%BD%8D%E6%95%B4%E6%95%B0/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.399Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+  
+<a href="/2022/01/19/%E8%A7%86%E8%A7%89%E5%8D%81%E5%9B%9B%E8%AE%B2%E4%B9%8B%E4%BB%A3%E7%A0%81%E7%BC%96%E8%AF%91/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:31.087Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
 </a>
 
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<blockquote>
+<p>题目学习了书籍《视觉十四讲》，看完了高博的<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV16t411g7FR?p=1">B站视频课程</a>，完成了书籍对应的代码阅读和调试工作，对个人的能力培养和算法理解有了较大的收获，上传了完全调试通过的代码到github上<a target="_blank" rel="noopener" href="https://github.com/GinkgoX/slam_14_chapters.git">slam_14_chapters</a>。</p>
+</blockquote>
+<p>代码编译部分介绍：<br>系统环境：Ubuntu20.04<br>QT版本： QT5<br>G2O版本：最新版<br>OpenCV：4.5<br>实验过程中的CMakeList.txt中的部分Bug已修复<br>代码：<a target="_blank" rel="noopener" href="https://github.com/GinkgoX/slam_14_chapters.git">slam_14_chapters</a><br>参考博客：<a target="_blank" rel="noopener" href="https://blog.csdn.net/ncepu_Chen/article/details/105322585">《视觉SLAM十四讲》笔记摘抄</a></p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/01/19/%E8%A7%86%E8%A7%89%E5%8D%81%E5%9B%9B%E8%AE%B2%E4%B9%8B%E4%BB%A3%E7%A0%81%E7%BC%96%E8%AF%91/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-OpenCV----GUI设计示例" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
   
     <h1 itemprop="name">
 	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B17----%E6%89%93%E5%8D%B0n%E4%BD%8D%E6%95%B4%E6%95%B0/" target="_blank">剑指OFFER系列之17----打印n位整数</a>
+	  <a class="article-title" href="/2022/01/19/OpenCV----GUI%E8%AE%BE%E8%AE%A1%E7%A4%BA%E4%BE%8B/" target="_blank">OpenCV----GUI设计示例</a>
   
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B18----%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E8%8A%82%E7%82%B9/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.339Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+  
+<a href="/2022/01/19/OpenCV----GUI%E8%AE%BE%E8%AE%A1%E7%A4%BA%E4%BE%8B/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:30.923Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
 </a>
 
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<p>题目要求：打开一张lena.jpg图片，支持滑动条进行blur滤波处理；支持鼠标左键按下画圆圈；对每次进行滑动条的操作，支持按钮点击进行blur、gray、bgr和sobel滤波处理。</p>
+<blockquote>
+<p>分析：<br>1）创建滑动条函数：createTrackbar(“Lena”, “Lena”, &amp;blurAmount, 30, onChangeTrackBar, &amp;img)和回调函数onChangeTrackBar(int pos, void* srcData)；<br>2）鼠标事件函数：setMouseCallback(“Lena”, onMouseCircle, &amp;img)和回调函数onMouseCircle(int event, int x, int y, int flags, void* srcData)；<br>3）创建按钮函数：createButton(“Blur”, blurCallback, NULL, QT_CHECKBOX, 0)和回调函数void blurCallback(int state, void* userData)；<br>4）考虑先后执行顺序，滑动条和鼠标部分先后，滤波在二者之后，获取当前图像的状态进行处理，考虑传入全局变量；</p>
+</blockquote>
+<p>代码示例：</p>
+<pre><code>/*
+@File          :buttonWithMouse.cpp
+@Description:  : opencv with qt demo, button, trackbar and mouse action
+@Date          :2021/12/20 14:53:03
+@Author        :xxx
+@version       :1.0
+*/
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;sstream&gt;
+using namespace std;
+
+// OpenCV includes
+#include &quot;opencv2/core.hpp&quot;
+#include &quot;opencv2/imgproc.hpp&quot;
+#include &quot;opencv2/highgui.hpp&quot;
+using namespace cv;
+
+int blurAmount = 15;
+
+Mat img;
+bool applyGray=false;
+bool applyBlur=false;
+bool applySobel=false;
+
+void applyFilters()&#123;
+    /*
+    @description  : apply gray, blur and sobel filter selected by button state
+    @param  : 
+        None
+    @Returns  :
+        None 
+    */
+    Mat result;
+    // cope the gobal img to result, do operation on the result
+    img.copyTo(result);
+    if(applyGray)&#123;
+        cvtColor(result, result, COLOR_BGR2GRAY);
+    &#125;
+    if(applyBlur)&#123;
+        blur(result, result, Size(5,5));    
+    &#125;
+    if(applySobel)&#123;
+        Sobel(result, result, 0, 1, 1);    
+    &#125;
+    imshow(&quot;Lena&quot;, result);
+&#125;
+// BattonCallback fuctor: (int state, void* userData)
+void grayCallback(int state, void* userData)
+&#123;
+    applyGray= true;
+    applyFilters();
+&#125;
+void bgrCallback(int state, void* userData)
+&#123;
+    applyGray= false;
+    applyFilters();
+&#125;
+
+void blurCallback(int state, void* userData)
+&#123;
+    applyBlur= (bool)state;
+    applyFilters();
+&#125;
+
+void sobelCallback(int state, void* userData)
+&#123;
+    applySobel= !applySobel;
+    applyFilters();
+&#125;
+
+
+// trackbar functor: typedef void (*createTrackbar_)(int pos, void* userdata)
+void onChangeTrackBar(int pos, void* srcData)&#123;
+    /*
+    @description  : functor for createTrackBar to do blue filter with pos size
+    @param  : 
+        pos: the filter size
+        srcData: image data
+    @Returns  : 
+        None
+    */
+   if(pos &lt;= 0)&#123;
+       return;
+   &#125;
+   Mat desData;
+   Mat* img = (Mat*) srcData;
+   // opencv blur filter
+   blur(*img, desData, Size(pos, pos));
+   imshow(&quot;Lena&quot;, desData);
+
+&#125;
+
+// mouse functor: typedef void (*SetMouseCallback_)(int pos, void* userdata)
+void onMouseCircle(int event, int x, int y, int flags, void* srcData)&#123;
+    /*
+    @description  : create a circle in image when mouse click down
+    @param  : 
+        event: opencv default mouse event CV_EVENT_MOUSEMOVE 0, CV_EVENT_LBUTTONDOWN 1, ...
+        x: pos x
+        y: pos y
+        flags: opencv default CV_EVENT_FLAG_LBUTTON 1, CV_EVENT_FLAG_RBUTTON 2, ...
+        srcData: image data
+    @Returns  : 
+        None
+    */
+   // only check left button down event
+   if(event != EVENT_LBUTTONDOWN)&#123;
+       return;
+   &#125;
+   Mat* img = (Mat*) srcData;
+   circle(*img, Point(x, y), 10, Scalar(0,255,0), 3);
+   onChangeTrackBar(blurAmount, img);
+&#125;
+
+
+int main( int argc, const char** argv )
+&#123;
+    // init global img
+    img= imread(&quot;../lena.jpg&quot;);
+    
+    // create windows
+    namedWindow(&quot;Lena&quot;);
+    
+    // create Buttons
+    createButton(&quot;Blur&quot;, blurCallback, NULL, QT_CHECKBOX, 0);
+
+    createButton(&quot;Gray&quot;,grayCallback,NULL,QT_RADIOBOX, 0);
+    createButton(&quot;RGB&quot;,bgrCallback,NULL,QT_RADIOBOX, 1);
+
+    createButton(&quot;Sobel&quot;,sobelCallback,NULL,QT_PUSH_BUTTON, 0);
+
+    createTrackbar(&quot;Lena&quot;, &quot;Lena&quot;, &amp;blurAmount, 30, onChangeTrackBar, &amp;img);
+    setMouseCallback(&quot;Lena&quot;, onMouseCircle, &amp;img);
+    
+    // wait app for a key to exit
+    waitKey(0);
+    
+    // Destroy the windows
+    destroyWindow(&quot;Lena&quot;);
+    
+    return 0;
+&#125;
+</code></pre>
+<p>结果展示<br><img src="https://img-blog.csdnimg.cn/b9e5d07329324060bef78528a5d95fb3.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAcXFfMzcxNzIxODI=,size_15,color_FFFFFF,t_70,g_se,x_16" alt="RGB 按钮"><br><img src="https://img-blog.csdnimg.cn/bfcbc95582674f8fb4d25c4298c3ba69.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAcXFfMzcxNzIxODI=,size_15,color_FFFFFF,t_70,g_se,x_16" alt="Sobel 按钮"></p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/01/19/OpenCV----GUI%E8%AE%BE%E8%AE%A1%E7%A4%BA%E4%BE%8B/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-opencv" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
   
     <h1 itemprop="name">
 	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B18----%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E8%8A%82%E7%82%B9/" target="_blank">剑指OFFER系列之18----删除重复节点</a>
+	  <a class="article-title" href="/2022/01/10/opencv/" target="_blank">OpenCV----YOLOv3目标检测</a>
   
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B12----%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.291Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+  
+<a href="/2022/01/10/opencv/" class="archive-article-date">
+        <time datetime="2022-01-10T12:50:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-10</time>
 </a>
 
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>题目要求：了解opencv的DNN库，给定一张自然场景图片，使用训练好的yolov3模型，进行目标检测结果输出。</p>
+<blockquote>
+<p>分析：<br>1）opencv的DNN模块集成了很多深度学习模型，包括人脸检测、图像分类、分割、目标检测等，集成了Pytorch、tensorflow、paddlepaddle等模型框架（参看代码库<a target="_blank" rel="noopener" href="https://github.com/opencv/opencv/tree/master/samples/dnn">OpenCV/dnn</a>）<br>2）深度学习推理模型一般步骤：加载模型，包括配置文件和权重文件；输入图像预处理，转换成模型可接受的文件类型和尺寸；模型预测后处理，对于目标检测，主要是NMS后处理方法；</p>
+</blockquote>
+<ul>
+<li>结果展示：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">./bin/yolov3Predict -h</span><br><span class="line"><span class="comment">#######</span></span><br><span class="line">Usage: yolov3Predict [params] image confThreshold nmsThresshold </span><br><span class="line"></span><br><span class="line">        -?, -h, --<span class="built_in">help</span>, --usage (value:<span class="literal">true</span>)</span><br><span class="line">                opecv based deep learining demo</span><br><span class="line"></span><br><span class="line">        image</span><br><span class="line">                Image to process</span><br><span class="line">        confThreshold (value:0.5)</span><br><span class="line">                confidence threshold, default 0.5</span><br><span class="line">        nmsThresshold (value:0.3)</span><br><span class="line">                nms threshold, default 0.3</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/yolov3Predict data/test.jpg</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/01/10/opencv/output.jpg" alt="output"></p>
+    
+    <a class="article-more-a" href="/2022/01/10/opencv/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">opencv</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">dnn</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">yolov3</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/01/10/opencv/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-topics" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
   
     <h1 itemprop="name">
 	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B12----%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/" target="_blank">剑指OFFER系列之12----矩阵中的路径</a>
+	  <a class="article-title" href="/2022/01/10/topics/" target="_blank">Outline for topics</a>
   
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B25----%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%EF%BC%88%E6%8B%93%E5%B1%95%EF%BC%9A%E5%90%88%E5%B9%B6K%E4%B8%AA%E9%93%BE%E8%A1%A8%EF%BC%89/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.223Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+  
+<a href="/2022/01/10/topics/" class="archive-article-date">
+        <time datetime="2022-01-10T12:50:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-10</time>
 </a>
 
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>OpenCV : <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37172182/article/details/122399552">OpenCV—-YOLOv3目标检测模型推理</a></p>
+<p>OpenCV : <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37172182/article/details/122147856">OpenCV—-简单对象分类</a></p>
+<p>OpenCV : <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37172182/article/details/122088583">OpenCV—-简单目标提取和分割</a></p>
+<p>OpenCV : <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37172182/article/details/122042016">OpenCV—-GUI设计示例</a></p>
+    
+    <a class="article-more-a" href="/2022/01/10/topics/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">opencv</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">VScode</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Tensorflow</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Pytorch</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Ubuntu</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/01/10/topics/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
   
     <h1 itemprop="name">
 	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B25----%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%EF%BC%88%E6%8B%93%E5%B1%95%EF%BC%9A%E5%90%88%E5%B9%B6K%E4%B8%AA%E9%93%BE%E8%A1%A8%EF%BC%89/" target="_blank">剑指OFFER系列之25----合并两个排序链表（拓展：合并K个链表）</a>
+	  <a class="article-title" href="/2022/01/10/hello-world/" target="_blank">Hello World</a>
   
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B36----%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.155Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+  
+<a href="/2022/01/10/hello-world/" class="archive-article-date">
+        <time datetime="2022-01-09T23:48:43.563Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-10</time>
 </a>
 
-        </div>
-    	 
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B36----%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/" target="_blank">剑指OFFER系列之36----二叉搜索树与双向链表</a>
   
-    </h1>
+    
+
   
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
 
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
-          
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<figure class="highlight basic"><figcaption><span>command</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo g</span><br><span class="line">$ hexo d</span><br><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/01/10/hello-world/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B31----%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%92%8C%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.059Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B31----%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%92%8C%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/" target="_blank">剑指OFFER系列之31----栈的压入和弹出序列</a>
-  
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B40----%E6%9C%80%E5%B0%8F%E7%9A%84K%E4%B8%AA%E6%95%B0/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.027Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B40----%E6%9C%80%E5%B0%8F%E7%9A%84K%E4%B8%AA%E6%95%B0/" target="_blank">剑指OFFER系列之40----最小的K个数</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
-  
-
-    
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2022/page/2/">2</a><a class="page-number" href="/archives/2022/page/3/">3</a><a class="page-number" href="/archives/2022/page/4/">4</a><a class="extend next" rel="next" href="/archives/2022/page/2/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
     </nav>
   
 
@@ -593,9 +1111,9 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: false,
+		isHome: true,
 		isPost: false,
-		isArchive: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,

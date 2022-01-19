@@ -6,20 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2022 | Maxwell</title>
+  <title>OpenCV----简单目标提取和分割 | Maxwell</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="This is my public web page">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Maxwell">
-<meta property="og:url" content="http://example.com/archives/2022/index.html">
+  <meta name="description" content="题目要求：提取一张背景简单的图像中物体的信息，包括面积，质心等特征；考虑图像存在噪声，首先对图像进行预处理，然后使用分割算法，在图像中标注对应信息；可能的话考虑在一个窗口中显示图像处理过程结果；  分析：1）对图像降噪的基本流程包括：噪声消除、光消除、二值化；2）常用的分割算法包括：轮廓检测findContours()和连通域分析connectedComponent()；3）考虑设计多窗口类M">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenCV----简单目标提取和分割">
+<meta property="og:url" content="http://example.com/2022/01/19/OpenCV----%E7%AE%80%E5%8D%95%E7%9B%AE%E6%A0%87%E6%8F%90%E5%8F%96%E5%92%8C%E5%88%86%E5%89%B2/index.html">
 <meta property="og:site_name" content="Maxwell">
-<meta property="og:description" content="This is my public web page">
+<meta property="og:description" content="题目要求：提取一张背景简单的图像中物体的信息，包括面积，质心等特征；考虑图像存在噪声，首先对图像进行预处理，然后使用分割算法，在图像中标注对应信息；可能的话考虑在一个窗口中显示图像处理过程结果；  分析：1）对图像降噪的基本流程包括：噪声消除、光消除、二值化；2）常用的分割算法包括：轮廓检测findContours()和连通域分析connectedComponent()；3）考虑设计多窗口类M">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/aa5f78b77fc44a2eb0a83f1348e42846.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAcXFfMzcxNzIxODI=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/556469f7858242e88299ca3e4820a949.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAcXFfMzcxNzIxODI=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/7321a1e2a85042d6b840dfe8f317096e.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAcXFfMzcxNzIxODI=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/0ad1a1ed25df4554b2518a9978a5f2bf.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAcXFfMzcxNzIxODI=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="article:published_time" content="2022-01-19T14:59:32.827Z">
+<meta property="article:modified_time" content="2022-01-19T15:01:36.558Z">
 <meta property="article:author" content="Max well">
 <meta property="article:tag" content="C++, deep learning, machine learning">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/aa5f78b77fc44a2eb0a83f1348e42846.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAcXFfMzcxNzIxODI=,size_20,color_FFFFFF,t_70,g_se,x_16">
   
     <link rel="alternative" href="/atom.xml" title="Maxwell" type="application/atom+xml">
   
@@ -214,346 +221,607 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-OpenCV----简单目标提取和分割" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 class="article-title" itemprop="name">
+      OpenCV----简单目标提取和分割
+    </h1>
+  
+
+
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2022/01/19/OpenCV----%E7%AE%80%E5%8D%95%E7%9B%AE%E6%A0%87%E6%8F%90%E5%8F%96%E5%92%8C%E5%88%86%E5%89%B2/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:32.827Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+</a>
+
   
   
     
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">1.8k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">10分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
     
+    <span id="more"></span>
+
+<p>题目要求：提取一张背景简单的图像中物体的信息，包括面积，质心等特征；考虑图像存在噪声，首先对图像进行预处理，然后使用分割算法，在图像中标注对应信息；可能的话考虑在一个窗口中显示图像处理过程结果；</p>
+<blockquote>
+<p>分析：<br>1）对图像降噪的基本流程包括：噪声消除、光消除、二值化；<br>2）常用的分割算法包括：轮廓检测findContours()和连通域分析connectedComponent()；<br>3）考虑设计多窗口类MWindow,支持初始化定义窗口大小、子窗口数量设计；<br>4）考虑到光消除算法可以提供背景图，也可以不提供背景图，分割算法可以之获取分割图像，可以获取连通域面积特征，也可以获取连通域质心或轮廓特征，因此设计支持命令行控制的CommandLineParser对象；</p>
+</blockquote>
+<p>代码实现：</p>
+<ul>
+<li><p>MWindow类设计：</p>
+<p>  // mwindow.hpp<br>  /*<br>  @File          :mwindow.hpp<br>  @Description:  :multiwindow to displace multi images<br>  @Date          :2021/12/22 15:56:02<br>  @Author        :xieyin<br>  @version       :1.0<br>  */<br>  #pragma once</p>
+<p>  #include<iostream><br>  #include<string><br>  #include<vector><br>  using namespace std;</vector></string></iostream></p>
+<p>  #include&lt;opencv2/core.hpp&gt;<br>  #include&lt;opencv2/highgui.hpp&gt;<br>  using namespace cv;</p>
+<p>  class MWindow{</p>
+<pre><code>  public:
+      // consturtor
+      MWindow(string windowTitle, int rows, int cols, int flags);
+      // add image into canvas
+      int addImage(string title, Mat img, bool render = false);
+      // remove image from canvas
+      void removeImage(int pos);
+      // adjust all image size in canvas
+      void render();
+  private:
+      int mRows, mCols;
+      string mWindowTitle;
+      Mat mCanvas;
+      vector&lt;string&gt; mSubTitles;
+      vector&lt;Mat&gt; mSubImages;
       
+</code></pre>
+<p>  };</p>
+<p>  MWindow::MWindow(string windowTitle, int rows, int cols, int flags):mWindowTitle(windowTitle), mRows(rows), mCols(cols){</p>
+<pre><code>  /*
+  @description  : MWindow constructor
+  @param  : 
+      windowTitle : whole window title
+      rows : sub window rows
+      cols : sub window cols
+      flags : namedWindow flags (eg, WINDOW_AUTOSIZE)
+  @Returns  : 
+  */
+ // create canvas
+  namedWindow(mWindowTitle, flags);
+  mCanvas = Mat(700, 1500, CV_8UC3);
+  imshow(mWindowTitle, mCanvas);
+</code></pre>
+<p>  }</p>
+<p>  int MWindow::addImage(string title, Mat img, bool render){</p>
+<pre><code>  /*
+  @description  : add title and image into canvas
+  @param  : 
+      title : sub image title
+      img : image to be added
+      render : render(flag) whether need to adjust the image for canvas
+  @Returns  : 
+      index : sub image index in total mRows * mCols
+  */
+  mSubTitles.push_back(title);
+  mSubImages.push_back(img);
+  if(render)&#123;
+      MWindow::render();
+  &#125;
+  return mSubImages.size() - 1;
+</code></pre>
+<p>  }</p>
+<p>  void MWindow::removeImage(int pos){</p>
+<pre><code>  /*
+  @description  : remove image from canvas based on index
+  @param  : 
+      pos : sub image index in total mRows * mCols
+  @Returns  : 
+      None
+  */
+  mSubTitles.erase(mSubTitles.begin() + pos);
+  mSubImages.erase(mSubImages.begin() + pos);
+</code></pre>
+<p>  }</p>
+<p>  void MWindow::render(){</p>
+<pre><code>  /*
+  @description  : fill title and image into canvas in suitable way
+  @param  : 
+      None
+  @Returns  :
+      None 
+  */
+  mCanvas.setTo(Scalar(20, 20, 20));
+  // get sub canvas size
+  int cellH = mCanvas.rows / mRows;
+  int cellW = mCanvas.cols / mCols;
+  int margin = 10;
+  // set total number of images to load
+  int numImgs = mSubImages.size() &gt; mRows * mCols ? mRows * mCols : mSubImages.size();
+  for(int i = 0; i &lt; numImgs; i++)&#123;
+      // get title
+      string title = mSubTitles[i];
+      // get sub canvas top left location
+      int cellX = (cellW) * ((i) % mCols);
+      int cellY = (cellH) * floor( (i) / (float) mCols);
+      Rect mask(cellX, cellY, cellW, cellH);
+      // set subcanvas size
+      rectangle(mCanvas, Rect(cellX, cellY, cellW, cellH), Scalar(200, 200, 200), 1);
+      Mat cell(mCanvas, mask);
+      Mat imgResz;
+      // get cell aspect
+      double cellAspect = (double) cellW / (double) cellH;
+      // get image
+      Mat img = mSubImages[i];
+      // get image aspect
+      double imgAspect = (double) img.cols / (double) img.cols;
+      double wAspect = (double) cellW / (double) img.cols;
+      double hAspect = (double) cellH / (double) img.rows;
+      // get suitable aspect and resize image
+      double aspect = cellAspect &lt; imgAspect ? wAspect : hAspect;
+      resize(img, imgResz, Size(0, 0), aspect, aspect);
+      // if gray image, convert to BGR
+      if(imgResz.channels() == 1)&#123;
+          cvtColor(imgResz, imgResz, COLOR_GRAY2BGR);
+      &#125;
+
+      Mat subCell(mCanvas, Rect(cellX, cellY, imgResz.cols, imgResz.rows));
+      imgResz.copyTo(subCell);
+      putText(cell, title, Point(20, 20), FONT_HERSHEY_SIMPLEX, 0.6, Scalar(255, 0, 0));
+  &#125;
+  // show total canvas
+  imshow(mWindowTitle, mCanvas);
+</code></pre>
+<p>  }</p>
+</li>
+<li><p>主函数：</p>
+<p>  /*<br>  @File          :main.cpp<br>  @Description:  :do connected component demo in a multi window<br>  @Date          :2021/12/22 15:56:53<br>  @Author        :xieyin<br>  @version       :1.0<br>  */<br>  #include<iostream><br>  #include<string><br>  #include<cmath><br>  #include<memory><br>  using namespace std;</memory></cmath></string></iostream></p>
+<p>  #include&lt;opencv2/core/utility.hpp&gt;<br>  #include&lt;opencv2/highgui.hpp&gt;<br>  #include&lt;opencv2/imgproc.hpp&gt;<br>  using namespace cv;</p>
+<p>  #include”mwindow.hpp”</p>
+<p>  shared_ptr<MWindow> myWin;</MWindow></p>
+<p>  Scalar randColor(RNG&amp; rng){</p>
+<pre><code>  /*
+  @description  : genert randow color
+  @param  : 
+      rng : random number generator object
+  @Returns  : 
+      Sacalar() : BGR scalar
+  */
+  auto iColor = (unsigned)rng;
+  return Scalar(iColor&amp;255, (iColor &gt;&gt; 8)&amp;255, (iColor &gt;&gt; 16)&amp;255);
+</code></pre>
+<p>  }</p>
+<p>  Mat calLigthPattern(Mat img){</p>
+<pre><code>  /*
+  @description  : get source image&#39;s light pattern 
+  @param  : 
+      img : source BGR image or Gray image
+  @Returns  : 
+      pattern : the light pattern
+  */
+  Mat pattern;
+  blur(img, pattern, Size(img.cols / 3, img.cols / 3));
+  return pattern;
+</code></pre>
+<p>  }</p>
+<p>  Mat removeLight(Mat img, Mat pattern, int methodLight){</p>
+<pre><code>  /*
+  @description  : remove light between img and pattern based on method light
+  @param  : 
+      img : source BGR/Gray image
+      pattern : pattern BGR/Gray image
+      methodLight : choise options: 0 difference, 1 div
+  @Returns  : 
+      aux : light removed BGR/Gray image
+  */
+  Mat aux;
+  if(methodLight == 1)&#123;
+      // div operation in float 32 format CV_32F
+      Mat img32, pattern32;
+      img.convertTo(img32, 5);
+      pattern.convertTo(pattern32, 5);
+      aux = 1.0 - (img32 / pattern32);
+      // covert to CV_8U and clip
+      aux.convertTo(aux, 0, 255);
+  &#125;
+  else&#123;
+      // difference
+      aux = pattern - img;
+  &#125;
+  return aux;
+</code></pre>
+<p>  }</p>
+<p>  void connectedComponents(Mat img_thr){</p>
+<pre><code>  /*
+  @description  : opencv connnected components
+  @param  : 
+      img : threshold image
+  @Returns  : 
+      None
+  */
+ Mat labels;
+ auto num_objs = connectedComponents(img_thr, labels);
+ if(num_objs &lt; 2)&#123;
+     cout &lt;&lt; &quot;no object is detected. &quot; &lt;&lt; endl;
+     return ;
+ &#125;
+ Mat res = Mat::zeros(img_thr.rows, img_thr.cols, CV_8UC3);
+ RNG rng(0xFFFFFFFF);
+ for(auto i = 1; i &lt; num_objs; i++)&#123;
+     Mat mask = labels == i;
+     res.setTo(randColor(rng), mask);
+ &#125;
+</code></pre>
+<p>  //    imshow(“result”, res);</p>
+<pre><code> myWin -&gt; addImage(&quot;result&quot;, res);
+</code></pre>
+<p>  }</p>
+<p>  void connectedComponentsWithStats(Mat img_thr){</p>
+<pre><code>  /*
+  @description  : connnected components with stats
+  @param  : 
+      img : threshold image
+  @Returns  : 
+      None
+  */
+  Mat labels, stats, centroids;
+  auto num_objs = connectedComponentsWithStats(img_thr, labels, stats, centroids);
+  if(num_objs &lt; 2)&#123;
+     cout &lt;&lt; &quot;no object is detected. &quot; &lt;&lt; endl;
+     return ;
+ &#125;
+ Mat res = Mat::zeros(img_thr.rows, img_thr.cols, CV_8UC3);
+ RNG rng(0xFFFFFFFF);
+ for(auto i = 1; i &lt; num_objs; i++)&#123;
+     Mat mask = labels == i;
+     res.setTo(randColor(rng), mask);
+     stringstream ss;
+     ss &lt;&lt; &quot;area: &quot; &lt;&lt; stats.at&lt;int&gt;(i, CC_STAT_AREA);
+     // add text info
+     putText(res, ss.str(), centroids.at&lt;Point2d&gt;(i), FONT_HERSHEY_SIMPLEX, 0.3, Scalar(0, 255, 0));
+ &#125;
+ myWin -&gt; addImage(&quot;result&quot;, res);
+</code></pre>
+<p>  }</p>
+<p>  void findContours(Mat img_thr){</p>
+<pre><code>  /*
+  @description  : find contours and put text
+  @param  : 
+      img : threshold image
+  @Returns  : 
+      None
+  */
+  vector&lt;vector&lt;Point&gt;&gt; contours;
+  findContours(img_thr, contours, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
+  if(contours.size() == 0)&#123;
+      cout &lt;&lt; &quot;no contours are found .&quot; &lt;&lt; endl;
+      return;
+  &#125;
+  RNG rng(0xFFFFFFFF);
+  Mat res = Mat::zeros(img_thr.rows, img_thr.cols, CV_8UC3);
+  // calculate moments
+  vector&lt;Moments&gt; mu(contours.size());
+  for (int i = 0; i &lt; contours.size(); i++)
+  &#123;
+      mu[i] = moments(contours[i], false);
+  &#125;
+  // calculate centroids
+  vector&lt;Point2f&gt; mc(contours.size());
+  for (int i = 0; i &lt; contours.size(); i++)
+  &#123;
+      mc[i] = Point2d(mu[i].m10 / mu[i].m00, mu[i].m01 / mu[i].m00);
+  &#125;
+  for(auto i = 0; i &lt; contours.size(); i++)&#123;
+      drawContours(res, contours, i, randColor(rng));
+      putText(res, &quot;*&quot;, Point(mc[i].x, mc[i].y), FONT_HERSHEY_SIMPLEX, 0.4, Scalar(255, 0, 255), 1);
+  &#125;
+  myWin -&gt; addImage(&quot;result&quot;, res);
+</code></pre>
+<p>  }</p>
+<p>  const char* keys  = {</p>
+<pre><code>  &quot;&#123;help h usage ? | | print this message&#125;&quot;
+  &quot;&#123;@image | | Image to process&#125;&quot;
+  &quot;&#123;@lightPattern | | Image light pattern applied to image&#125;&quot;
+  &quot;&#123;lightMethod | 1 | Method to remove image background, 0 diff, 1 div, 2 no light removal&#125;&quot;
+  &quot;&#123;segMethod | 2 | Method to segment: 1 connected components, 2 connected components with states, 3 find contours&#125;&quot;
+</code></pre>
+<p>  };</p>
+<p>  int main(int argc, const char** argv){</p>
+<pre><code>  CommandLineParser parser(argc, argv, keys);
+  if(parser.has(&quot;help&quot;))&#123;
+      parser.printMessage();
+      return 0;
+  &#125;
+  // load source img and light pattern img, set light and segment method
+  String imgFile = parser.get&lt;String&gt;(0);
+  String lightPat = parser.get&lt;String&gt;(1);
+  auto methodLight = parser.get&lt;int&gt;(&quot;lightMethod&quot;);
+  auto methodSeg = parser.get&lt;int&gt;(&quot;segMethod&quot;);
+  
+  // check commoand format
+  if(!parser.check())&#123;
+      parser.printErrors();
+      return 0;
+  &#125;
+  
+  // read source image
+  Mat img = imread(imgFile, 0);
+  if(img.data == NULL)&#123;
+      cout &lt;&lt; &quot;Error load image file . &quot; &lt;&lt; endl;
+      return 0;
+  &#125;
+
+  myWin = make_shared&lt;MWindow&gt;(&quot;Main Window&quot;, 2, 3, WINDOW_AUTOSIZE);
+  // create denoise image and box_smooth img
+  Mat img_noise, img_box_smooth;
+  medianBlur(img, img_noise, 3);
+  blur(img, img_box_smooth, Size(3, 3));
+
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
+  // read light image
+  Mat imgLightPat = imread(lightPat, 0);
+  if(imgLightPat.data == NULL)&#123;
+      // use blur with large kernel to get light pattern
+      imgLightPat = calLigthPattern(img_noise);   
+  &#125;
+  medianBlur(imgLightPat, imgLightPat, 3);
+
+  // for image without light pattern 
+  Mat img_no_light;
+  img_noise.copyTo(img_no_light);
+  if(methodLight != 2)&#123;
+      img_no_light = removeLight(img_noise, imgLightPat, methodLight);
+  &#125;
+
+  Mat img_thread;
+  if(methodLight != 2)&#123;
+      threshold(img_no_light, img_thread, 30, 255, THRESH_BINARY);
+  &#125;else&#123;
+      threshold(img_no_light, img_thread, 140, 255, THRESH_BINARY_INV);
+  &#125;
+
+  // show image
+  myWin-&gt;addImage(&quot;Input&quot;, img);
+  myWin-&gt;addImage(&quot;Input without noise&quot;, img_noise);
+  myWin-&gt;addImage(&quot;light pattern&quot;, imgLightPat);
+  myWin-&gt;addImage(&quot;no light&quot;, img_no_light);
+  myWin-&gt;addImage(&quot;thread&quot;, img_thread);
+
+  // add result image
+  switch (methodSeg)&#123;
+  case 1:
+      connectedComponents(img_thread);
+      break;
+  case 2:
+      connectedComponentsWithStats(img_thread);
+      break;
+  case 3:
+      findContours(img_thread);
+  default:
+      break;
+  &#125;
+  
+  myWin-&gt;render();
+  waitKey(0);
+  return 0;
+</code></pre>
+<p>  }</p>
+</li>
+</ul>
+<p>结果展示：</p>
+<pre><code>./main -h     #命令行查看使用方法
+</code></pre>
+<p><img src="https://img-blog.csdnimg.cn/aa5f78b77fc44a2eb0a83f1348e42846.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAcXFfMzcxNzIxODI=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="请添加图片描述"></p>
+<pre><code>./main ../data/test.pgm  -lightMethod=2 -segMethod=2 # 无需背景图片输入
+</code></pre>
+<p><img src="https://img-blog.csdnimg.cn/556469f7858242e88299ca3e4820a949.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAcXFfMzcxNzIxODI=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="请添加图片描述"></p>
+<pre><code>./main ../data/test.pgm ../data/light.pgm -lightMethod=2 -segMethod=2 # 一张原始图像和一张背景图像进行分割
+</code></pre>
+<p><img src="https://img-blog.csdnimg.cn/7321a1e2a85042d6b840dfe8f317096e.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAcXFfMzcxNzIxODI=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="请添加图片描述"></p>
+<pre><code>./main ../data/test.pgm ../data/light.pgm -lightMethod=0 -segMethod=3 # 根据原始图像和背景图像进行轮廓和质心提取
+</code></pre>
+<p><img src="https://img-blog.csdnimg.cn/0ad1a1ed25df4554b2518a9978a5f2bf.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAcXFfMzcxNzIxODI=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="请添加图片描述"></p>
+
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/Pytorch%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:35.191Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
 
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  
+                </div>
+              </span>
+            </span>
+          </span>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/Pytorch%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/" target="_blank">Pytorch学习基础——损失函数</a>
-  
-    </h1>
-  
+      </a>
+    </div>
+    
 
-
-        <div class="article-info info-on-right">
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          Max well
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="http://example.com/2022/01/19/OpenCV----简单目标提取和分割/" title="OpenCV----简单目标提取和分割" target="_blank">http://example.com/2022/01/19/OpenCV----简单目标提取和分割/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
-          
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
 
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/01/19/OpenCV----%E7%AE%80%E5%8D%95%E7%9B%AE%E6%A0%87%E6%8F%90%E5%8F%96%E5%92%8C%E5%88%86%E5%89%B2/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%9B%BE%E5%83%8F%E8%AF%BB%E5%8F%96%E5%BA%93%E5%90%88%E9%9B%86%E2%80%94%E2%80%94cv2,%20PIL,%20skimage%E4%B8%8Enumpy,%20pytorch(ToPILimage)/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.855Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
 
+
+<nav id="article-nav">
+  
+    <a href="/2022/01/19/C++%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B----%E6%A8%A1%E6%9D%BF%E7%9A%84%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          C++高级编程----模板的高级特性
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/01/19/C++%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B----%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">C++高级编程----多线程编程</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%9B%BE%E5%83%8F%E8%AF%BB%E5%8F%96%E5%BA%93%E5%90%88%E9%9B%86%E2%80%94%E2%80%94cv2,%20PIL,%20skimage%E4%B8%8Enumpy,%20pytorch(ToPILimage)/" target="_blank">图像读取库合集——cv2, PIL, skimage与numpy, pytorch(ToPILimage)</a>
-  
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B20----%E6%95%B0%E5%80%BC%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.511Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B20----%E6%95%B0%E5%80%BC%E5%AD%97%E7%AC%A6%E4%B8%B2/" target="_blank">剑指OFFER系列之20----数值字符串</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B17----%E6%89%93%E5%8D%B0n%E4%BD%8D%E6%95%B4%E6%95%B0/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.399Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B17----%E6%89%93%E5%8D%B0n%E4%BD%8D%E6%95%B4%E6%95%B0/" target="_blank">剑指OFFER系列之17----打印n位整数</a>
-  
-    </h1>
-  
+<div id="SOHUCS" sid="OpenCV----简单目标提取和分割" ></div> 
+<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+    window.changyan.api.config({
+        appid: "cyvRdX3ll",
+        conf: "8eecdc589cba82130de0b5f15d8a1c91"
+    });
+</script>
+</script>
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B18----%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E8%8A%82%E7%82%B9/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.339Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B18----%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E8%8A%82%E7%82%B9/" target="_blank">剑指OFFER系列之18----删除重复节点</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B12----%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.291Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B12----%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/" target="_blank">剑指OFFER系列之12----矩阵中的路径</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B25----%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%EF%BC%88%E6%8B%93%E5%B1%95%EF%BC%9A%E5%90%88%E5%B9%B6K%E4%B8%AA%E9%93%BE%E8%A1%A8%EF%BC%89/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.223Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B25----%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%EF%BC%88%E6%8B%93%E5%B1%95%EF%BC%9A%E5%90%88%E5%B9%B6K%E4%B8%AA%E9%93%BE%E8%A1%A8%EF%BC%89/" target="_blank">剑指OFFER系列之25----合并两个排序链表（拓展：合并K个链表）</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B36----%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.155Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B36----%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/" target="_blank">剑指OFFER系列之36----二叉搜索树与双向链表</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B31----%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%92%8C%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.059Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B31----%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%92%8C%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/" target="_blank">剑指OFFER系列之31----栈的压入和弹出序列</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B40----%E6%9C%80%E5%B0%8F%E7%9A%84K%E4%B8%AA%E6%95%B0/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.027Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B40----%E6%9C%80%E5%B0%8F%E7%9A%84K%E4%B8%AA%E6%95%B0/" target="_blank">剑指OFFER系列之40----最小的K个数</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2022/page/2/">2</a><a class="page-number" href="/archives/2022/page/3/">3</a><a class="page-number" href="/archives/2022/page/4/">4</a><a class="extend next" rel="next" href="/archives/2022/page/2/">Next &amp;raquo;</a>
-    </nav>
-  
 
 
           </div>
@@ -594,8 +862,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,

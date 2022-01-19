@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2022 | Maxwell</title>
+  <title>OpenCV----YOLOv3目标检测模型推理 | Maxwell</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="This is my public web page">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Maxwell">
-<meta property="og:url" content="http://example.com/archives/2022/index.html">
+  <meta name="description" content="题目要求：了解opencv的DNN库，给定一张自然场景图片，使用训练好的yolov3模型，进行目标检测结果输出。  分析：1）opencv的DNN模块集成了很多深度学习模型，包括人脸检测、图像分类、分割、目标检测等，集成了Pytorch、tensorflow、paddlepaddle等模型框架（参看代码库OpenCV&#x2F;dnn）2）深度学习推理模型一般步骤：加载模型，包括配置文件和权重文件；输入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenCV----YOLOv3目标检测模型推理">
+<meta property="og:url" content="http://example.com/2022/01/19/OpenCV----YOLOv3%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9E%8B%E6%8E%A8%E7%90%86/index.html">
 <meta property="og:site_name" content="Maxwell">
-<meta property="og:description" content="This is my public web page">
+<meta property="og:description" content="题目要求：了解opencv的DNN库，给定一张自然场景图片，使用训练好的yolov3模型，进行目标检测结果输出。  分析：1）opencv的DNN模块集成了很多深度学习模型，包括人脸检测、图像分类、分割、目标检测等，集成了Pytorch、tensorflow、paddlepaddle等模型框架（参看代码库OpenCV&#x2F;dnn）2）深度学习推理模型一般步骤：加载模型，包括配置文件和权重文件；输入">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-01-19T14:59:32.451Z">
+<meta property="article:modified_time" content="2022-01-19T15:01:36.326Z">
 <meta property="article:author" content="Max well">
 <meta property="article:tag" content="C++, deep learning, machine learning">
 <meta name="twitter:card" content="summary">
@@ -214,346 +216,512 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-OpenCV----YOLOv3目标检测模型推理" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/Pytorch%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:35.191Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/Pytorch%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/" target="_blank">Pytorch学习基础——损失函数</a>
   
+    <h1 class="article-title" itemprop="name">
+      OpenCV----YOLOv3目标检测模型推理
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%9B%BE%E5%83%8F%E8%AF%BB%E5%8F%96%E5%BA%93%E5%90%88%E9%9B%86%E2%80%94%E2%80%94cv2,%20PIL,%20skimage%E4%B8%8Enumpy,%20pytorch(ToPILimage)/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.855Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2022/01/19/OpenCV----YOLOv3%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9E%8B%E6%8E%A8%E7%90%86/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:32.451Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
 </a>
 
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">1.3k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">7分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<p>题目要求：了解opencv的DNN库，给定一张自然场景图片，使用训练好的yolov3模型，进行目标检测结果输出。</p>
+<blockquote>
+<p>分析：<br>1）opencv的DNN模块集成了很多深度学习模型，包括人脸检测、图像分类、分割、目标检测等，集成了Pytorch、tensorflow、paddlepaddle等模型框架（参看代码库<a target="_blank" rel="noopener" href="https://github.com/opencv/opencv/tree/master/samples/dnn">OpenCV/dnn</a>）<br>2）深度学习推理模型一般步骤：加载模型，包括配置文件和权重文件；输入图像预处理，转换成模型可接受的文件类型和尺寸；模型预测后处理，对于目标检测，主要是NMS后处理方法；</p>
+</blockquote>
+<ul>
+<li><p>结果展示：</p>
+<p>  ./bin/yolov3Predict -h<br>  #######<br>  Usage: yolov3Predict [params] image confThreshold nmsThresshold </p>
+<pre><code>      -?, -h, --help, --usage (value:true)
+              opecv based deep learining demo
+
+      image
+              Image to process
+      confThreshold (value:0.5)
+              confidence threshold, default 0.5
+      nmsThresshold (value:0.3)
+              nms threshold, default 0.3
+</code></pre>
+<p>   ./bin/yolov3Predict data/test.jpg</p>
+</li>
+<li><p>  代码示例：</p>
+</li>
+</ul>
+<p>yolov3Predict.cpp</p>
+<pre><code>//yolov3Predict.cpp
+/*
+@File          :yolov3Predict.cpp
+@Description:  :
+@Date          :2022/1/9 20:02:10
+@Author        :
+@version       :1.0
+*/
+#include&lt;iostream&gt;
+#include&lt;string&gt;
+#include&lt;sstream&gt;
+#include&lt;fstream&gt;
+#include&lt;vector&gt;
+using namespace std;
+
+#include&lt;opencv2/highgui.hpp&gt;
+#include&lt;opencv2/core.hpp&gt;
+#include&lt;opencv2/imgproc.hpp&gt;
+#include&lt;opencv2/dnn.hpp&gt;
+
+using namespace cv;
+using namespace dnn;
+
+#include&quot;utils.hpp&quot;
+
+// define command parse
+bool parseParam(int argc, char** argv, const char* keys, Mat&amp; img, float&amp; confThreshold, float&amp; nmsThresshold)&#123;
+    /*
+    @description  : command parse function
+    @param  : 
+        int argc : main argc
+        char** argv: main argv
+        keys : command parse keys
+        img : the image to read
+        confThreshold : confidence threshold setting
+        nmsThresshold : nms threshold setting
+    @Returns  : 
+        (ref returns)
+    */
+    CommandLineParser parser(argc, argv, keys);
+    if(parser.has(&quot;help&quot;))&#123;
+        parser.printMessage();
+        return false;
+    &#125;
+    // check commoand format
+    if(!parser.check())&#123;
+        parser.printErrors();
+        return false;
+    &#125;
+    // get image
+    String imgFile = parser.get&lt;String&gt;(0);
+    img = imread(imgFile);
+    if(img.empty())&#123;
+        cout &lt;&lt; &quot;error to load test image. &quot; &lt;&lt; endl;
+        return false;
+    &#125;
+    // get confidence threshold
+    confThreshold = parser.get&lt;float&gt;(1);
+    // get nms threshold
+    nmsThresshold = parser.get&lt;float&gt;(2);
+    return true;
+&#125;
+
+int main(int argc, char** argv)&#123;
+    const char* keys  = &#123;
+        &quot;&#123;help h usage ? | | opecv based deep learining demo&#125;&quot;
+        &quot;&#123;@image | | Image to process&#125;&quot;
+        &quot;&#123;@confThreshold | 0.5 | confidence threshold, default 0.5&#125;&quot;
+        &quot;&#123;@nmsThresshold | 0.3 | nms threshold, default 0.3&#125;&quot;&#125;;
+    Mat img, blob;
+    float confThreshold, nmsThresshold;
+    // update data
+    if(!parseParam(argc, argv, keys, img, confThreshold, nmsThresshold))&#123;
+        return 0;
+    &#125;
+
+    // load model
+    string classFile = &quot;model/coco.names&quot;;
+    ifstream fin(classFile.c_str());
+    string line;
+    vector&lt;string&gt; classes;
+    while(getline(fin, line))&#123;
+        classes.push_back(line);
+    &#125;
+    string modelCfg = &quot;model/yolov3.cfg&quot;;
+    string modelWeg = &quot;model/yolov3.weights&quot;;
+    Net yolov3 = readNetFromDarknet(modelCfg, modelWeg);
+    yolov3.setPreferableBackend(DNN_BACKEND_OPENCV);
+    yolov3.setPreferableTarget(DNN_TARGET_CPU);
+
+    // convert image to blob format
+    blobFromImage(img, blob, 1/255.0, Size(416, 416), Scalar(0,0,0), true, false);
+    yolov3.setInput(blob);
+    vector&lt;Mat&gt; outputs;
+    // model predict
+    yolov3.forward(outputs, getoutputsName(yolov3));
+    // post process (nms)
+    postProcess(img, outputs, classes, confThreshold, nmsThresshold);
+    
+    // time cost
+    vector&lt;double&gt; layersTime;
+    double freq = getTickFrequency() / 1000;
+    double t = yolov3.getPerfProfile(layersTime) / freq;
+    string label = format(&quot;time consuming: %.2f&quot;, t);
+    cout &lt;&lt; label &lt;&lt; endl;
+    imshow(&quot;input&quot;, img);
+    imwrite(&quot;output.jpg&quot;, img);
+    waitKey(0);
+    return 0;
+&#125;
+</code></pre>
+<p>utils.cpp</p>
+<pre><code>/*
+@File          :utils.cpp
+@Description:  :
+@Date          :2022/1/9 20:11:10
+@Author        :
+@version       :1.0
+*/
+#include&lt;string&gt;
+#include&lt;cmath&gt;
+#include&lt;memory&gt;
+#include&lt;iostream&gt;
+using namespace std;
+
+#include&lt;opencv2/core/utility.hpp&gt;
+#include&lt;opencv2/highgui.hpp&gt;
+#include&lt;opencv2/imgproc.hpp&gt;
+#include&lt;opencv2/core.hpp&gt;
+#include&lt;opencv2/dnn.hpp&gt;
+
+using namespace cv;
+using namespace dnn;
+
+#include&quot;utils.hpp&quot;
+
+Scalar randColor(RNG&amp; rng)&#123;
+    /*
+    @description  : generate randow color
+    @param  : 
+        rng : random number generator object
+    @Returns  : 
+        Sacalar() : BGR scalar
+    */
+    auto iColor = (unsigned)rng;
+    return Scalar(iColor&amp;255, (iColor &gt;&gt; 8)&amp;255, (iColor &gt;&gt; 16)&amp;255);
+&#125;
+
+// get model output name
+vector&lt;string&gt; getoutputsName(Net&amp; net)&#123;
+    /*
+    @description  : get model outputs name
+    @param  : 
+        Net : deep learning model
+    @Returns  : 
+        names : model output names
+    */
+    static vector&lt;string&gt; names;
+    if(names.empty())&#123;
+        // get output layer idx
+        vector&lt;int&gt; outLayers = net.getUnconnectedOutLayers();
+        // get all namenames
+        vector&lt;string&gt; layersName = net.getLayerNames();
+        names.resize(outLayers.size());
+        for(size_t i = 0; i &lt; outLayers.size(); i++)&#123;
+            names[i] = layersName[outLayers[i] - 1];
+        &#125;
+    &#125;
+    return names;
+&#125;
+
+// draw prdict result on image
+void drawPred(vector&lt;string&gt; classes, int classId, float conf, int left, int top, int right, int bottom, Mat&amp; frame)&#123;
+    /*
+    @description  : drop boxes and confidence on frame
+    @param  : 
+        classes : the total classes list
+        classId : the predicted class id
+        conf : predicted confidence
+        left : left location
+        top : top locatioin
+        right : right location
+        bottom : bottom location
+        frame : the image to draw
+    @Returns  : 
+        (ref return)
+    */
+    // draw rectanle for object detected
+    rectangle(frame, Point(left, top), Point(right, bottom), Scalar(255, 255, 255), 1);
+    // set rectangle for label show
+    string conf_label = format(&quot;%.2f&quot;, conf);
+    string label = &quot;&quot;;
+    if(!classes.empty())&#123;
+        label = classes[classId] + &quot; : &quot; + conf_label;
+    &#125;
+    int baseLine;
+    Size labelSize = getTextSize(label, FONT_HERSHEY_SIMPLEX, 0.5, 1, &amp;baseLine);
+    top = max(top, labelSize.height);
+    rectangle(frame, Point(left, top - labelSize.height), Point(left + labelSize.width, top+baseLine), Scalar(255, 255, 255), FILLED);
+    // put label text on image
+    putText(frame, label, Point(left, top), FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 0, 0), 1, LINE_AA);
+&#125;
+
+
+// post process (NMS) for object detection
+void postProcess(Mat&amp; frame, vector&lt;Mat&gt;&amp; outs, vector&lt;string&gt; classes, float confThreshold, float nmsThresshold)&#123;
+    /*
+    @description  : post process predict result to get suitable box to display
+    @param  : 
+        frame : image to process and return
+        outs : predicts result
+        classes : the total classes list
+        confThreshold : confidence threshold setting
+        nmsThresshold : nms threshold setting
+    @Returns  : 
+        (ref return)
+    */
+    // get classId, confidence and boxes
+    vector&lt;int&gt; classIds;
+    vector&lt;float&gt; confs;
+    vector&lt;Rect&gt; boxes;
+    for(size_t i = 0; i &lt; outs.size(); i++)&#123;
+        float* data = (float*) outs[i].data;
+        for(int j = 0; j &lt; outs[i].rows; j++, data += outs[i].cols)&#123;
+            // get socres for detectd class and scores
+            Mat scores = outs[i].row(j).colRange(5, outs[i].cols);
+            Point classIdPoint;
+            double conf;
+            // get min max value in socores with idx
+            minMaxLoc(scores, 0, &amp;conf, 0, &amp;classIdPoint);
+            // filter too small confidence
+            if(conf &gt; confThreshold)&#123;
+                int x = (int) (data[0]*frame.cols);
+                int y = (int) (data[1]*frame.rows);
+                int w = (int) (data[2]*frame.cols);
+                int h = (int) (data[3]*frame.rows);
+                int left = x - w / 2;
+                int top = y - h / 2;
+                classIds.push_back(classIdPoint.x);
+                confs.push_back((float)conf);
+                boxes.push_back(Rect(left, top, w, h));
+
+            &#125;
+        &#125;
+    &#125;
+    // NMS operation
+    vector&lt;int&gt; idxs;
+    NMSBoxes(boxes, confs, confThreshold, nmsThresshold, idxs);
+    for(size_t i = 0; i &lt; idxs.size(); i++)&#123;
+        int idx = idxs[i];
+        Rect box = boxes[idx];
+        drawPred(classes, classIds[idx], confs[idx], box.x, box.y, box.x+box.width, box.y+box.height, frame);
+    &#125;
+&#125;
+</code></pre>
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  
+                </div>
+              </span>
+            </span>
+          </span>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%9B%BE%E5%83%8F%E8%AF%BB%E5%8F%96%E5%BA%93%E5%90%88%E9%9B%86%E2%80%94%E2%80%94cv2,%20PIL,%20skimage%E4%B8%8Enumpy,%20pytorch(ToPILimage)/" target="_blank">图像读取库合集——cv2, PIL, skimage与numpy, pytorch(ToPILimage)</a>
-  
-    </h1>
-  
+      </a>
+    </div>
+    
 
-
-        <div class="article-info info-on-right">
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          Max well
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="http://example.com/2022/01/19/OpenCV----YOLOv3目标检测模型推理/" title="OpenCV----YOLOv3目标检测模型推理" target="_blank">http://example.com/2022/01/19/OpenCV----YOLOv3目标检测模型推理/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
-          
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
 
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/01/19/OpenCV----YOLOv3%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9E%8B%E6%8E%A8%E7%90%86/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B20----%E6%95%B0%E5%80%BC%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.511Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
 
+
+<nav id="article-nav">
+  
+    <a href="/2022/01/19/C++%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B----%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          C++高级编程----多线程编程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/01/19/C++%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B----%E6%89%A9%E5%B1%95STL/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">C++高级编程----扩展STL</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B20----%E6%95%B0%E5%80%BC%E5%AD%97%E7%AC%A6%E4%B8%B2/" target="_blank">剑指OFFER系列之20----数值字符串</a>
-  
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B17----%E6%89%93%E5%8D%B0n%E4%BD%8D%E6%95%B4%E6%95%B0/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.399Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B17----%E6%89%93%E5%8D%B0n%E4%BD%8D%E6%95%B4%E6%95%B0/" target="_blank">剑指OFFER系列之17----打印n位整数</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B18----%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E8%8A%82%E7%82%B9/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.339Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B18----%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E8%8A%82%E7%82%B9/" target="_blank">剑指OFFER系列之18----删除重复节点</a>
-  
-    </h1>
-  
+<div id="SOHUCS" sid="OpenCV----YOLOv3目标检测模型推理" ></div> 
+<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+    window.changyan.api.config({
+        appid: "cyvRdX3ll",
+        conf: "8eecdc589cba82130de0b5f15d8a1c91"
+    });
+</script>
+</script>
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B12----%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.291Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B12----%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/" target="_blank">剑指OFFER系列之12----矩阵中的路径</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B25----%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%EF%BC%88%E6%8B%93%E5%B1%95%EF%BC%9A%E5%90%88%E5%B9%B6K%E4%B8%AA%E9%93%BE%E8%A1%A8%EF%BC%89/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.223Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B25----%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%EF%BC%88%E6%8B%93%E5%B1%95%EF%BC%9A%E5%90%88%E5%B9%B6K%E4%B8%AA%E9%93%BE%E8%A1%A8%EF%BC%89/" target="_blank">剑指OFFER系列之25----合并两个排序链表（拓展：合并K个链表）</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B36----%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.155Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B36----%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/" target="_blank">剑指OFFER系列之36----二叉搜索树与双向链表</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B31----%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%92%8C%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.059Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B31----%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%92%8C%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/" target="_blank">剑指OFFER系列之31----栈的压入和弹出序列</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B40----%E6%9C%80%E5%B0%8F%E7%9A%84K%E4%B8%AA%E6%95%B0/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.027Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B40----%E6%9C%80%E5%B0%8F%E7%9A%84K%E4%B8%AA%E6%95%B0/" target="_blank">剑指OFFER系列之40----最小的K个数</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2022/page/2/">2</a><a class="page-number" href="/archives/2022/page/3/">3</a><a class="page-number" href="/archives/2022/page/4/">4</a><a class="extend next" rel="next" href="/archives/2022/page/2/">Next &amp;raquo;</a>
-    </nav>
-  
 
 
           </div>
@@ -594,8 +762,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,

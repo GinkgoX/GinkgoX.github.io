@@ -6,14 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2022 | Maxwell</title>
+  <title>Maxwell</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    
+    <!-- <meta name="keywords" content="C++, deep learning, machine learning">
+    <meta name="description" content="This is my public web page"> -->
   
   <meta name="description" content="This is my public web page">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Maxwell">
-<meta property="og:url" content="http://example.com/archives/2022/index.html">
+<meta property="og:url" content="http://example.com/page/3/index.html">
 <meta property="og:site_name" content="Maxwell">
 <meta property="og:description" content="This is my public web page">
 <meta property="og:locale" content="en_US">
@@ -215,343 +219,1315 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/Pytorch%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:35.191Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
 
-        </div>
-    	 
+  
+    <article id="post-Leetcode排列组合问题集锦" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
   
     <h1 itemprop="name">
 	
-	  <a class="archive-article-title" href="/2022/01/19/Pytorch%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/" target="_blank">Pytorch学习基础——损失函数</a>
+	  <a class="article-title" href="/2022/01/19/Leetcode%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/" target="_blank">Leetcode排列组合问题集锦</a>
   
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%9B%BE%E5%83%8F%E8%AF%BB%E5%8F%96%E5%BA%93%E5%90%88%E9%9B%86%E2%80%94%E2%80%94cv2,%20PIL,%20skimage%E4%B8%8Enumpy,%20pytorch(ToPILimage)/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.855Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+  
+<a href="/2022/01/19/Leetcode%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:32.079Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
 </a>
 
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<p>相关题目：<br><a target="_blank" rel="noopener" href="https://leetcode.com/problems/next-permutation/">leetcode 31 Next Permutation</a></p>
+<pre><code>class Solution &#123;
+public:
+    void nextPermutation(vector&lt;int&gt;&amp; nums) &#123;
+        int n = nums.size(), k, l;
+        for(k = n-2; k &gt;= 0; k--)&#123;
+            if(nums[k] &lt; nums[k+1])&#123;
+                break;
+            &#125;
+        &#125;
+        if(k &lt; 0)&#123;
+            reverse(nums.begin(), nums.end());
+        &#125;else&#123;
+            for(l = n - 1; l &gt; k; l--)&#123;
+                if(nums[l] &gt; nums[k])&#123;
+                    break;
+                &#125;
+            &#125;
+            swap(nums[k], nums[l]);
+            reverse(nums.begin() + k + 1, nums.end());
+        &#125;
+    &#125;
+&#125;;
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/permutations/">leetcode 46 permutations</a></p>
+<pre><code>class Solution&#123;
+ public:
+     void permute(vector&lt;vector&lt;int&gt;&gt;&amp; ans, vector&lt;int&gt;&amp; nums, int idx)&#123;
+         if(idx &gt;= nums.size())&#123;
+             ans.push_back(nums);
+             return;
+         &#125;
+         for(int i = idx; i &lt; nums.size(); i++)&#123;
+             swap(nums[i], nums[idx]);
+             permute(ans, nums, idx + 1);
+             swap(nums[i], nums[idx]);
+         &#125;
+     &#125;
+     vector&lt;vector&lt;int&gt;&gt; permute(vector&lt;int&gt;&amp; nums)&#123;
+         vector&lt;vector&lt;int&gt; ans;
+         permute(ans, nums, 0);
+         return ans;
+     &#125;
+&#125;;    
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/permutations-ii/">leetcode 47 permutationsII</a></p>
+<pre><code>class Solution&#123;
+public:
+    void permute(set&lt;vector&lt;int&gt;&gt;&amp; temp, vector&lt;int&gt;&amp; nums, int idx)&#123;
+        if(idx &gt;= nums.size())&#123;
+            temp.push_back(nums);
+            return;
+        &#125;
+        for(int i = idx; i &lt; nums.size(); i++)&#123;
+            swap(nums[i], nums[idx]);
+            permute(temp, nums, idx + 1);
+            swap(nums[i], nums[idx]);
+        &#125; 
+    &#125;
+    
+    vector&lt;vector&lt;int&gt;&gt; permute(vector&lt;int&gt;&amp; nums)&#123;
+        set&lt;vector&lt;int&gt;&gt; temp;
+        permute(temp, ans, 0);
+        vector&lt;vector&lt;int&gt;&gt; ans;
+        for(auto i:temp)&#123;
+            ans.push_back(i);
+        &#125;
+        return ans;
+    &#125;
+&#125;;
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/permutation-sequence/">leetcode 60 permutation sequence</a></p>
+<pre><code>class Solution&#123;
+public:
+    string permute(int n, int k)&#123;
+        string ans = “”;
+        vector&lt;char&gt; temp(n);
+        for(int i = 0; i &lt; n; i++)&#123;
+            temp[i] = (i + 1) + ‘0’;
+        &#125;
+        for(int i = n; i &gt; 0; i—)&#123;
+            int factor = round(tgamma(i));
+            int idx = k / factor;
+            k = k % factor;
+            ans += temp[idx];
+            temp.earse(temp.begin() + idx);
+        &#125;
+        return ans;
+    &#125;
+&#125;;
+</code></pre>
+<p>leetcode 1850 minimum adjacent swap</p>
+<pre><code>class Solution&#123;
+public:
+    int getMinSwaps(string s, int k) &#123;
+        string str = s;
+        int count = 0;
+        while(k--)&#123;
+            next_permutation(begin(s), end(s));
+        &#125;
+            next_permutation(begin(s), end(s));
+        for(int i = 0; i &lt; s.size(); i++) &#123;
+            if(s[i] != str[i]) &#123;
+                int pos = s.find(str[i], i);
+                while(pos &gt; i) &#123;
+                    swap(s[pos], s[pos - 1]);
+                    count++;
+                    pos--;
+                &#125;
+            &#125;
+        &#125;
+        return count;
+    &#125;
+&#125;;
+</code></pre>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/01/19/Leetcode%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-C++高级编程----剖析（profile）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
   
     <h1 itemprop="name">
 	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%9B%BE%E5%83%8F%E8%AF%BB%E5%8F%96%E5%BA%93%E5%90%88%E9%9B%86%E2%80%94%E2%80%94cv2,%20PIL,%20skimage%E4%B8%8Enumpy,%20pytorch(ToPILimage)/" target="_blank">图像读取库合集——cv2, PIL, skimage与numpy, pytorch(ToPILimage)</a>
+	  <a class="article-title" href="/2022/01/19/C++%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B----%E5%89%96%E6%9E%90%EF%BC%88profile%EF%BC%89/" target="_blank">C++高级编程----剖析（profile）</a>
   
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B20----%E6%95%B0%E5%80%BC%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.511Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+  
+<a href="/2022/01/19/C++%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B----%E5%89%96%E6%9E%90%EF%BC%88profile%EF%BC%89/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:31.975Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
 </a>
 
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<p>大部分程序中90%的运行时间都在执行10%的代码 – Hennessy &amp; Patterson. Computer Architecture, A quantitative Approch<br>这意味着，可能优化了90%的代码，但程序运行时间只提升了10%。更好地关注10%的运行代码是优化性能的基础；</p>
+<p>题目要求：设计一个英文名计数任务，给定一个500500行人名的txt文件，统计不同名字出现的频率和对应的排名情况。第一版设计中考虑使用map作为数据结构，每次读取一行字符时需要判断名字是否存在，存在则频率加1，不存在则名字对应的值为1。<br>实例代码如下：</p>
+<pre><code>// namedb.h
+#pragma once
+#include&lt;string&gt;
+#include&lt;map&gt;
+#include&lt;fstream&gt;
+
+using namespace std;
+
+class NameDB&#123;
+    public:
+        NameDB(const std::string&amp; nameFile);
+        int getNameRank(const std::string&amp; name) const;
+        int getAbsoluteNumber(const std::string&amp; name) const;
+    private:
+        std::map&lt;std::string, int&gt; mNames;
+        bool nameExistAndIncrement(const std::string&amp; name);
+        void addNewName(const std::string&amp; name);
+&#125;;
+
+
+NameDB::NameDB(const std::string&amp; nameFile)&#123;
+    ifstream inFile(nameFile);
+    if(!inFile)&#123;
+        throw invalid_argument(&quot;file name does not exist. &quot;);
+    &#125;
+    string name;
+    while(inFile &gt;&gt; name)&#123;
+        if(!nameExistAndIncrement(name))&#123;
+            addNewName(name);
+        &#125;
+    &#125;
+    inFile.close();
+&#125;
+
+int NameDB::getNameRank(const std::string&amp; name) const&#123;
+    int num = getAbsoluteNumber(name);
+    if(num == -1)&#123;
+        return -1;
+    &#125;
+    int rank = 1;
+    for(auto&amp; item : mNames)&#123;
+        if(item.second &gt; num)&#123;
+            rank++;
+        &#125;
+    &#125;
+    return rank;
+&#125;
+
+int NameDB::getAbsoluteNumber(const std::string&amp; name) const&#123;
+    auto res = mNames.find(name);
+    if(res != end(mNames))&#123;
+        return res -&gt; second;
+    &#125;
+    return -1;
+&#125;
+
+bool NameDB::nameExistAndIncrement(const std::string&amp; name)&#123;
+    auto res = mNames.find(name);
+    if(res != end(mNames))&#123;
+        res -&gt; second++;
+        return true;
+    &#125;
+    return false;
+&#125;
+
+void NameDB::addNewName(const std::string&amp; name)&#123;
+    mNames[name] = 1;
+&#125;
+
+// main.cpp
+#include&lt;iostream&gt;
+#include&quot;namedb.h&quot;
+
+using namespace std;
+
+int main()&#123;
+    NameDB names(&quot;names.txt&quot;);
+    cout &lt;&lt; names.getNameRank(&quot;Daniel&quot;) &lt;&lt; endl;
+    cout &lt;&lt; names.getNameRank(&quot;Jacob&quot;) &lt;&lt; endl;
+    cout &lt;&lt; names.getNameRank(&quot;William&quot;) &lt;&lt; endl;
+    return 0;
+&#125;
+</code></pre>
+<p>使用linux编译环境gprof编译</p>
+<pre><code>g++ -pg -o main main.cpp
+gprof main gmon.out &gt; profile.txt
+</code></pre>
+<p>profile的部分结果如下：<br><img src="https://img-blog.csdnimg.cn/58091516b09540eb95520d3db23d6f40.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAcXFfMzcxNzIxODI=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>可以看到，代码总共运行了0.07秒，其中92%的运行时间用在函数nameExitAndIncrement（）中，因此有意义的优化在于提升该部分的算法。幸运的是，在标准库STL中map存在一个insert()方法，该方法对key进行插入操作设定默认的（key,value），返回key对应的bool状态，表示是否插入成功，插入失败则表明key已存在，相应的value+1即可。代码只是微小改变：</p>
+<pre><code>NameDB::NameDB(const std::string&amp; nameFile)&#123;
+    ifstream inFile(nameFile);
+    if(!inFile)&#123;
+        throw invalid_argument(&quot;file name does not exist . &quot;);
+    &#125;
+    string name;
+    while(inFile &gt;&gt; name)&#123;
+        auto res = mNames.insert(make_pair(name, 1));
+        if(res.second == false)&#123;
+            res.first -&gt; second++;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>同样使用gprof剖析部分结果如下：<br><img src="https://img-blog.csdnimg.cn/0a7b923a7d6844b890b8b61220a7852c.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAcXFfMzcxNzIxODI=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>这里构造函数NameDB()只使用了0.01s,没有了nameExitAndIncrement(),相当于只是执行了add（）操作，极大地提高了效率。<br>这里只是简单的例子的分析，对于更加复杂的情况，需要更加细致的分析，gprof提供了一个运行时间统计和函数定位的分析工具，对于实际分析具有重要意义，对于算法性能提升也提供数值比较方法。</p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/01/19/C++%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B----%E5%89%96%E6%9E%90%EF%BC%88profile%EF%BC%89/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-C++高级编程----对象池实例" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
   
     <h1 itemprop="name">
 	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B20----%E6%95%B0%E5%80%BC%E5%AD%97%E7%AC%A6%E4%B8%B2/" target="_blank">剑指OFFER系列之20----数值字符串</a>
+	  <a class="article-title" href="/2022/01/19/C++%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B----%E5%AF%B9%E8%B1%A1%E6%B1%A0%E5%AE%9E%E4%BE%8B/" target="_blank">C++高级编程----对象池实例</a>
   
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B17----%E6%89%93%E5%8D%B0n%E4%BD%8D%E6%95%B4%E6%95%B0/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.399Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+  
+<a href="/2022/01/19/C++%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B----%E5%AF%B9%E8%B1%A1%E6%B1%A0%E5%AE%9E%E4%BE%8B/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:31.871Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
 </a>
 
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<p>背景：当尝试使用C++进行代码优化时，可以考虑从语言层次和设计层次进行性能优化。<br>1）语言层次：语言层次可以考虑从形参传递方式和返回值类型以及异常类型进行控制。</p>
+<ol>
+<li> 按引用传递：由于C++按值传递会有一定的复制开销，而按引用可以避免复制开销，如果不希望改变引用值，建议进行const修饰；对于复杂对象的创建（销毁），按值引用可能带来不必要地调用其他成员变量的构造函数（析构函数）</li>
+<li> 按引用返回：同样从函数的返回的角度考虑，按引用传递能避免不必要的复制开销；自C++11之后支持移动语义，允许高效地使用按值返回对象；</li>
+<li> 按引用捕捉异常：通过引用捕捉异常，以避免不必要的开销；通常抛出异常的开销很大，考虑使用引用，提升可能出现异常的情况；</li>
+<li> 恰当使用内联方法和函数：内联方法和函数的代码直接插入到被调用的位置，避免了函数调用的开销；由于内联函数的请求由编译器确定是否执行，只有熟悉一定的编译器文档才能恰当使用inline关键词，提升代码性能；</li>
+</ol>
+<p>2）设计层次：</p>
+<ol>
+<li> 尽可能使用已有的数据结构和算法，尤其是STL标准库；</li>
+<li> 尽可能多的缓存：如果任务或计算执行特别慢，应该确保不会执行不必要的重复计算；将将来可能使用到的数据缓存下来，为下一次提供支持；可能存在缓存不同步问题（缓存失效），需要有一定的检测规则，确保缓存更新；</li>
+<li> 使用对象池：类似缓存原理，对需要经常和大量访问的对象设计对象池，实现一次创建，多次重复调用，从而避免不必要的构造函数和析构函数调用；</li>
+</ol>
+<p>设计一个泛型对象池，创建一个大小为10的对象池，重复调用对象100次，记录观察构造函数和析构函数的调用次数；</p>
+<pre><code>// ObjectPool.h
+#pragma once
+
+#include&lt;queue&gt;
+#include&lt;memory&gt;
+
+template&lt;typename T&gt;
+class ObjectPool&#123;
+   public:
+       // constructor for default chunszie;
+       ObjectPool(size_t chunkSize = kDefaultChunkSize);
+       
+       // prevent assignment and pass-by-value
+       ObjectPool(const ObjectPool&lt;T&gt;&amp; src) = delete;
+       ObjectPool&lt;T&gt;&amp; operator=(const ObjectPool&lt;T&gt;&amp; rhs) = delete;
+       using Object = std::shared_ptr&lt;T&gt;;
+       // acuquire the pointer of queue.front()
+       Object acquireObject();
+   private:
+       std::queue&lt;std::unique_ptr&lt;T&gt;&gt; mFreeList;
+       size_t mChunkSize;
+
+       static const size_t kDefaultChunkSize = 10;
+       // fill the queue with mChunksize default value
+       void allocateChunk();
+&#125;;
+
+template&lt;typename T&gt;
+const size_t ObjectPool&lt;T&gt;::kDefaultChunkSize;
+
+template&lt;typename T&gt;
+ObjectPool&lt;T&gt;::ObjectPool(size_t chunkSize)&#123;
+   if(chunkSize == 0)&#123;
+       throw std::invalid_argument(&quot;chunk size must be positive. &quot;);
+   &#125;
+   mChunkSize = chunkSize;
+   allocateChunk();
+&#125;
+
+template&lt;typename T&gt;
+void ObjectPool&lt;T&gt;::allocateChunk()&#123;
+   for(size_t i = 0; i &lt; mChunkSize; ++i)&#123;
+       mFreeList.emplace(std::make_unique&lt;T&gt;());
+   &#125;
+&#125;
+
+template&lt;typename T&gt;
+typename ObjectPool&lt;T&gt;::Object ObjectPool&lt;T&gt;::acquireObject()&#123;
+   if(mFreeList.empty())&#123;
+       allocateChunk();
+   &#125;
+   std::unique_ptr&lt;T&gt; obj(std::move(mFreeList.front()));
+   mFreeList.pop();
+   Object smartObject(obj.release(), [this](T* t)&#123;mFreeList.push(std::unique_ptr&lt;T&gt;(t));&#125;);
+   return smartObject;
+&#125;
+</code></pre>
+<p>测试用例</p>
+<pre><code>// main.cpp
+#include&lt;iostream&gt;
+#include&quot;objectPool.h&quot;
+
+using namespace std;
+
+class UserRequest&#123;
+    public:
+    UserRequest()&#123;mID = ++msCount; cout &lt;&lt; &quot;constructor : &quot; &lt;&lt; mID &lt;&lt; endl;&#125;
+    virtual ~UserRequest()&#123;cout &lt;&lt; &quot;destructor : &quot; &lt;&lt; mID &lt;&lt; endl;&#125;
+    private:
+        int mID;
+        static int msCount;
+&#125;;
+
+int UserRequest::msCount = 0;
+
+ObjectPool&lt;UserRequest&gt;::Object obtainUserRequest(ObjectPool&lt;UserRequest&gt;&amp; pool)&#123;
+    auto request = pool.acquireObject();
+    return request;
+&#125;
+
+void processUserRequest(ObjectPool&lt;UserRequest&gt;::Object&amp; req)&#123;
+    return req.reset();
+&#125;
+
+int main()&#123;
+    ObjectPool&lt;UserRequest&gt; requestPool(10);
+    for(size_t i = 0; i &lt; 100; ++i)&#123;
+        auto req = obtainUserRequest(requestPool);
+        processUserRequest(req);
+    &#125;
+    cout &lt;&lt; &quot;done. &quot; &lt;&lt; endl;
+    return 0;
+&#125;
+</code></pre>
+<p>结果：<br><img src="https://img-blog.csdnimg.cn/e3ef7d019813429cab5dd5b4414aa434.png" alt="在这里插入图片描述"><br>测试结果显示，尽管对象被调用了100，而对象池只是重复创建和销毁对象，只调用了10次构造函数和析构函数。注意设计中share_ptr和unique_ptr的使用情况，在队里中使用共享指针，每次请求都是从队列前端取对象发送给请求方。</p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/01/19/C++%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B----%E5%AF%B9%E8%B1%A1%E6%B1%A0%E5%AE%9E%E4%BE%8B/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-剑指OFFER系列之55----二叉树的深度" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
   
     <h1 itemprop="name">
 	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B17----%E6%89%93%E5%8D%B0n%E4%BD%8D%E6%95%B4%E6%95%B0/" target="_blank">剑指OFFER系列之17----打印n位整数</a>
+	  <a class="article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B55----%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6/" target="_blank">剑指OFFER系列之55----二叉树的深度</a>
   
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B18----%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E8%8A%82%E7%82%B9/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.339Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+  
+<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B55----%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:31.755Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
 </a>
 
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<h3 id="剑指OFFER"><a href="#剑指OFFER" class="headerlink" title="剑指OFFER"></a>剑指OFFER</h3><blockquote>
+<p>题目描述一：输入二叉搜索树的根节点，输出该二叉树的深度。</p>
+</blockquote>
+<pre><code>int depth(TreeNode* root)&#123;
+    if(!root)&#123;
+        return 0;
+    &#125;
+    return 1 + max(depth(root -&gt; left), depth(root -&gt; right));
+&#125;
+</code></pre>
+<blockquote>
+<p>题目描述二：输入二叉搜索树的根节点，判断该二叉树是否为平衡二叉树。</p>
+</blockquote>
+<pre><code>int dfs(TreeNode* root)&#123;
+    if(!root)&#123;
+        return 0;
+    &#125;
+    int left = dfs(root -&gt; left);
+    int right = dfs(root -&gt; right);
+    if(left == -1 || right == -1 || abs(left - right) &gt; 1)&#123;
+        return -1;
+    &#125;
+    return 1 + max(left, right);
+&#125;
+
+bool isBalance(TreeNode* root)&#123;
+    return dfs(root) != -1;
+&#125;
+</code></pre>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B55----%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-剑指OFFER系列之48----最长不含重复字符的子字符串" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
   
     <h1 itemprop="name">
 	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B18----%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E8%8A%82%E7%82%B9/" target="_blank">剑指OFFER系列之18----删除重复节点</a>
+	  <a class="article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B48----%E6%9C%80%E9%95%BF%E4%B8%8D%E5%90%AB%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/" target="_blank">剑指OFFER系列之48----最长不含重复字符的子字符串</a>
   
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B12----%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.291Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+  
+<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B48----%E6%9C%80%E9%95%BF%E4%B8%8D%E5%90%AB%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:31.691Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
 </a>
 
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<h3 id="剑指OFFER"><a href="#剑指OFFER" class="headerlink" title="剑指OFFER"></a>剑指OFFER</h3><blockquote>
+<p>题目描述：请从字符串中找出一个最长的不包含重复字符串的的子字符串，计算该最长子字符串的长度。</p>
+</blockquote>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;string&gt;
+#include&lt;vector&gt;
+#include&lt;map&gt;
+#include&lt;algorithm&gt;
+#include&lt;climits&gt;
+#include&lt;unordered_map&gt;
+
+using namespace std;
+
+int lengthOfLongestSubString(string&amp; s)&#123;
+    unordered_map&lt;char, int&gt; window;
+    int ans = 0, left = 0, right = 0;
+    while(right &lt; s.size())&#123;
+        window[s[right]]++;
+        right++;
+        while(window[s[right]] &gt; 1)&#123;
+            window[left]--;
+            left++;
+        &#125;
+        ans = max(ans, right - left);
+    &#125;
+    return ans;
+&#125;
+
+void utils()&#123;
+    cout &lt;&lt; &quot;enter string: &quot;;
+    string s;
+    cin &gt;&gt; s;
+    cout &lt;&lt; &quot;longestSize: &quot; &lt;&lt; lengthOfLongestSubString(s) &lt;&lt; endl;
+&#125;
+
+int main()&#123;
+    utils();
+    return 0;
+&#125;
+</code></pre>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B48----%E6%9C%80%E9%95%BF%E4%B8%8D%E5%90%AB%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-剑指OFFER系列之54----二叉树中第k大节点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
   
     <h1 itemprop="name">
 	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B12----%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/" target="_blank">剑指OFFER系列之12----矩阵中的路径</a>
+	  <a class="article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B54----%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%AC%ACk%E5%A4%A7%E8%8A%82%E7%82%B9/" target="_blank">剑指OFFER系列之54----二叉树中第k大节点</a>
   
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B25----%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%EF%BC%88%E6%8B%93%E5%B1%95%EF%BC%9A%E5%90%88%E5%B9%B6K%E4%B8%AA%E9%93%BE%E8%A1%A8%EF%BC%89/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.223Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+  
+<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B54----%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%AC%ACk%E5%A4%A7%E8%8A%82%E7%82%B9/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:31.631Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
 </a>
 
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<h3 id="剑指OFFER"><a href="#剑指OFFER" class="headerlink" title="剑指OFFER"></a>剑指OFFER</h3><blockquote>
+<p>题目描述：给定一棵二叉搜索树，请找出第k大的节点。</p>
+</blockquote>
+<pre><code>TreeNode* kthNode(TreeNode* root, int&amp; k)&#123;
+    TreeNode* target = nullptr;
+    if(root -&gt; right)&#123;
+        target = kthNode(root -&gt; right, k);
+    &#125;
+    if(!target)&#123;
+        if(k == 1)&#123;
+            target = root;
+        &#125;
+        k--;
+    &#125;
+    if(!target &amp;&amp; root -&gt; left)&#123;
+        target = kthNode(root -&gt; left, k);
+    &#125;
+    return target;
+&#125;
+</code></pre>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B54----%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%AC%ACk%E5%A4%A7%E8%8A%82%E7%82%B9/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-剑指OFFER系列之59----队列的最大值" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
   
     <h1 itemprop="name">
 	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B25----%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%EF%BC%88%E6%8B%93%E5%B1%95%EF%BC%9A%E5%90%88%E5%B9%B6K%E4%B8%AA%E9%93%BE%E8%A1%A8%EF%BC%89/" target="_blank">剑指OFFER系列之25----合并两个排序链表（拓展：合并K个链表）</a>
+	  <a class="article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B59----%E9%98%9F%E5%88%97%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC/" target="_blank">剑指OFFER系列之59----队列的最大值</a>
   
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B36----%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.155Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+  
+<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B59----%E9%98%9F%E5%88%97%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:31.579Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
 </a>
 
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<h3 id="剑指OFFER"><a href="#剑指OFFER" class="headerlink" title="剑指OFFER"></a>剑指OFFER</h3><blockquote>
+<p>题目描述一：滑动窗口的最大值<br>给定一个数组和滑动窗的大小，请找出所有滑动窗的最大值。例如，如果输入数组{2，3，4，2，6，2，5，1}，输出{4， 4，6，6，6，5}。</p>
+</blockquote>
+<pre><code>vector&lt;int&gt; maxWin(vector&lt;int&gt; &amp;nums, int k)&#123;
+    if(k &lt; 1 || k &gt; nums.size())&#123;
+        cout &lt;&lt; &quot;failing case !&quot; &lt;&lt; endl;
+        return &#123;&#125;;
+    &#125;
+    vector&lt;int&gt; ans;
+    deque&lt;int&gt; dq;
+    for(int i = 0; i  &lt; k; i++)&#123;
+        while(!dq.empty() &amp;&amp; nums[i] &gt;= nums[dq.back()])&#123;
+            dq.pop_back();
+        &#125;
+        dq.push_back(i);
+    &#125;
+    ans.push_back(nums[dq.front()]);
+    for(int i = k; i &lt; nums.size(); i++)&#123;
+        while(!dq.empty() &amp;&amp; nums[i] &gt;= nums[dq.back()])&#123;
+            dq.pop_back();
+        &#125;
+        while(!dq.empty() &amp;&amp; dq.front() &lt;= (i - k))&#123;
+            dq.pop_front();
+        &#125;
+        dq.push_back(i);
+        ans.push_back(nums[dq.front()]);
+    &#125;
+    return ans;
+&#125;
+</code></pre>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B59----%E9%98%9F%E5%88%97%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-剑指OFFER系列之60----n个骰子的点数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
   
     <h1 itemprop="name">
 	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B36----%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/" target="_blank">剑指OFFER系列之36----二叉搜索树与双向链表</a>
+	  <a class="article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B60----n%E4%B8%AA%E9%AA%B0%E5%AD%90%E7%9A%84%E7%82%B9%E6%95%B0/" target="_blank">剑指OFFER系列之60----n个骰子的点数</a>
   
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B31----%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%92%8C%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.059Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+  
+<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B60----n%E4%B8%AA%E9%AA%B0%E5%AD%90%E7%9A%84%E7%82%B9%E6%95%B0/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:31.467Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
 </a>
 
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<h3 id="剑指OFFER"><a href="#剑指OFFER" class="headerlink" title="剑指OFFER"></a>剑指OFFER</h3><blockquote>
+<p>题目描述：滑动窗口的最大值<br>把n个骰子扔在地上，所有骰子朝上的一面的和为s。输入n,输出和为s的所有值的可能概率。</p>
+</blockquote>
+<pre><code>vector&lt;double&gt; diceProb(int n)&#123;
+    vector&lt;double&gt; ans(5 * n + 1, 1.0 / 6);
+    for(int i = 1; i &lt; n; i++)&#123;
+        vector&lt;double&gt; tmp(5 * n + 1, 0.0);
+        for(int j = 0; j &lt; 5 * i + 1; j++)&#123;
+            for(int k = 0; k &lt; 6; k++)&#123;
+                tmp[j + k] += ans[j] / 6;
+            &#125;
+        &#125;
+        ans = tmp;
+    &#125;
+    return ans;
+&#125;
+</code></pre>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B60----n%E4%B8%AA%E9%AA%B0%E5%AD%90%E7%9A%84%E7%82%B9%E6%95%B0/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-剑指OFFER系列之61----扑克牌中的顺子" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
   
     <h1 itemprop="name">
 	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B31----%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%92%8C%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/" target="_blank">剑指OFFER系列之31----栈的压入和弹出序列</a>
+	  <a class="article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B61----%E6%89%91%E5%85%8B%E7%89%8C%E4%B8%AD%E7%9A%84%E9%A1%BA%E5%AD%90/" target="_blank">剑指OFFER系列之61----扑克牌中的顺子</a>
   
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B40----%E6%9C%80%E5%B0%8F%E7%9A%84K%E4%B8%AA%E6%95%B0/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.027Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+  
+<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B61----%E6%89%91%E5%85%8B%E7%89%8C%E4%B8%AD%E7%9A%84%E9%A1%BA%E5%AD%90/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:31.411Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
 </a>
 
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<h3 id="剑指OFFER"><a href="#剑指OFFER" class="headerlink" title="剑指OFFER"></a>剑指OFFER</h3><blockquote>
+<p>题目描述：扑克牌中的顺子<br>从扑克牌中抽5张牌，判断是不是一个顺子， 即这5张牌是不是连续的。2~10位数字本身，A为1，J为11，Q为12， K为13，大小王可以是任意数字。</p>
+</blockquote>
+<pre><code>bool isContinus(vector&lt;int&gt;&amp; nums)&#123;
+    int carry = 0;
+    sort(nums.begin(), nums.end());
+    for(int i = 0; i &lt; nums.size()-1; i++)&#123;
+        if(nums[i] == 0)&#123;
+            carry++;
+            continue;
+        &#125;
+        if(nums[i] == nums[i+1])&#123;
+            return false;
+        &#125;
+        carry -= nums[i+1] - nums[i] - 1;
+        if(carry &lt; 0)&#123;
+            return false;
+        &#125;
+    &#125;
+    return true;
+&#125;
+</code></pre>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B61----%E6%89%91%E5%85%8B%E7%89%8C%E4%B8%AD%E7%9A%84%E9%A1%BA%E5%AD%90/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-剑指OFFER系列之62----圆圈中最后剩下的数字" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
   
     <h1 itemprop="name">
 	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B40----%E6%9C%80%E5%B0%8F%E7%9A%84K%E4%B8%AA%E6%95%B0/" target="_blank">剑指OFFER系列之40----最小的K个数</a>
+	  <a class="article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B62----%E5%9C%86%E5%9C%88%E4%B8%AD%E6%9C%80%E5%90%8E%E5%89%A9%E4%B8%8B%E7%9A%84%E6%95%B0%E5%AD%97/" target="_blank">剑指OFFER系列之62----圆圈中最后剩下的数字</a>
   
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
-          
+  
+  
+<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B62----%E5%9C%86%E5%9C%88%E4%B8%AD%E6%9C%80%E5%90%8E%E5%89%A9%E4%B8%8B%E7%9A%84%E6%95%B0%E5%AD%97/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:31.355Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+</a>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
+    
+
   
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<h3 id="剑指OFFER"><a href="#剑指OFFER" class="headerlink" title="剑指OFFER"></a>剑指OFFER</h3><blockquote>
+<p>题目描述：0,1，…, n-1这n个数字围成一圈，从0开始报数，每次从圈中删除第m个数字。求圈中最后剩下的数字。</p>
+</blockquote>
+<pre><code>struct ListNode&#123;
+    int val;
+    ListNode* next;
+    ListNode(): val(-1), next(nullptr)&#123;&#125;
+    ListNode(int x): val(x), next(nullptr)&#123;&#125;
+&#125;;
+
+// math method
+int joesphus(int n, int m)&#123;
+    if(n &lt; 1 || m &lt; 1)&#123;
+        return -1;
+    &#125;
+    int ans = 0; 
+    for(int i = 2; i &lt;= n; i++)&#123;
+        ans = (ans + m) % i;
+    &#125;
+    return ans;
+&#125;
+
+// recurisive
+int joesphusII(int n, int m)&#123;
+    if(n &lt; 1 || m &lt; 1)&#123;
+        return -1;
+    &#125;
+    if(n == 1)&#123;
+        return 0;
+    &#125;
+    return (joesphusII(n - 1, m) + m) % n;
+&#125;
+
+// recurent list
+int joesphusIII(int n, int m)&#123;
+    if(n &lt; 1 || m &lt; 1)&#123;
+        return -1;
+    &#125;
+    ListNode* head = new ListNode(0);
+    ListNode* pre = head;
+    for(int i = 1; i &lt; n; i++)&#123;
+        ListNode* tmp = new ListNode(i);
+        pre -&gt; next = tmp;
+        pre = tmp;
+    &#125;
+    pre -&gt; next = head;
+    while(n != 1)&#123;
+        for(int i = 1; i &lt; m - 1; i++)&#123;
+            head = head -&gt; next;
+        &#125;
+        head -&gt; next = head -&gt; next -&gt; next;
+        head = head -&gt; next;
+        n--;
+    &#125;
+    return head -&gt; val;
+&#125;
+</code></pre>
 
     
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B62----%E5%9C%86%E5%9C%88%E4%B8%AD%E6%9C%80%E5%90%8E%E5%89%A9%E4%B8%8B%E7%9A%84%E6%95%B0%E5%AD%97/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+  
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2022/page/2/">2</a><a class="page-number" href="/archives/2022/page/3/">3</a><a class="page-number" href="/archives/2022/page/4/">4</a><a class="extend next" rel="next" href="/archives/2022/page/2/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -593,9 +1569,9 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: false,
+		isHome: true,
 		isPost: false,
-		isArchive: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,

@@ -221,7 +221,7 @@
             
 
   
-    <article id="post-opencv" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Pytorch学习基础——损失函数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -229,7 +229,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2022/01/10/opencv/" target="_blank">OpenCV----YOLOv3目标检测</a>
+	  <a class="article-title" href="/2022/01/19/Pytorch%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/" target="_blank">Pytorch学习基础——损失函数</a>
   
     </h1>
   
@@ -237,8 +237,8 @@
 
   
   
-<a href="/2022/01/10/opencv/" class="archive-article-date">
-        <time datetime="2022-01-10T12:50:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-10</time>
+<a href="/2022/01/19/Pytorch%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:35.191Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
 </a>
 
   
@@ -250,21 +250,470 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>题目要求：了解opencv的DNN库，给定一张自然场景图片，使用训练好的yolov3模型，进行目标检测结果输出。</p>
-<blockquote>
-<p>分析：<br>1）opencv的DNN模块集成了很多深度学习模型，包括人脸检测、图像分类、分割、目标检测等，集成了Pytorch、tensorflow、paddlepaddle等模型框架（参看代码库<a target="_blank" rel="noopener" href="https://github.com/opencv/opencv/tree/master/samples/dnn">OpenCV/dnn</a>）<br>2）深度学习推理模型一般步骤：加载模型，包括配置文件和权重文件；输入图像预处理，转换成模型可接受的文件类型和尺寸；模型预测后处理，对于目标检测，主要是NMS后处理方法；</p>
-</blockquote>
-<ul>
-<li>结果展示：</li>
+    <span id="more"></span>
+
+<h3 id="Pytorch学习基础——损失函数"><a href="#Pytorch学习基础——损失函数" class="headerlink" title="Pytorch学习基础——损失函数"></a>Pytorch学习基础——损失函数</h3><h3 id="文章目录"><a href="#文章目录" class="headerlink" title="文章目录"></a>文章目录</h3><ul>
+<li><ul>
+<li><ul>
+<li><a href="#Pytorch_0">Pytorch学习基础——损失函数</a><ul>
+<li><ul>
+<li>  <a href="#1__5">1. 分类损失</a></li>
+<li><ul>
+<li>  <a href="#11__BCELoss__family_7">1.1 二分类 B C E L o s s   f a m i l y BCELoss \ family BCELossfamily</a></li>
+<li>  <a href="#12__CrossEntropyLoss__family_66">1.2多分类 C r o s s E n t r o p y L o s s   f a m i l y CrossEntropyLoss \ family CrossEntropyLossfamily</a></li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">./bin/yolov3Predict -h</span><br><span class="line"><span class="comment">#######</span></span><br><span class="line">Usage: yolov3Predict [params] image confThreshold nmsThresshold </span><br><span class="line"></span><br><span class="line">        -?, -h, --<span class="built_in">help</span>, --usage (value:<span class="literal">true</span>)</span><br><span class="line">                opecv based deep learining demo</span><br><span class="line"></span><br><span class="line">        image</span><br><span class="line">                Image to process</span><br><span class="line">        confThreshold (value:0.5)</span><br><span class="line">                confidence threshold, default 0.5</span><br><span class="line">        nmsThresshold (value:0.3)</span><br><span class="line">                nms threshold, default 0.3</span><br></pre></td></tr></table></figure>
+</li>
+<li>  <a href="#2_113">2.回归损失</a></li>
+<li><ul>
+<li>  <a href="#21_L1__loss_MAE_115">2.1 L 1   l o s s ( M A E ) L1 \ loss (MAE) L1loss(MAE)</a></li>
+<li>  <a href="#22_L2__loss__161">2.2 L 2   l o s s ( ) L2 \ loss () L2loss()</a></li>
+<li>  <a href="#22_L2__loss__MSE_163">2.2 L 2   l o s s   ( M S E ) L2 \ loss \ (MSE) L2loss(MSE)</a></li>
+</ul>
+</li>
+<li>  <a href="#3one_hot__198">3.one_hot 编码</a></li>
+<li>  <a href="#4_256">4.自定义损失的两种方法</a></li>
+<li><ul>
+<li>  <a href="#41_nnModule_258">4.1 继承自 n n . M o d u l e nn.Module nn.Module</a></li>
+<li>  <a href="#42__297">4.2 自定义损失函数</a></li>
+<li>  <a href="#43__312">4.3 两个常见的自定义损失函数</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>损失函数的形式化表示： L l o s s = ∑ i = 1 N b c r i t e r i o n ( y ∗ , y ) L_{loss} = \sum_{i=1}^{N_b}criterion(y^{<em>},y) Lloss​=∑i=1Nb​​criterion(y∗,y)， 其中 y ∗ ∈ R B × C y^{</em>}\in \R^{B\times C} y∗∈RB×C为模型预测输出， y ∈ R B × C y\in \R^{B\times C} y∈RB×C为真实标签或标注, B B B为 b a t c h _ s i z e batch\_size batch_size, C C C为全连接层输出，当损失函数对每个 b a t c h batch batch计算损失时，此时有 B = 1 B=1 B=1。根据实际问题的属性，损失函数大致可分类为两类，即分类损失和回归损失。</p>
+<h4 id="1-分类损失"><a href="#1-分类损失" class="headerlink" title="1. 分类损失"></a>1. 分类损失</h4><h5 id="1-1-二分类-B-C-E-L-o-s-s-f-a-m-i-l-y-BCELoss-family-BCELossfamily"><a href="#1-1-二分类-B-C-E-L-o-s-s-f-a-m-i-l-y-BCELoss-family-BCELossfamily" class="headerlink" title="1.1 二分类 B C E L o s s   f a m i l y BCELoss \ family BCELossfamily"></a>1.1 二分类 B C E L o s s   f a m i l y BCELoss \ family BCELossfamily</h5><p>L l o s s ( y ′ , y ) = ∑ i = 1 N b y i log ⁡ ( y i ′ ) L_{loss} (y^{‘},y)= \sum_{i=1}^{N_b}y_i\log(y_{i}^{‘}) Lloss​(y′,y)=i=1∑Nb​​yi​log(yi′​)</p>
+<pre><code>import torch
+import torch.nn as nn
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/yolov3Predict data/test.jpg</span><br></pre></td></tr></table></figure>
+def tensor_info(tensor):
+    print(&#39;tensor type: &#123;&#125;&#39;.format(tensor.type()))
+    print(&#39;tensor value: &#123;&#125;&#39;.format(tensor.data))
+    print(&#39;tensor shape: &#123;&#125;&#39;.format(tensor.shape))
 
-<p><img src="/2022/01/10/opencv/output.jpg" alt="output"></p>
+criterion = nn.BCELoss()
+batchsize = 2
+num_class = 2
+y_ = torch.randn(batchsize,num_class)
+y = torch.empty(batchsize,num_class).random_(num_class)
+loss = criterion(nn.Sigmoid()(y_), y)
+
+tensor_info(y_)
+tensor_info(y)
+tensor_info(loss)
+&quot;&quot;&quot;
+tensor type: torch.FloatTensor
+tensor value: tensor([[-0.0734,  1.1474],
+                      [-0.1513, -0.3409]])
+                      
+tensor shape: torch.Size([2, 2])
+tensor type: torch.FloatTensor
+tensor value: tensor([[0., 1.],
+                      [0., 0.]])
+                      
+tensor shape: torch.Size([2, 2])
+tensor type: torch.FloatTensor
+tensor value: 0.5225892663002014
+tensor shape: torch.Size([])
+&quot;&quot;&quot;
+</code></pre>
+<p><strong>note</strong>:</p>
+<ol>
+<li>B C E L o s s BCELoss BCELoss用于二分类问题，tensor的类型为 t o r c h . F l o a t T e n s o r torch.FloatTensor torch.FloatTensor,模型的输出为 s i g m o i d sigmoid sigmoid类型，即要求输出为 [ 0 , 1 ] [0,1] [0,1];</li>
+<li>B C E L o s s BCELoss BCELoss较 C r o s s E n t r o p y L o s s CrossEntropyLoss CrossEntropyLoss训练更稳定；</li>
+<li>当二分类类别不平衡时可以考虑 B C E W i t h L o g i t s L o s s BCEWithLogitsLoss BCEWithLogitsLoss,此时的模型输出为 l o g i t s logits logits形式，同时需要传入 w e i g h t weight weight权重参数；<pre><code> w_0 = 1
+ w_1 = 5
+ class_weights = Variable(torch.FloatTensor[w_0, w_1])
+ criterion = nn.BCEWithLogitsLoss(class_weights)
+ ...
+ loss = criterion(y_, y)
+ 
+</code></pre>
+</li>
+</ol>
+<h5 id="1-2多分类-C-r-o-s-s-E-n-t-r-o-p-y-L-o-s-s-f-a-m-i-l-y-CrossEntropyLoss-family-CrossEntropyLossfamily"><a href="#1-2多分类-C-r-o-s-s-E-n-t-r-o-p-y-L-o-s-s-f-a-m-i-l-y-CrossEntropyLoss-family-CrossEntropyLossfamily" class="headerlink" title="1.2多分类 C r o s s E n t r o p y L o s s   f a m i l y CrossEntropyLoss \ family CrossEntropyLossfamily"></a>1.2多分类 C r o s s E n t r o p y L o s s   f a m i l y CrossEntropyLoss \ family CrossEntropyLossfamily</h5><p>L l o s s ( y ′ , y ) = − log ⁡ ( exp ⁡ ( y [ y ] ′ ) ∑ j exp ⁡ [ y [ j ] ′ ] ) = − y [ y ] ′ + l o g ( ∑ j exp ⁡ ( y [ j ] ′ ) L_{loss} (y^{‘},y)= -\log(\dfrac{\exp(y^{‘}<em>{[y]})}{\sum</em>{j}\exp[y^{‘}<em>{[j]}]}) = -y^{‘}</em>{[y]}+log(\sum_{j}\exp(y^{‘}_{[j]}) Lloss​(y′,y)=−log(∑j​exp[y[j]′​]exp(y[y]′​)​)=−y[y]′​+log(j∑​exp(y[j]′​)</p>
+<pre><code>criterion = nn.CrossEntropyLoss()
+batchsize = 2
+num_class = 3
+y_ = torch.randn(batchsize,num_class)
+y = torch.empty(batchsize, dtype=torch.long).random_(num_class)
+loss = criterion(nn.Softmax()(y_), y)
+
+tensor_info(y_)
+tensor_info(y)
+tensor_info(loss)
+&quot;&quot;&quot;
+tensor type: torch.FloatTensor
+tensor value: tensor([[ 0.9964,  0.7243, -1.0832],
+                      [ 1.2502,  0.9600, -0.1909]])
+tensor shape: torch.Size([2, 3])
+
+tensor type: torch.LongTensor
+tensor value: tensor([2, 0])
+tensor shape: torch.Size([2])
+
+tensor type: torch.FloatTensor
+tensor value: 1.1623895168304443
+tensor shape: torch.Size([])
+&quot;&quot;&quot;
+</code></pre>
+<p><strong>note</strong>:</p>
+<ol>
+<li>C r o s s E n t r o p y L o s s CrossEntropyLoss CrossEntropyLoss既可以用于二分类问题也可以用于多分类，target tensor的类型为 t o r c h . L o n g T e n s o r torch.LongTensor torch.LongTensor，维度为 y ∈ R B y\in \R^{B} y∈RB,代码自动将输出转换为 o n e _ h o t one\_hot one_hot编码,模型的输出为 s o f t m a t softmat softmat类型，即要求输出为多维 [ 0 , 1 ] [0,1] [0,1];</li>
+<li>由于 B C E L o s s BCELoss BCELoss较 C r o s s E n t r o p y L o s s CrossEntropyLoss CrossEntropyLoss训练更稳定，因此二分类多使用前者，而多分类时只能使用后者；</li>
+<li>多类别数据不平衡时，可以考虑多分类负对数损失函数 n n . N L L L o s s nn.NLLLoss nn.NLLLoss；<pre><code> criterion = nn.NLLLoss()
+ ...
+ loss = criterion(nn.LogSoftmax(dim=1)(y_), y)
+ 
+</code></pre>
+</li>
+</ol>
+<h4 id="2-回归损失"><a href="#2-回归损失" class="headerlink" title="2.回归损失"></a>2.回归损失</h4><h5 id="2-1-L-1-l-o-s-s-M-A-E-L1-loss-MAE-L1loss-MAE"><a href="#2-1-L-1-l-o-s-s-M-A-E-L1-loss-MAE-L1loss-MAE" class="headerlink" title="2.1 L 1   l o s s ( M A E ) L1 \ loss (MAE) L1loss(MAE)"></a>2.1 L 1   l o s s ( M A E ) L1 \ loss (MAE) L1loss(MAE)</h5><p>L l o s s ( y ′ , y ) = ∣ y − y ′ ∣ L_{loss} (y^{‘},y)= |y-y^{‘}| Lloss​(y′,y)=∣y−y′∣</p>
+<pre><code>criterion = nn.L1Loss()
+batchsize = 2
+data_dim = 5
+y_ = torch.randn(batchsize,data_dim)
+y = torch.randn(batchsize, data_dim)
+loss = criterion(y_, y)
+
+tensor_info(y_)
+tensor_info(y)
+tensor_info(loss)
+&quot;&quot;&quot;
+tensor type: torch.FloatTensor
+tensor value: tensor([[-0.8535, -0.3021,  0.2806,  0.6997, -0.3428],
+                      [ 1.0466, -0.7761,  1.5299,  1.8677,  0.3375]])
+tensor shape: torch.Size([2, 5])
+
+tensor type: torch.FloatTensor
+tensor value: tensor([[ 0.4172,  0.3862,  1.9460,  0.3330, -0.6183],
+                      [ 0.4837, -0.8353,  0.4653, -0.3128,  1.7366]])
+tensor shape: torch.Size([2, 5])
+
+tensor type: torch.FloatTensor
+tensor value: 0.953281581401825
+tensor shape: torch.Size([])
+&quot;&quot;&quot;
+</code></pre>
+<p><strong>note</strong>:</p>
+<ol>
+<li>L 1   l o s s L1 \ loss L1loss的输入和输出维度相同；</li>
+<li>L 1   l o s s L1 \ loss L1loss在零点处不平滑，相应地使用 L 1 L1 L1正则容易产生稀疏特征； L 2   l o s s L2 \ loss L2loss对离散点比较敏感，使用梯度下降时可能导致梯度爆炸；</li>
+<li>使用 n n . S m o o t h L 1 L o s s nn.SmoothL1Loss nn.SmoothL1Loss可以在$L1 \ loss 和 和 和L2 \ loss 中 折 中 ， 其 表 达 式 为 ： 中折中，其表达式为： 中折中，其表达式为：L_{loss}(y^{’},y) = \begin{cases} 0.5(y’ -y )^2 \ \ \ \ \ \ \ if \ |y’-y|&lt;1 \ |y’-y|-0.5\ \ \ \ if \ otherwise \end{cases} $<pre><code> criterion = nn.SmoothL1Loss()
+ 
+</code></pre>
+</li>
+</ol>
+<h5 id="2-2-L-2-l-o-s-s-L2-loss-L2loss"><a href="#2-2-L-2-l-o-s-s-L2-loss-L2loss" class="headerlink" title="2.2 L 2   l o s s ( ) L2 \ loss () L2loss()"></a>2.2 L 2   l o s s ( ) L2 \ loss () L2loss()</h5><h5 id="2-2-L-2-l-o-s-s-M-S-E-L2-loss-MSE-L2loss-MSE"><a href="#2-2-L-2-l-o-s-s-M-S-E-L2-loss-MSE-L2loss-MSE" class="headerlink" title="2.2 L 2   l o s s   ( M S E ) L2 \ loss \ (MSE) L2loss(MSE)"></a>2.2 L 2   l o s s   ( M S E ) L2 \ loss \ (MSE) L2loss(MSE)</h5><p>L l o s s ( y ′ , y ) = ( y ′ − y ) 2 L_{loss}(y^{‘}, y) = (y^{‘}-y)^2 Lloss​(y′,y)=(y′−y)2</p>
+<pre><code>criterion = nn.MSELoss()
+batchsize = 2
+data_dim = 5
+y_ = torch.randn(batchsize,data_dim)
+y = torch.randn(batchsize, data_dim)
+loss = criterion(y_, y)
+
+tensor_info(y_)
+tensor_info(y)
+tensor_info(loss)
+
+&quot;&quot;&quot;
+tensor type: torch.FloatTensor
+tensor value: tensor([[-0.9645, -1.3637, -0.3499,  0.1778,  1.4501],
+                      [ 0.0399, -0.7981,  0.2331, -0.8327, -0.1414]])
+tensor shape: torch.Size([2, 5])
+
+tensor type: torch.FloatTensor
+tensor value: tensor([[ 0.6230,  0.6931,  0.0585, -0.1514, -1.6614],
+                      [-0.8120, -0.3299, -0.0762, -1.5901,  1.2696]])
+tensor shape: torch.Size([2, 5])
+
+tensor type: torch.FloatTensor
+tensor value: 2.0312931537628174
+tensor shape: torch.Size([])
+&quot;&quot;&quot;
+</code></pre>
+<h4 id="3-one-hot-编码"><a href="#3-one-hot-编码" class="headerlink" title="3.one_hot 编码"></a>3.one_hot 编码</h4><p>当我们想在一个含有 C r o s s E n t r o p y L o s s CrossEntropyLoss CrossEntropyLoss中增加新的损失函数时，需要对模型的输出进行 o n e _ h o t one\_hot one_hot编码，从而能与其他损失联合使用，进而设计自己的损失函数，为自定义损失函数做铺垫。</p>
+<p>一个高效简洁的 o n e _ h o t one\_hot one_hot编码转换如下：</p>
+<pre><code>def tensor_info(tensor):
+    print(&#39;tensor type: &#123;&#125;&#39;.format(tensor.type()))
+    print(&#39;tensor value: &#123;&#125;&#39;.format(tensor.data))
+    print(&#39;tensor shape: &#123;&#125;&#39;.format(tensor.shape))
+
+def make_one_hot(label, classes):
+    label = label.unsqueeze(dim=1)
+    tensor_info(label)
+    tensor = torch.zeros(label.size()[0], classes, 
+                         label.size()[2], label.size()[3]).scatter_(1, label, 1)
+    tensor_info(tensor)
+
+class_num = 2
+batch_size = 2
+label = torch.LongTensor(batch_size, 3, 3).random_() % class_num
+tensor = make_one_hot(label, class_num)
+print(tensor)
+
+&quot;&quot;&quot;
+tensor type: torch.LongTensor
+tensor value: tensor([[[[1, 0, 0],
+                          [0, 1, 0],
+                          [1, 0, 1]]],
+
+                    [[[0, 0, 0],
+                          [0, 0, 0],
+                          [0, 1, 1]]]])
+tensor shape: torch.Size([2, 1, 3, 3])
+
+tensor type: torch.FloatTensor
+tensor value: tensor([[[[0., 1., 1.],
+                          [1., 0., 1.],
+                          [0., 1., 0.]],
+                         [[1., 0., 0.],
+                          [0., 1., 0.],
+                          [1., 0., 1.]]],
+
+                        [[[1., 1., 1.],
+                          [1., 1., 1.],
+                          [1., 0., 0.]],
+                         [[0., 0., 0.],
+                          [0., 0., 0.],
+                          [0., 1., 1.]]]])
+tensor shape: torch.Size([2, 2, 3, 3])
+&quot;&quot;&quot;
+</code></pre>
+<p><strong>note</strong>:</p>
+<ol>
+<li> 上述例子多用于分割图像标注的one_hot编码，一般地，标注的 G r o u n d T r u t h GroundTruth GroundTruth维度为 y ∈ R B × H × W y\in \R^{B \times H\times W} y∈RB×H×W预测的输出为 y ′ ∈ R B × C × H × W y ^{‘}\in \R^{B\times C \times H \times W} y′∈RB×C×H×W，因此需要对 y y y进行 o n e _ h o t one\_hot one_hot编码;</li>
+</ol>
+<h4 id="4-自定义损失的两种方法"><a href="#4-自定义损失的两种方法" class="headerlink" title="4.自定义损失的两种方法"></a>4.自定义损失的两种方法</h4><h5 id="4-1-继承自-n-n-M-o-d-u-l-e-nn-Module-nn-Module"><a href="#4-1-继承自-n-n-M-o-d-u-l-e-nn-Module-nn-Module" class="headerlink" title="4.1 继承自 n n . M o d u l e nn.Module nn.Module"></a>4.1 继承自 n n . M o d u l e nn.Module nn.Module</h5><pre><code>class MyLoss(nn.Module):
+    def __init__(self):
+        super().__init__()
     
-    <a class="article-more-a" href="/2022/01/10/opencv/#more">more >></a>
-    
+    def forward(self, input, target):
+        return torch.mean(torch.pow(input-target, 2))
+
+criterion = MyLoss()
+
+batchsize = 2
+data_dim = 5
+y_ = torch.randn(batchsize,data_dim)
+y = torch.randn(batchsize, data_dim)
+loss = criterion(y_, y)
+
+tensor_info(y_)
+tensor_info(y)
+tensor_info(loss)
+
+&quot;&quot;&quot;
+tensor type: torch.FloatTensor
+tensor value: tensor([[-1.0173,  0.4739, -0.7022, -1.2392, -0.9483],
+                      [-0.8169,  1.3850, -0.5899, -0.1689, -0.6612]])
+tensor shape: torch.Size([2, 5])
+
+tensor type: torch.FloatTensor
+tensor value: tensor([[ 0.6348, -0.9740,  1.2326,  0.5315, -1.0824],
+                      [-0.8435,  0.6862,  0.3101, -0.1409,  0.8937]])
+tensor shape: torch.Size([2, 5])
+
+tensor type: torch.FloatTensor
+tensor value: 1.543942928314209
+tensor shape: torch.Size([])
+&quot;&quot;&quot;
+</code></pre>
+<h5 id="4-2-自定义损失函数"><a href="#4-2-自定义损失函数" class="headerlink" title="4.2 自定义损失函数"></a>4.2 自定义损失函数</h5><pre><code>def myLoss(input, target):
+    return torch.mean(torch.pow(input-target, 2))
+...
+loss = myLoss(y_, y)
+...
+</code></pre>
+<p><strong>note</strong>:</p>
+<ol>
+<li> 继承自 n n . M o d u l e nn.Module nn.Module类的损失损失函数需要重写 f o r w a r d forward forward方法，定义相关的 t o r c h torch torch运算，设计相对灵活；使用自定义的损失函数相当于间接使用 t o r c h torch torch的损失函数，不需要维护 f o r w a r d forward forward方法，使用时相当于函数调用；</li>
+<li> 损失函数在进行梯度回传时必然要使用 l o s s . b a c k w a r d loss.backward loss.backward方法，上述两种自定义的损失函数都支持该方法，本质上都是间接调用的 t o r c h torch torch的损失函数；</li>
+</ol>
+<h5 id="4-3-两个常见的自定义损失函数"><a href="#4-3-两个常见的自定义损失函数" class="headerlink" title="4.3 两个常见的自定义损失函数"></a>4.3 两个常见的自定义损失函数</h5><p>F o c a l L o s s FocalLoss FocalLoss<br>F L ( p t ) = − ( 1 − p y ) γ l o g ( p t ) FL(p_t)=-(1-p_y)^{\gamma}log(p_t) FL(pt​)=−(1−py​)γlog(pt​)</p>
+<pre><code>class FocalLoss(nn.Module):
+    def __init__(self, gamma=2, alpha=None, ignore_index=255, size_average=True):
+        super(FocalLoss, self).__init__()
+        self.gamma = gamma
+        self.size_average = size_average
+        self.CE_loss = nn.CrossEntropyLoss(reduce=False, 
+                                           ignore_index=ignore_index, weight=alpha)
+
+    def forward(self, output, target):
+        logpt = self.CE_loss(output, target)
+        pt = torch.exp(-logpt)
+        loss = ((1-pt)**self.gamma) * logpt
+        if self.size_average:
+            return loss.mean()
+        return loss.sum()
+
+criterion = FocalLoss()
+
+batchsize = 2
+data_dim = 5
+y_ = torch.randn(batchsize,data_dim)
+y = torch.empty(batchsize,dtype=torch.long).random_(data_dim)
+loss = criterion(nn.Softmax()(y_), y)
+
+tensor_info(y_)
+tensor_info(y)
+tensor_info(loss)
+
+&quot;&quot;&quot;
+tensor type: torch.FloatTensor
+tensor value: tensor([[ 0.1728,  1.1785,  0.2764, -0.3511,  0.4180],
+                      [ 0.3613,  0.7521,  1.2390,  2.0650, -0.6268]])
+tensor shape: torch.Size([2, 5])
+
+tensor type: torch.LongTensor
+tensor value: tensor([2, 2])
+tensor shape: torch.Size([2])
+
+tensor type: torch.FloatTensor
+tensor value: 1.0486319065093994
+tensor shape: torch.Size([])
+&quot;&quot;&quot;
+</code></pre>
+<p>D I C E   L o s s DICE\ Loss DICELoss<br>L l o s s ( y ′ , y ) = 1 − 2 × ∣   y ′ ⋂ y   ∣ ∣ y ′ ∣ + ∣ y ∣ L_{loss}(y’, y) = 1 - 2\times\dfrac{|\ y’\bigcap y\ |}{|y’|+|y|} Lloss​(y′,y)=1−2×∣y′∣+∣y∣∣y′⋂y∣​</p>
+<pre><code>class DiceLoss(nn.Module):
+    def __init__(self, smooth=1., ignore_index=255):
+        super(DiceLoss, self).__init__()
+        self.ignore_index = ignore_index
+        self.smooth = smooth
+
+    def forward(self, output, target):
+        if self.ignore_index not in range(target.min(), target.max()):
+            if (target == self.ignore_index).sum() &gt; 0:
+                target[target == self.ignore_index] = target.min()
+        target = make_one_hot(target, classes=output.size()[1])
+        output = F.softmax(output, dim=1)
+        output_flat = output.contiguous().view(-1)
+        target_flat = target.contiguous().view(-1)
+        intersection = (output_flat * target_flat).sum()
+        loss = 1 - ((2. * intersection + self.smooth) /
+                    (output_flat.sum() + target_flat.sum() + self.smooth))
+        return loss
+
+criterion = DiceLoss()
+batchsize = 2
+data_dim = 5
+y_ = torch.randn(batchsize,data_dim, 3, 3)
+y = torch.empty(batchsize,3, 3, dtype=torch.long).random_(data_dim)
+loss = criterion(y_, y)
+
+tensor_info(y_)
+tensor_info(y)
+tensor_info(loss)
+
+&quot;&quot;&quot;
+tensor type: torch.LongTensor
+tensor value: tensor([[[[0, 3, 1],
+          [0, 2, 2],
+          [1, 0, 1]]],
+        [[[2, 1, 2],
+          [3, 3, 2],
+          [1, 3, 4]]]])
+tensor shape: torch.Size([2, 1, 3, 3])
+
+tensor type: torch.FloatTensor
+tensor value: tensor([[[[1., 0., 0.],
+                      [1., 0., 0.],
+                      [0., 1., 0.]],
+                     [[0., 0., 1.],
+                      [0., 0., 0.],
+                      [1., 0., 1.]],
+                     [[0., 0., 0.],
+                      [0., 1., 1.],
+                      [0., 0., 0.]],
+                     [[0., 1., 0.],
+                      [0., 0., 0.],
+                      [0., 0., 0.]],
+                     [[0., 0., 0.],
+                      [0., 0., 0.],
+                      [0., 0., 0.]]],
+                    [[[0., 0., 0.],
+                      [0., 0., 0.],
+                      [0., 0., 0.]],
+                     [[0., 1., 0.],
+                      [0., 0., 0.],
+                      [1., 0., 0.]],
+                     [[1., 0., 1.],
+                      [0., 0., 1.],
+                      [0., 0., 0.]],
+                     [[0., 0., 0.],
+                      [1., 1., 0.],
+                      [0., 1., 0.]],
+                     [[0., 0., 0.],
+                      [0., 0., 0.],
+                      [0., 0., 1.]]]])
+tensor shape: torch.Size([2, 5, 3, 3])
+
+tensor type: torch.FloatTensor
+tensor value: tensor([[[[ 0.2699,  2.0570,  0.3527],
+                      [ 0.1577, -0.4064,  0.1343],
+                      [ 1.5966,  1.7491,  1.0151]],
+
+                     [[-0.8926,  0.1622,  1.9066],
+                      [ 0.5218,  0.4823, -1.1344],
+                      [-1.0118, -0.8615, -2.1888]],
+
+                     [[-0.3432, -0.3939,  0.1995],
+                      [-0.1927,  0.1906, -0.9791],
+                      [-0.7473, -1.4993,  0.3817]],
+
+                     [[ 1.9844, -0.3772,  0.0379],
+                      [-0.3522,  0.3117,  3.4582],
+                      [ 0.1093, -1.1035,  1.7196]],
+
+                     [[-0.3047, -0.0412,  0.4407],
+                      [ 0.1961,  0.7687,  0.2264],
+                      [-0.7968, -3.2159,  1.1114]]],
+
+
+                    [[[ 0.2529, -0.2005,  1.4892],
+                      [-0.6280, -0.5346, -0.8372],
+                      [ 2.1497, -0.9360,  0.4647]],
+
+                     [[ 0.1600, -0.4615, -0.0581],
+                      [-0.8772, -2.2099, -0.4701],
+                      [-0.0854, -0.6858,  1.1420]],
+
+                     [[-0.5037, -1.4045,  0.3457],
+                      [ 0.4000,  0.8670,  0.2310],
+                      [ 0.1687,  2.2899,  1.3715]],
+
+                     [[ 0.6839,  0.0109, -1.9138],
+                      [-0.9788, -0.9355,  0.8609],
+                      [ 1.4093, -0.5079,  0.1082]],
+
+                     [[ 0.8306, -0.9631, -0.8329],
+                      [-0.0351, -1.1003,  0.2656],
+                      [-1.8068, -0.5764, -1.0488]]]])
+tensor shape: torch.Size([2, 5, 3, 3])
+
+tensor type: torch.LongTensor
+tensor value: tensor([[[0, 3, 1],
+         [0, 2, 2],
+         [1, 0, 1]],
+
+        [[2, 1, 2],
+         [3, 3, 2],
+         [1, 3, 4]]])
+tensor shape: torch.Size([2, 3, 3])
+
+tensor type: torch.FloatTensor
+tensor value: 0.8061555624008179
+tensor shape: torch.Size([])
+
+&quot;&quot;&quot;
+</code></pre>
+
     
 
     
@@ -275,34 +724,11 @@
   <div class="article-info article-info-index">
     
     
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">opencv</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">dnn</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">yolov3</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
     
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2022/01/10/opencv/">展开全文 >></a>
+      <a class="article-more-a" href="/2022/01/19/Pytorch%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/">展开全文 >></a>
     </p>
     
 
@@ -332,7 +758,7 @@
 
 
   
-    <article id="post-topics" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-图像读取库合集——cv2, PIL, skimage与numpy, pytorch(ToPILimage)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -340,7 +766,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2022/01/10/topics/" target="_blank">Outline for topics</a>
+	  <a class="article-title" href="/2022/01/19/%E5%9B%BE%E5%83%8F%E8%AF%BB%E5%8F%96%E5%BA%93%E5%90%88%E9%9B%86%E2%80%94%E2%80%94cv2,%20PIL,%20skimage%E4%B8%8Enumpy,%20pytorch(ToPILimage)/" target="_blank">图像读取库合集——cv2, PIL, skimage与numpy, pytorch(ToPILimage)</a>
   
     </h1>
   
@@ -348,8 +774,8 @@
 
   
   
-<a href="/2022/01/10/topics/" class="archive-article-date">
-        <time datetime="2022-01-10T12:50:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-10</time>
+<a href="/2022/01/19/%E5%9B%BE%E5%83%8F%E8%AF%BB%E5%8F%96%E5%BA%93%E5%90%88%E9%9B%86%E2%80%94%E2%80%94cv2,%20PIL,%20skimage%E4%B8%8Enumpy,%20pytorch(ToPILimage)/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:34.855Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
 </a>
 
   
@@ -361,13 +787,195 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>OpenCV : <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37172182/article/details/122399552">OpenCV—-YOLOv3目标检测模型推理</a></p>
-<p>OpenCV : <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37172182/article/details/122147856">OpenCV—-简单对象分类</a></p>
-<p>OpenCV : <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37172182/article/details/122088583">OpenCV—-简单目标提取和分割</a></p>
-<p>OpenCV : <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37172182/article/details/122042016">OpenCV—-GUI设计示例</a></p>
-    
-    <a class="article-more-a" href="/2022/01/10/topics/#more">more >></a>
-    
+    <span id="more"></span>
+
+<h3 id="图像读取库合集——cv2-PIL-skimage与numpy-pytorch-ToPILimage"><a href="#图像读取库合集——cv2-PIL-skimage与numpy-pytorch-ToPILimage" class="headerlink" title="图像读取库合集——cv2, PIL, skimage与numpy, pytorch(ToPILimage)"></a>图像读取库合集——cv2, PIL, skimage与numpy, pytorch(ToPILimage)</h3><h4 id="1-图像读取与属性"><a href="#1-图像读取与属性" class="headerlink" title="1 图像读取与属性"></a>1 图像读取与属性</h4><h5 id="1-1-PIL与numpy间的相互访问"><a href="#1-1-PIL与numpy间的相互访问" class="headerlink" title="1.1 PIL与numpy间的相互访问"></a>1.1 PIL与numpy间的相互访问</h5><pre><code>import numpy as np
+from PIL import Image
+
+#read a image with 3 channels, 500x889 pixels
+img_pil =  Image.open(&#39;./test.png&#39;)
+#show a image
+img_pil.show()
+
+#get image imfo
+print(img_pil)
+
+#get the pixel value in PIL format
+print(img_pil.getpixel((0,0))) 
+
+#covert PIL to numpy
+img_np = np.array(img_pil)
+print(img_np.shape)
+
+#get the pixel value in numpy format
+print(img_np[0,0])
+
+#convert numpy to PIL
+img_pil = Image.fromarray(img_np)
+print(img_pil)
+
+&quot;&quot;&quot;
+&lt;PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=500x889 at 0x193331AD240&gt;
+(219, 210, 193)
+(889, 500, 3)
+[219 210 193]
+&lt;PIL.Image.Image image mode=RGB size=500x889 at 0x1933330ADA0&gt;
+&quot;&quot;&quot;
+</code></pre>
+<p>n o t e note note：</p>
+<ol>
+<li> PIL库读取图像的三通道顺序为RGB，读取图像的宽度( w i d t h width width)和高度( h e i g h t height height)与原始图像一致;</li>
+<li> PIL库与 n u m p y numpy numpy的转化存在细微的差别： n u m p y . a r r a y ( ) numpy.array() numpy.array()会改变PIL对象的宽度和高度信息， I m a g e . f r o m a r r a y ( ) Image.fromarray() Image.fromarray()会重新调整回原始状态；</li>
+<li> PIL访问某一位置的像素值时调用 i m g _ p i l . g e t p i x e l ( ( x , y ) ) img\_pil.getpixel((x,y)) img_pil.getpixel((x,y)), n u m p y numpy numpy为矩阵形式，直接访问 i n d e x index index, i m g _ n p [ x , y ] img\_np[x,y] img_np[x,y]；</li>
+</ol>
+<h5 id="1-2-cv2与numpy间的相互访问"><a href="#1-2-cv2与numpy间的相互访问" class="headerlink" title="1.2 cv2与numpy间的相互访问"></a>1.2 cv2与numpy间的相互访问</h5><pre><code>import numpy as np
+import cv2
+
+#read a image with 3 channels, 500x889 pixels
+img_cv = cv2.imread(&#39;./test.png&#39;)
+#show a image
+cv2.imshow(&#39;img&#39;, img_cv)
+
+#get image imfo
+print(img_cv.shape)
+
+#get the pixel value in cv2 format
+print(img_cv[0,0]) 
+
+#covert cv2 to numpy
+img_np = np.array(img_cv)
+print(img_np.shape)
+
+#get the pixel value in numpy format
+print(img_np[0,0])
+
+#convert numpy to cv2(not necessary)
+cv2.imshow(&#39;img_np&#39;, img_np)
+
+cv2.waitKey(0)
+
+&quot;&quot;&quot;
+(889, 500, 3)
+[193 210 219]
+(889, 500, 3)
+[193 210 219]
+&quot;&quot;&quot;
+</code></pre>
+<p>n o t e note note:</p>
+<ol>
+<li> cv2读取图像的三通道顺序为GBR, 图像的宽度信息和高度信息发生调整；</li>
+<li> cv2访问元素和 n u m p y numpy numpy的方式相同，通过 i n d e x index index直接访问；</li>
+<li> cv2可以直接打开 n u m p y numpy numpy数组( u i n t 8 uint8 uint8);</li>
+<li> 为避免cv2闪退，通常加上 c v 2. w a i t K e y ( ) cv2.waitKey() cv2.waitKey()等待键入才退出;</li>
+</ol>
+<h5 id="1-3-skimg与numpy间的相互访问"><a href="#1-3-skimg与numpy间的相互访问" class="headerlink" title="1.3 skimg与numpy间的相互访问"></a>1.3 skimg与numpy间的相互访问</h5><pre><code>import numpy as np
+from skimage import io, transform
+import matplotlib.pyplot as plt
+
+
+#read a image with 3 channels, 500x889 pixels
+img_sk = io.imread(&#39;./test.png&#39;)
+
+#get image info
+print(img_sk.shape)
+io.imshow(img_sk)
+
+#get the pixel value in skimage format
+print(img_sk[0,0])
+
+#covert skimage to numpy
+img_np = np.array(img_sk)
+print(img_np.shape)
+
+#get the pixel value in numpy format
+print(img_np[0,0])
+
+#convert numpy to skimg
+io.imshow(img_np)
+
+plt.show()
+
+&quot;&quot;&quot;
+(889, 500, 3)
+[219 210 193]
+(889, 500, 3)
+[219 210 193]
+&quot;&quot;&quot;
+</code></pre>
+<p>n o t e note note:</p>
+<ol>
+<li> s k i m a g e skimage skimage库和 c v 2 cv2 cv2比较相似，可以看到结果输出也基本相同，和 n u m p y numpy numpy的转化也比较方便；</li>
+<li> s k i m a g e skimage skimage库无法直接打开图像，需要借助 m a t p l o t l i b . p y p l o t matplotlib.pyplot matplotlib.pyplot，因此 s k i m a g e skimage skimage通常和 p y p l o t pyplot pyplot合并使用用于过程可视化，可以方便画图、画表格；</li>
+</ol>
+<p><strong>综上而言</strong>，PIL库尽可能保持了原始输入的信息，使用方便快捷，此外，PIL库通常还可以与imageio库相互结合做图像预处理；c v 2 v2 v2将图像转化为数组便于对图像的进一步处理； s k i m a g e skimage skimage和 m a t p l l t l i b matplltlib matplltlib相互结合，做图像对比更加方便；</p>
+<h4 id="2-Pytorch读取图像"><a href="#2-Pytorch读取图像" class="headerlink" title="2 Pytorch读取图像"></a>2 Pytorch读取图像</h4><pre><code>torch.utils.data.DataLoader(dataset, batch_size=batch_size,
+                                  shuffle=False, num_workers=8, drop_last=False)
+</code></pre>
+<p>调用 P y t o r c h Pytorch Pytorch的 D a t a L o a d e r DataLoader DataLoader时需要加载 d a t a s e t dataset dataset，此处的 d a t a s e t dataset dataset为自定义的数据，用于输出图像和对应的标签信息，同时对图像做数据增强，此时的数据类型为PIL对象，此处以Standford_car为例（代码来源：<a target="_blank" rel="noopener" href="https://github.com/ZF1044404254/MMAL-Net/blob/master/datasets/dataset.py">sourcecode</a>）：</p>
+<pre><code>class STANFORD_CAR():
+    def __init__(self, input_size, root, is_train=True, data_len=None):
+        self.input_size = input_size
+        self.root = root
+        self.is_train = is_train
+        train_img_path = os.path.join(self.root, &#39;cars_train&#39;)
+        test_img_path = os.path.join(self.root, &#39;cars_test&#39;)
+        train_label_file = open(os.path.join(self.root, &#39;train.txt&#39;))
+        test_label_file = open(os.path.join(self.root, &#39;test.txt&#39;))
+        train_img_label = []
+        test_img_label = []
+        for line in train_label_file:
+            train_img_label.append([os.path.join(train_img_path,
+                                                 line[:-1].split(&#39; &#39;)[0]), 
+                                            int(line[:-1].split(&#39; &#39;)[1])-1])
+        for line in test_label_file:
+            test_img_label.append([os.path.join(test_img_path,
+                                                line[:-1].split(&#39; &#39;)[0]),                                                         int(line[:-1].split(&#39; &#39;)[1])-1])
+        self.train_img_label = train_img_label[:data_len]
+        self.test_img_label = test_img_label[:data_len]
+
+
+    def __getitem__(self, index):
+        if self.is_train:
+            img, target = imageio.imread(self.train_img_label[index][0]),
+                                                self.train_img_label[index][1]
+            if len(img.shape) == 2:
+                img = np.stack([img] * 3, 2)
+            img = Image.fromarray(img, mode=&#39;RGB&#39;)
+
+            img = transforms.Resize((self.input_size, 
+                                     self.input_size), Image.BILINEAR)(img)
+            # img = transforms.RandomResizedCrop(size=self.input_size,
+                                    #scale=(0.4, 0.75),ratio=(0.5,1.5))(img)#
+            # img = transforms.RandomCrop(self.input_size)(img)
+            img = transforms.RandomHorizontalFlip()(img)
+            img = transforms.ColorJitter(brightness=0.2, contrast=0.2)(img)
+
+            img = transforms.ToTensor()(img)
+            img = transforms.Normalize([0.485, 0.456, 0.406], 
+                                       [0.229, 0.224, 0.225])(img)
+
+        else:
+            img, target = imageio.imread(self.test_img_label[index][0]), 
+                                                self.test_img_label[index][1]
+            if len(img.shape) == 2:
+                img = np.stack([img] * 3, 2)
+            img = Image.fromarray(img, mode=&#39;RGB&#39;)
+            img = transforms.Resize((self.input_size, 
+                                     self.input_size), Image.BILINEAR)(img)
+            # img = transforms.CenterCrop(self.input_size)(img)
+            img = transforms.ToTensor()(img)
+            img = transforms.Normalize([0.485, 0.456, 0.406],
+                                           [0.229, 0.224, 0.225])(img)
+        return img, target
+
+    def __len__(self):
+        if self.is_train:
+            return len(self.train_img_label)
+        else:
+            return len(self.test_img_label)
+</code></pre>
+<p>此段代码同时使用了PIL库， n u m p y numpy numpy库，以及相应的 i m a g e i o imageio imageio库进行相应的图像增强。</p>
+
     
 
     
@@ -378,42 +986,11 @@
   <div class="article-info article-info-index">
     
     
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">opencv</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">VScode</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Tensorflow</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Pytorch</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Ubuntu</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
     
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2022/01/10/topics/">展开全文 >></a>
+      <a class="article-more-a" href="/2022/01/19/%E5%9B%BE%E5%83%8F%E8%AF%BB%E5%8F%96%E5%BA%93%E5%90%88%E9%9B%86%E2%80%94%E2%80%94cv2,%20PIL,%20skimage%E4%B8%8Enumpy,%20pytorch(ToPILimage)/">展开全文 >></a>
     </p>
     
 
@@ -443,7 +1020,7 @@
 
 
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-剑指OFFER系列之20----数值字符串" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -451,7 +1028,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2022/01/10/hello-world/" target="_blank">Hello World</a>
+	  <a class="article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B20----%E6%95%B0%E5%80%BC%E5%AD%97%E7%AC%A6%E4%B8%B2/" target="_blank">剑指OFFER系列之20----数值字符串</a>
   
     </h1>
   
@@ -459,8 +1036,8 @@
 
   
   
-<a href="/2022/01/10/hello-world/" class="archive-article-date">
-        <time datetime="2022-01-09T23:48:43.563Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-10</time>
+<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B20----%E6%95%B0%E5%80%BC%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:34.511Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
 </a>
 
   
@@ -472,20 +1049,47 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+    <span id="more"></span>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<h3 id="剑指OFFER"><a href="#剑指OFFER" class="headerlink" title="剑指OFFER"></a>剑指OFFER</h3><blockquote>
+<p>题目描述：设计一个函数判断是否表示数值(包含整数和小数)。如“+100”， “5e2”，“-123”， “3.146”，“-1E-16”等。</p>
+</blockquote>
+<pre><code>class Solution&#123;
+    int i;
+public:
+    bool parseB(string&amp; s)&#123;
+        int temp = i;
+        while(i &lt; s.size() &amp;&amp; s[i] &gt;= &#39;0&#39; &amp;&amp; s[i] &lt;= &#39;9&#39;)&#123;
+            i++;
+        &#125;
+        return i &gt; temp;
+    &#125;
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+    bool parseAndC(string&amp; s)&#123;
+        if(s[i] == &#39;+&#39; || s[i] == &#39;-&#39;)&#123;
+            i++;
+        &#125;
+        return parseB(s);
+    &#125;
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-<figure class="highlight basic"><figcaption><span>command</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo g</span><br><span class="line">$ hexo d</span><br><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+    bool isNumeric(string&amp; s)&#123;
+        if(s.size() == 0)&#123;
+            return false;
+        &#125;
+        i = 0;
+        bool flag = parseAndC(s);
+        if(s[i] == &#39;.&#39;)&#123;
+            i++;
+            flag = flag || parseB(s);
+        &#125;
+        if(s[i] == &#39;e&#39; || s[i] == &#39;E&#39;)&#123;
+            i++;
+            flag = flag &amp;&amp; parseAndC(s);
+        &#125;
+        return flag;
+    &#125;
+&#125;;
+</code></pre>
 
     
 
@@ -501,7 +1105,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2022/01/10/hello-world/">展开全文 >></a>
+      <a class="article-more-a" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B20----%E6%95%B0%E5%80%BC%E5%AD%97%E7%AC%A6%E4%B8%B2/">展开全文 >></a>
     </p>
     
 
@@ -531,6 +1135,994 @@
 
 
   
+    <article id="post-剑指OFFER系列之17----打印n位整数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B17----%E6%89%93%E5%8D%B0n%E4%BD%8D%E6%95%B4%E6%95%B0/" target="_blank">剑指OFFER系列之17----打印n位整数</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B17----%E6%89%93%E5%8D%B0n%E4%BD%8D%E6%95%B4%E6%95%B0/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:34.399Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<h3 id="剑指OFFER"><a href="#剑指OFFER" class="headerlink" title="剑指OFFER"></a>剑指OFFER</h3><blockquote>
+<p>题目描述：输入正整数n,按顺序打印1~n位最大整数。比如输入3，则打印出1,2，3一直到最大的3位整数999。</p>
+</blockquote>
+<pre><code>void printNum(string s)&#123;
+    int i = 0;
+    while(s[i] == &#39;0&#39; &amp;&amp; i &lt; s.size())&#123;
+        i++;
+    &#125;
+    if(i &lt; s.size())&#123;
+        cout &lt;&lt; stoi(s.substr(i)) &lt;&lt; &quot; &quot;;
+    &#125;
+&#125;
+
+void dfs(string&amp; s, int n, int idx)&#123;
+    // end case for idx == n
+    if(idx == n)&#123;
+        printNum(s);
+        break;
+    &#125;
+    // fill s from 00..0 ~ 00...9
+    for(int i = 0; i &lt; 10; i++)&#123;
+        s[idx] = &#39;0&#39; + i;
+        dfs(s, n, idx + 1);
+    &#125;
+&#125;
+void printNum(int n)&#123;
+    // init  s to save n bit nums
+    string s(n, &#39;0&#39;);
+    // dfs to print string nums
+    dfs(s, n, 0);
+&#125;
+</code></pre>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B17----%E6%89%93%E5%8D%B0n%E4%BD%8D%E6%95%B4%E6%95%B0/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-剑指OFFER系列之18----删除重复节点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B18----%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E8%8A%82%E7%82%B9/" target="_blank">剑指OFFER系列之18----删除重复节点</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B18----%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E8%8A%82%E7%82%B9/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:34.339Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<h3 id="剑指OFFER"><a href="#剑指OFFER" class="headerlink" title="剑指OFFER"></a>剑指OFFER</h3><blockquote>
+<p>题目描述：在一个排序的链表中删除重复节点。比如，删除链表 1 -&gt; 2 -&gt; 3 -&gt;3 -&gt; 4 -&gt; 4 -&gt; 5 的重复节点的结果为：1 -&gt; 2 -&gt; 5</p>
+</blockquote>
+<pre><code>ListNode* deleteDuplicate(ListNode* head)&#123;
+    ListNode* dummy = new ListNode(-1);
+    ListNode* ans = dummy;
+    dummy -&gt; next = head;
+    ListNode* cur = head -&gt; next;
+    while(cur)&#123;
+        if(dummy -&gt; next -&gt; val == cur -&gt; val)&#123;
+            while(dummy -&gt; next -&gt; val == cur -&gt; val)&#123;
+                cur = cur -&gt; next;
+                if(!cur)&#123;
+                    dummy -&gt; next = cur;
+                    return ans -&gt; next;
+                &#125;
+            &#125;
+            dummy -&gt; next = cur;
+            cur = cur -&gt; next;
+        &#125;else&#123;
+            dummy = dummy -&gt; next;
+            cur = cur -&gt; next;
+        &#125;
+    &#125;
+    return ans -&gt; next;
+&#125;
+</code></pre>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B18----%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E8%8A%82%E7%82%B9/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-剑指OFFER系列之12----矩阵中的路径" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B12----%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/" target="_blank">剑指OFFER系列之12----矩阵中的路径</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B12----%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:34.291Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<h3 id="剑指OFFER"><a href="#剑指OFFER" class="headerlink" title="剑指OFFER"></a>剑指OFFER</h3><blockquote>
+<p>题目描述：设计一个函数判断一个矩阵是否存在一条包含某字符串的所有字符的路径。</p>
+</blockquote>
+<pre><code>bool hasPath(vector&lt;vector&lt;char&gt;&gt;&amp; matrix, int i, int j, string s, int idx, vector&lt;vector&lt;int&gt;&gt;&amp; visited)&#123;
+        if(idx == s.size())&#123;
+            return true;
+        &#125;
+        int rows = matrix.size();
+        int cols = matrix[0].size();
+        if(i &gt;= rows || i &lt; 0 || j &gt;= cols || j &lt; 0)&#123;
+            return false;
+        &#125;
+        if(visited[i][j] == 1 || matrix[i][j] != s[idx])&#123;
+            return false;
+        &#125;
+        visited[i][j] = 1;
+        bool flag = hasPath(matrix, i+1, j, s, idx+1, visited);
+        flag = flag || hasPath(matrix, i, j+1, s, idx+1, visited);
+        flag = flag || hasPath(matrix, i-1, j, s, idx+1, visited);
+        flag = flag || hasPath(matrix, i, j-1, s, idx+1, visited);
+        if(flag)&#123;
+            return true;
+        &#125;
+        visited[i][j] = 0;
+        return false;
+    &#125;
+
+    bool matrixPath(vector&lt;vector&lt;char&gt;&gt;&amp; matrix, string s)&#123;
+        int rows = matrix.size();
+        int cols = matrix[0].size();
+        vector&lt;vector&lt;int&gt;&gt; visited(rows, vector&lt;int&gt;(cols, 0));
+        for(int i = 0; i &lt; rows; i++)&#123;
+            for(int j = 0; j &lt; cols; j++)&#123;
+                if(hasPath(matrix, i, j, s, 0, visited))&#123;
+                    return true;
+                &#125;
+            &#125;
+        &#125;
+        return false;
+    &#125;;
+&#125;;
+</code></pre>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B12----%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-剑指OFFER系列之25----合并两个排序链表（拓展：合并K个链表）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B25----%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%EF%BC%88%E6%8B%93%E5%B1%95%EF%BC%9A%E5%90%88%E5%B9%B6K%E4%B8%AA%E9%93%BE%E8%A1%A8%EF%BC%89/" target="_blank">剑指OFFER系列之25----合并两个排序链表（拓展：合并K个链表）</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B25----%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%EF%BC%88%E6%8B%93%E5%B1%95%EF%BC%9A%E5%90%88%E5%B9%B6K%E4%B8%AA%E9%93%BE%E8%A1%A8%EF%BC%89/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:34.223Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<h3 id="剑指OFFER"><a href="#剑指OFFER" class="headerlink" title="剑指OFFER"></a>剑指OFFER</h3><blockquote>
+<p>题目描述：输入两个有序链表，合并两个链表使新的链表仍然是增序链表。</p>
+</blockquote>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;string&gt;
+#include&lt;vector&gt;
+#include&lt;map&gt;
+#include&lt;algorithm&gt;
+#include&lt;climits&gt;
+/*
+ *merge to sorted list
+ * */
+using namespace std;
+
+struct ListNode&#123;
+    int val;
+    ListNode* next;
+    ListNode():val(0), next(nullptr)&#123;&#125;
+    ListNode(int x):val(x), next(nullptr)&#123;&#125;
+&#125;;
+
+ListNode* readData()&#123;
+    cout &lt;&lt; &quot;enter list: &quot;;
+    int val;
+    cin &gt;&gt; val;
+    ListNode* head = new ListNode(val);
+    ListNode* cur = head;
+    while(cin.get() != &#39;\n&#39;)&#123;
+        cin &gt;&gt; val;
+        ListNode* temp = new ListNode(val);
+        cur -&gt; next = temp;
+        cur = temp;
+    &#125;
+    return head;
+&#125;
+
+void showList(string s, ListNode* head)&#123;
+    cout &lt;&lt; s &lt;&lt; endl;
+    ListNode* cur = head;
+    while(cur)&#123;
+        cout &lt;&lt; cur -&gt; val &lt;&lt; &quot; -&gt; &quot;;
+        cur = cur -&gt; next;
+    &#125;
+    cout &lt;&lt; &quot;null&quot; &lt;&lt; endl;
+&#125;
+
+ListNode* mergeTwo(ListNode* l1, ListNode* l2)&#123;
+    if(!l1)&#123;
+        return l2;
+    &#125;
+    if(!l2)&#123;
+        return l1;
+    &#125;
+    if(l1 -&gt; val &lt; l2 -&gt; val)&#123;
+        l1 -&gt; next = mergeTwo(l1 -&gt; next, l2);
+        return l1;
+    &#125;
+    l2 -&gt; next = mergeTwo(l1, l2 -&gt; next);
+    return l2;
+&#125;
+// add merge K list method based on mergeTwo with divide-and-conquer algorithm
+ListNode* mergeKList(vector&lt;ListNode*&gt;&amp; lists)&#123;
+    if(lists.size() == 0)&#123;
+        return nullptr;
+    &#125;
+    if(lists.size() == 1)&#123;
+        return lists[0];
+    &#125;
+    vector&lt;ListNode*&gt; list2;
+    for(int i = 0; i &lt; lists.size() / 2; i++)&#123;
+        list2.push_back(lists.back());
+        lists.pop_back();
+    &#125;
+    return mergeTwo(mergeKList(lists), mergeKList(list2));
+&#125;
+void utils()&#123;
+    cout &lt;&lt; &quot;enter num of lists : &quot;;
+    int n;
+    cin &gt;&gt; n;
+    vector&lt;ListNode*&gt; lists;
+    for(int i = 0; i &lt; n; i++)&#123;
+        ListNode* node = readData();
+        lists.push_back(node);
+    &#125;
+    ListNode* ans = mergeKList(lists);
+    showList(&quot;ans : &quot;, ans);
+&#125;
+int main()&#123;
+    utils();
+    return 0;
+&#125;
+</code></pre>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B25----%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%EF%BC%88%E6%8B%93%E5%B1%95%EF%BC%9A%E5%90%88%E5%B9%B6K%E4%B8%AA%E9%93%BE%E8%A1%A8%EF%BC%89/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-剑指OFFER系列之36----二叉搜索树与双向链表" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B36----%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/" target="_blank">剑指OFFER系列之36----二叉搜索树与双向链表</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B36----%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:34.155Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<h3 id="剑指OFFER"><a href="#剑指OFFER" class="headerlink" title="剑指OFFER"></a>剑指OFFER</h3><blockquote>
+<p>题目描述：输入一颗二叉搜索树，将该二叉搜索树转换为一个排序的双向链表。</p>
+</blockquote>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;string&gt;
+#include&lt;vector&gt;
+#include&lt;map&gt;
+#include&lt;algorithm&gt;
+#include&lt;climits&gt;
+
+using namespace std;
+
+struct TreeNode&#123;
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+
+    TreeNode(): val(-1), left(nullptr), right(nullptr)&#123;&#125;
+    TreeNode(int x): val(x), left(nullptr), right(nullptr)&#123;&#125;
+&#125;;
+
+void convertNode(TreeNode* root, TreeNode** biList)&#123;
+    if(!root)&#123;
+        return;
+    &#125;
+    TreeNode* cur = root;
+    if(cur -&gt; left)&#123;
+        convertNode(cur -&gt; left, biList);
+    &#125;
+    cur -&gt; left = *biList;
+    if(*biList)&#123;
+        (*biList) -&gt; right = cur;
+    &#125;
+    *biList = cur;
+    if(cur -&gt; right)&#123;
+        convertNode(cur -&gt; right, biList);
+    &#125;
+&#125;
+
+TreeNode* convert(TreeNode* root)&#123;
+    TreeNode* biList = nullptr;
+    convertNode(root, &amp;biList);
+    TreeNode* biHead = biList;
+    while(biHead &amp;&amp; biHead -&gt; left)&#123;
+        biHead = biHead -&gt; left;
+    &#125;
+    return biHead;
+&#125;
+
+void buildTree(TreeNode* n1, TreeNode* n2, TreeNode* n3)&#123;
+    if(n1)&#123;
+        n1 -&gt; left = n2;
+        n1 -&gt; right = n3;
+    &#125;
+&#125;
+
+void showNode(TreeNode* node)&#123;
+    if(!node)&#123;
+        cout &lt;&lt;&quot; -&gt; null &quot;;
+    &#125;else&#123;
+        if(node -&gt; left)&#123;
+            cout &lt;&lt; node -&gt; left -&gt; val;
+        &#125;else&#123;
+            cout &lt;&lt; &quot;null &quot;;
+        &#125;
+        cout &lt;&lt; &quot; &lt;- &quot; &lt;&lt; node -&gt; val &lt;&lt;  &quot; -&gt; &quot;;
+        if(node -&gt; right)&#123;
+            cout &lt;&lt;  node -&gt; right -&gt; val;
+        &#125;else&#123;
+            cout &lt;&lt; &quot;null&quot;;
+        &#125;
+    &#125;
+    cout &lt;&lt; endl;
+&#125;
+
+void showTree(TreeNode* root)&#123;
+    showNode(root);
+    if(root)&#123;
+        if(root -&gt; left)&#123;
+            showNode(root -&gt; left);
+        &#125;    
+        if(root -&gt; right)&#123;
+            showNode(root -&gt; right);
+        &#125;
+    &#125;
+&#125;
+
+void showList(TreeNode* biHead)&#123;
+    TreeNode* cur = biHead;
+    cout &lt;&lt; &quot;from left to right: &quot;;
+    while(cur)&#123;
+        cout &lt;&lt; cur -&gt; val &lt;&lt; &quot; -&gt; &quot;;
+        if(!cur -&gt; right)&#123;
+            break;
+        &#125;
+        cur = cur -&gt; right;
+    &#125;
+    cout &lt;&lt; &quot;null&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;from right to left: &quot;;
+    while(cur)&#123;
+        cout &lt;&lt; cur -&gt; val &lt;&lt; &quot; -&gt; &quot;;
+        if(!cur -&gt; left)&#123;
+            break;
+        &#125;
+        cur = cur -&gt; left;
+    &#125;
+    cout&lt;&lt; &quot;null&quot; &lt;&lt; endl;
+&#125;
+
+void utils()&#123;
+    TreeNode* node1 = new TreeNode(10);
+    TreeNode* node2 = new TreeNode(6);
+    TreeNode* node3 = new TreeNode(14);
+    TreeNode* node4 = new TreeNode(4);
+    TreeNode* node5 = new TreeNode(8);
+    TreeNode* node6 = new TreeNode(12);
+    TreeNode* node7 = new TreeNode(16);
+
+    buildTree(node1, node2, node3);
+    buildTree(node2, node4, node5);
+    buildTree(node3, node6, node7);
+    
+    cout &lt;&lt; &quot;input : &quot; &lt;&lt; endl;
+    showTree(node1);
+
+    cout &lt;&lt; &quot;output : &quot; &lt;&lt; endl;
+    TreeNode* ans = convert(node1);
+    showList(ans);
+&#125;
+
+int main()&#123;
+    utils();
+    return 0;
+&#125;
+</code></pre>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B36----%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-剑指OFFER系列之31----栈的压入和弹出序列" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B31----%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%92%8C%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/" target="_blank">剑指OFFER系列之31----栈的压入和弹出序列</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B31----%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%92%8C%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:34.059Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<h3 id="剑指OFFER"><a href="#剑指OFFER" class="headerlink" title="剑指OFFER"></a>剑指OFFER</h3><blockquote>
+<p>题目描述：输入两个整数序列，第一个序列表示栈的压入序列，判断第二个序列是否为栈的出栈序列。</p>
+</blockquote>
+<pre><code>bool isPopOrder(vector&lt;int&gt;&amp; in, vector&lt;int&gt;&amp; out)&#123;
+    stack&lt;int&gt; s;
+    int n = in.size(), idx = 0;
+    for(int i = 0; i &lt; n; i++)&#123;
+        s.push(in[i]);
+        while(!s.empty() &amp;&amp; s.top() == out[idx])&#123;
+            s.pop();
+            idx++;
+        &#125;
+    &#125;
+    return idx == n ? true : false;
+&#125;
+</code></pre>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B31----%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%92%8C%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-剑指OFFER系列之40----最小的K个数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B40----%E6%9C%80%E5%B0%8F%E7%9A%84K%E4%B8%AA%E6%95%B0/" target="_blank">剑指OFFER系列之40----最小的K个数</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B40----%E6%9C%80%E5%B0%8F%E7%9A%84K%E4%B8%AA%E6%95%B0/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:34.027Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<h3 id="剑指OFFER"><a href="#剑指OFFER" class="headerlink" title="剑指OFFER"></a>剑指OFFER</h3><blockquote>
+<p>题目描述：输入n个整数，找出最小的k个数。</p>
+</blockquote>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;string&gt;
+#include&lt;vector&gt;
+#include&lt;map&gt;
+#include&lt;algorithm&gt;
+#include&lt;climits&gt;
+#include&lt;queue&gt;
+
+using namespace std;
+
+
+// method 1 : priority_queue
+vector&lt;int&gt; getLeastNums(vector&lt;int&gt;&amp; nums, int k)&#123;
+    if(k == 0 || nums.size() &lt;= k)&#123;
+        return nums;
+    &#125;
+    vector&lt;int&gt; ans;
+    priority_queue&lt;int&gt; q;
+    for(int i = 0; i &lt; k; i++)&#123;
+        q.push(nums[i]);
+    &#125;
+    for(int i = k; i &lt; nums.size(); i++)&#123;
+        if(q.top() &gt; nums[i])&#123;
+            q.pop();
+            q.push(nums[i]);
+        &#125;
+    &#125;
+    for(int i = 0; i &lt; k; i++)&#123;
+        ans.push_back(q.top());
+        q.pop();
+    &#125;
+    return ans;
+&#125;
+
+int partion(vector&lt;int&gt;&amp;nums, int left, int right)&#123;
+    int idx = left;
+    int key = nums[left];
+    for(int i = left + 1; i &lt;= right; i++)&#123;
+        if(nums[i] &lt; key)&#123;
+            idx++;
+            swap(nums[i], nums[idx]);
+        &#125;
+    &#125;
+    swap(nums[left], nums[idx]);
+    return idx;
+&#125;
+
+
+void quickSort(vector&lt;int&gt;&amp; nums, int left, int right, int k)&#123;
+    int idx = partion(nums, left, right);
+    if(idx == k)&#123;
+        return;
+    &#125;else if(idx &lt; k)&#123;
+        quickSort(nums, idx + 1, right, k);
+    &#125;else&#123;
+        quickSort(nums, left, idx - 1, k);
+    &#125;
+&#125;
+
+// method 2 : quickSort
+vector&lt;int&gt; getLeastNumsII(vector&lt;int&gt;&amp; nums, int k)&#123;
+    if(k == 0 || nums.size() &lt;= k)&#123;
+        return nums;
+    &#125;
+    vector&lt;int&gt; ans;
+    quickSort(nums, 0, nums.size() - 1, k);
+    for(int i = 0; i &lt; k; i++)&#123;
+        ans.push_back(nums[i]);
+    &#125;
+    return ans;
+&#125;
+
+
+void showVector(string s, vector&lt;int&gt;&amp; nums)&#123;
+    cout &lt;&lt; s &lt;&lt; endl;
+    for(auto i : nums)&#123;
+        cout &lt;&lt; i &lt;&lt; &quot; &quot;;
+    &#125;
+    cout &lt;&lt; endl;
+&#125;
+
+void utils()&#123;
+    vector&lt;int&gt; nums;
+    int val, k;
+    cout &lt;&lt; &quot;enter nums: &quot;;
+    cin &gt;&gt; val;
+    nums.push_back(val);
+    while(cin.get() != &#39;\n&#39;)&#123;
+        cin &gt;&gt; val;
+        nums.push_back(val);
+    &#125;
+    showVector(&quot;input: &quot;, nums);
+    cout &lt;&lt; &quot;enter k: &quot;;
+    cin &gt;&gt; k;
+    vector&lt;int&gt; ans = getLeastNums(nums, k);
+    showVector(&quot;output: &quot;, ans);
+    ans = getLeastNumsII(nums, k);
+    showVector(&quot;outputII: &quot;, ans);
+&#125;
+
+int main()&#123;
+    utils();
+    return 0;
+&#125;
+</code></pre>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B40----%E6%9C%80%E5%B0%8F%E7%9A%84K%E4%B8%AA%E6%95%B0/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+    </nav>
   
 
 

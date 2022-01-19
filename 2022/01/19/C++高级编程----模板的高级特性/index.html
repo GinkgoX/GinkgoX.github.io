@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2022 | Maxwell</title>
+  <title>C++高级编程----模板的高级特性 | Maxwell</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="This is my public web page">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Maxwell">
-<meta property="og:url" content="http://example.com/archives/2022/index.html">
+  <meta name="description" content="题目要求：假设有一个Grid类，定义了一个网格的的大小（mWidth, mHeight），每个网格对于一个值（value）,这个值可能是int,double,string等类型；存储整个网格的数据结构可以是vector,可以是deque，可以提供默认初始值；可以支持二维、三维拓展；对于其中的一些函数，希望支持变长参数控制，支持元组类型的打印控制；  分析：1）支持Grid&lt;int, ve">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++高级编程----模板的高级特性">
+<meta property="og:url" content="http://example.com/2022/01/19/C++%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B----%E6%A8%A1%E6%9D%BF%E7%9A%84%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/index.html">
 <meta property="og:site_name" content="Maxwell">
-<meta property="og:description" content="This is my public web page">
+<meta property="og:description" content="题目要求：假设有一个Grid类，定义了一个网格的的大小（mWidth, mHeight），每个网格对于一个值（value）,这个值可能是int,double,string等类型；存储整个网格的数据结构可以是vector,可以是deque，可以提供默认初始值；可以支持二维、三维拓展；对于其中的一些函数，希望支持变长参数控制，支持元组类型的打印控制；  分析：1）支持Grid&lt;int, ve">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-01-19T14:59:32.975Z">
+<meta property="article:modified_time" content="2022-01-19T15:01:36.558Z">
 <meta property="article:author" content="Max well">
 <meta property="article:tag" content="C++, deep learning, machine learning">
 <meta name="twitter:card" content="summary">
@@ -214,346 +216,604 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-C++高级编程----模板的高级特性" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/Pytorch%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:35.191Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/Pytorch%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/" target="_blank">Pytorch学习基础——损失函数</a>
   
+    <h1 class="article-title" itemprop="name">
+      C++高级编程----模板的高级特性
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%9B%BE%E5%83%8F%E8%AF%BB%E5%8F%96%E5%BA%93%E5%90%88%E9%9B%86%E2%80%94%E2%80%94cv2,%20PIL,%20skimage%E4%B8%8Enumpy,%20pytorch(ToPILimage)/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.855Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2022/01/19/C++%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B----%E6%A8%A1%E6%9D%BF%E7%9A%84%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/" class="archive-article-date">
+        <time datetime="2022-01-19T14:59:32.975Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
 </a>
 
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">2k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">11分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<p>题目要求：假设有一个Grid类，定义了一个网格的的大小（mWidth, mHeight），每个网格对于一个值（value）,这个值可能是int,double,string等类型；存储整个网格的数据结构可以是vector,可以是deque，可以提供默认初始值；可以支持二维、三维拓展；对于其中的一些函数，希望支持变长参数控制，支持元组类型的打印控制；</p>
+<blockquote>
+<p>分析：<br>1）支持Grid&lt;int, vector&gt;, Grid&lt;int, deque&gt;, Grid，容器模板类编程支持vector、deque和默认为vector，定义temple&lt;typename T, typename Container = std::vector&gt;，支持简化版Grid&lt;int, vector&gt;，定义template&lt;typename T, template&lt;typename E, typename Allocator = std::allocator&gt; class Container = std::vector&gt;；</p>
+<p>2）支持Grid默认填充0，Grid&lt;int, 10&gt;默认填充10,支持Grid&lt;classA, objA&gt;定义 template&lt;typename T, const T&amp; DEFAULT&gt;</p>
+<p>3）支持多维数据Grid[x][y] = z,Grid[i][j][k] = r等,定义循环递归类NDGrid&lt;typename T, size_t N-1&gt;,定义基本条件(模板特例化)：template class NDGrid&lt;T, 1&gt;;<br>4) 变长参数控制函数processValue(1, 2, 3.56, “test”, 1.1f)，考虑非const引用和左值引用，设计template&lt;typename T1, typename … Tn&gt; + std::forward(args…)方法；</p>
+<p>5）支持打印auto t1 = make_tuple(1, 2, 3.56, “test”, 1.1f); tuple_print(t1)，打印元组，定义tuple_print_helper&lt;n - 1, TupleType&gt; tp(t)和tuple_print_helper&lt;0, TupleType&gt;类递归打印元组各个值</p>
+</blockquote>
+<p>方法实现和测试<br>分析1：实现容器模板和默认容器填充、容器Allocator</p>
+<pre><code>// case 1:
+/*
+@File          :grid.h
+@Description:  :template gird support vector/dequeue container
+@Date          :2021/12/04 15:22:35
+@Author        :    
+@version       :1.0
+*/
+#pragma once
+#include&lt;vector&gt;
+
+// 1: basic version: 
+// template&lt;typename T, typename Container&gt;
+// 2:  template defalut, add default container for Grid class
+// template&lt;typename T, typename Container = std::vector&lt;T&gt;&gt;
+// 3: template template, support Grid&lt;int, vector&gt;, not only Grid&lt;int, vector&lt;int&gt;&gt;
+template&lt;typename T, template&lt;typename E, typename Allocator = std::allocator&lt;E&gt;&gt; class Container = std::vector&gt;
+class Grid&#123;
+   public:
+       // constructor
+       explicit Grid(size_t inWidth= kDefaultWidth, size_t inHeight = kDefaultHeight);
+       
+       // set value at (x, y)
+       void setElement(size_t x, size_t y, const T&amp; inElem);
+       
+       // get value at (x, y)
+       T&amp; getElement(size_t x, size_t y);
+       const T&amp; getElement(size_t x, size_t y) const;
+       
+       // get grid size with width and height
+       size_t getWidth() const&#123;return mWidth;&#125;
+       size_t getHeight() const&#123;return mHeight;&#125;
+
+       // set default size
+       static const size_t kDefaultWidth = 10;
+       static const size_t kDefaultHeight = 10;
+
+   private:
+   void initalizeCellsContainer();
+   // 2: std::vector&lt;Container&gt; mCells
+   std::vector&lt;Container&lt;T&gt;&gt; mCells;
+   size_t mWidth, mHeight;
+&#125;;
+// 2: template defalut
+// template&lt;typename T, typename Container&gt;
+
+// 3: template parmeter for template
+template&lt;typename T, template&lt;typename E, typename Allocator = std::allocator&lt;E&gt;&gt; class Container&gt;
+Grid&lt;T, Container&gt;::Grid(size_t inWidth, size_t inHeight):mWidth(inWidth), mHeight(inHeight)&#123;
+   initalizeCellsContainer();
+&#125;
+
+template&lt;typename T, template&lt;typename E, typename Allocator = std::allocator&lt;E&gt;&gt; class Container&gt;
+void Grid&lt;T, Container&gt;::setElement(size_t x, size_t y, const T&amp; inElem)&#123;
+    /*
+    @description  : set element at (x, y) with value inElem 
+    @param  : location (x, y)
+    @Returns  : None 
+    */
+    mCells[x][y] = inElem;
+&#125;
+
+template&lt;typename T, template&lt;typename E, typename Allocator = std::allocator&lt;E&gt;&gt; class Container&gt;
+T&amp; Grid&lt;T, Container&gt;::getElement(size_t x, size_t y)&#123;
+   /*
+   @description  : get element at (x, y)
+   @param  : location (x, y)
+   @Returns  : value at (x, y)
+   */
+   return mCells[x][y];
+&#125;
+
+template&lt;typename T, template&lt;typename E, typename Allocator = std::allocator&lt;E&gt;&gt; class Container&gt;
+const T&amp; Grid&lt;T, Container&gt;::getElement(size_t x, size_t y) const&#123;
+   /*
+   @description  : get const version element at (x, y) 
+   @param  : location (x, y)
+   @Returns  : const value at (x, y)
+   */
+   return mCells[x][y];
+&#125;
+
+template&lt;typename T, template&lt;typename E, typename Allocator = std::allocator&lt;E&gt;&gt; class Container&gt;
+void Grid&lt;T, Container&gt;::initalizeCellsContainer()&#123;
+   /*
+   @description  : initalize cells container helper to resize container 
+   @param  : None
+   @Returns  : None
+   */
+   mCells.resize(mWidth);
+   for(auto&amp; col : mCells)&#123;
+       col.resize(mHeight);
+   &#125;
+&#125;
+
+// main /
+
+#include&lt;iostream&gt;
+#include&lt;vector&gt;
+#include&lt;deque&gt;
+
+#include&quot;gridContainer.h&quot;
+
+using namespace std;
+
+int main()&#123;
+   // ----------------- test case 1 --------------------------//
+   // // Grid&lt;T, Constainer&gt;
+   // Grid&lt;int, vector&lt;int&gt;&gt; myVectorGrid;
+   // Grid&lt;int, deque&lt;int&gt;&gt; myDequeGrid;
+   
+   // myVectorGrid.setElement(1, 2, 3);
+   // cout &lt;&lt; myVectorGrid.getElement(1, 2) &lt;&lt; endl;
+
+   // myDequeGrid.setElement(0, 0, 3);
+   // cout &lt;&lt; myDequeGrid.getElement(0, 0) &lt;&lt; endl;
+   // Grid&lt;int, vector&lt;int&gt;&gt; myVectorGrid2(myVectorGrid);
+   // cout &lt;&lt; myVectorGrid2.getElement(1,2);
+
+   //error type: Grid&lt;int, int&gt; since the second template typename does not have the method resize() in initalizeCellsContainer()
+   
+   // ----------------- test case 2 --------------------------//
+   Grid&lt;int&gt; myVectorDefault;  //Grid&lt;int, vector&lt;int&gt;&gt; 
+
+   // ----------------- test case 3 --------------------------//
+   Grid&lt;int, vector&gt; myVectorGrid;
+   myVectorGrid.setElement(1, 2, 3);
+   cout &lt;&lt; myVectorGrid.getElement(1, 2) &lt;&lt; endl;
+
+   return 0;
+&#125;
+</code></pre>
+<p>分析2：实现默认值填充</p>
+<pre><code>#pragma once
+#include&lt;vector&gt;
+
+// non-typename only support: int, enum, pointer, reference
+// template&lt;typename T, const T DEFAULT = T()&gt;
+// reference template for other class
+template&lt;typename T, const T&amp; DEFAULT&gt;
+class Grid&#123;
+    public:
+        explicit Grid(size_t inWidth = kDefaultWidht, size_t inHeight = kDefaultHeight);
+
+        // setter
+        void setElement(size_t x, size_t y, const T&amp; inElem);
+
+        // getter
+        T&amp; getElement(size_t x, size_t y);
+        const T&amp; getElement(size_t x, size_t y) const;
+
+        size_t getWidth() const &#123;return mWidth;&#125;
+        size_t getHeight() const &#123;return mHeight;&#125;
+
+        static const size_t kDefaultWidht = 10;
+        static const size_t kDefaultHeight = 10;
+    private:
+        size_t mWidth;
+        size_t mHeight;
+        std::vector&lt;std::vector&lt;T&gt;&gt; mCells;
+        void initalizeCellsContainer();
+&#125;;
+
+template&lt;typename T, const T&amp; DEFAULT&gt;
+Grid&lt;T, DEFAULT&gt;::Grid(size_t inWidth, size_t inHeight):mWidth(inWidth), mHeight(inHeight)&#123;
+    initalizeCellsContainer();
+&#125;
+
+template&lt;typename T, const T&amp; DEFAULT&gt;
+void Grid&lt;T, DEFAULT&gt;::setElement(size_t x, size_t y, const T&amp; inElem)&#123;
+    mCells[x][y] = inElem;
+&#125;
+
+template&lt;typename T, const T&amp; DEFAULT&gt;
+T&amp; Grid&lt;T, DEFAULT&gt;::getElement(size_t x, size_t y)&#123;
+    return mCells[x][y];
+&#125;
+
+template&lt;typename T, const T&amp; DEFAULT&gt;
+const T&amp; Grid&lt;T, DEFAULT&gt;::getElement(size_t x, size_t y) const&#123;
+    return mCells[x][y];
+&#125;
+
+template&lt;typename T, const T&amp; DEFAULT&gt;
+void Grid&lt;T, DEFAULT&gt;::initalizeCellsContainer()&#123;
+    mCells.resize(mWidth);
+    for(auto&amp; col:mCells)&#123;
+        col.resize(mHeight);
+        for(auto&amp; elem:col)&#123;
+            elem = DEFAULT;
+        &#125;
+    &#125;
+&#125;
+/main/
+#include&lt;iostream&gt;
+#include&lt;vector&gt;
+#include&quot;girdElement.h&quot;
+#include&quot;SpreadsheetCell.h&quot;
+
+using namespace std;
+
+namespace&#123;
+    const int defaultInt = 11;
+    SpreadsheetCell defaultCell(1.2);
+&#125;
+
+// the second reference template must be const express, static inner or outter complete object
+// so add namespace for const default for save
+
+int main()&#123;
+    // --------------- test default -----------------------//
+    // Grid&lt;int&gt; myDefaultGrid;
+    // Grid&lt;int, 10&gt; myDefaultGrid2;
+    // cout &lt;&lt; myDefaultGrid.getElement(0, 0) &lt;&lt; endl;
+    // cout &lt;&lt; myDefaultGrid2.getElement(0, 0) &lt;&lt; endl;
+    // error support: Grid(class, obj)
+
+    // ----------- test reference template ----------------//
+    Grid&lt;int, defaultInt&gt; myIntGrid;
+    cout &lt;&lt; myIntGrid.getElement(0, 0) &lt;&lt; endl;
+    Grid&lt;SpreadsheetCell, defaultCell&gt; mySpreadsheet;
+    
+    return 0;
+&#125;
+</code></pre>
+<p>分析3：多维Grid实现</p>
+<pre><code>#pragma once
+
+#include&lt;vector&gt;
+
+template&lt;typename T, size_t N&gt;
+class NDGrid&#123;
+    public:
+        // constructor
+        explicit NDGrid(size_t inSize = kDefaultSize) &#123;resize(inSize);&#125;;
+        
+        // operator
+        NDGrid&lt;T, N-1&gt;&amp; operator[](size_t x) &#123;return mElems[x];&#125;;
+        const NDGrid&lt;T, N-1&gt;&amp; operator[](size_t x) const &#123;return mElems[x];&#125;;
+
+        void resize(size_t newSize) &#123;mElems.resize(newSize);&#125;;
+        size_t getSize() const &#123;return mElems.size();&#125;;
+        static const size_t kDefaultSize = 10;
+    private:
+        std::vector&lt;NDGrid&lt;T, N-1&gt;&gt; mElems;
+&#125;;
+
+template&lt;typename T&gt;
+class NDGrid&lt;T, 1&gt;&#123;
+    public:
+        explicit NDGrid(size_t inSize = kDefaultSize) &#123;resize(inSize);&#125;;
+        
+        // operator
+        T&amp; operator[](size_t x) &#123;return mElems[x];&#125;;
+        const T&amp; operator[](size_t x) const &#123;return mElems[x];&#125;;
+
+        void resize(size_t newSize) &#123;mElems.resize(newSize);&#125;;
+        size_t getSize() const &#123;return mElems.size();&#125;;
+        static const size_t kDefaultSize = 10;
+    private:
+        std::vector&lt;T&gt; mElems;
+&#125;;
+
+ main /
+#include&lt;iostream&gt;
+#include&lt;vector&gt;
+#include&quot;nDGrid.h&quot;
+
+using namespace std;
+
+int main()&#123;
+
+    NDGrid&lt;int, 3&gt; threeDim(3);
+    threeDim[0][0][0] = 1;
+    return 0;
+&#125;
+</code></pre>
+<p>分析4：变长参数控制与解析</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;string&gt;
+
+using namespace std;
+
+void handleValue(int value)&#123;
+    cout &lt;&lt; &quot;Interger: &quot; &lt;&lt; value &lt;&lt; endl;
+&#125;
+
+void handleValue(double value)&#123;
+    cout &lt;&lt; &quot;Double: &quot; &lt;&lt; value &lt;&lt; endl;
+&#125;
+
+void handleValue(const string&amp; value)&#123;
+    cout &lt;&lt; &quot;String: &quot; &lt;&lt; value &lt;&lt; endl;
+&#125;
+
+template&lt;typename T&gt;
+void processValue(T arg)&#123;
+    handleValue(arg);
+&#125;
+
+template&lt;typename T1, typename ... Tn&gt;
+void processValue(T1 arg1, Tn ... argn)&#123;
+    handleValue(arg1);
+    processValue(argn...);
+&#125;
+
+// non-const reference with std::forward() to imporve performence
+template&lt;typename T&gt;
+void processValueII(T&amp;&amp; arg)&#123;
+    handleValue(std::forward&lt;T&gt;(arg));
+&#125;
+
+template&lt;typename T1, typename ... Tn&gt;
+void processValueII(T1 arg1, Tn ... argn)&#123;
+    handleValue(arg1);
+    processValueII(std::forward&lt;Tn&gt;(argn)...);
+&#125;
+int main()&#123;
+    processValue(1, 2, 3.56, &quot;test&quot;, 1.1f);
+    cout &lt;&lt; endl;
+    processValueII(1, 2, 3.56, &quot;test&quot;, 1.1f);
+    return 0;
+&#125;
+</code></pre>
+<p>分析5：元组值输出 （元编程：在编译时完成计算，而不是运行时完成。由于元组是在编译时完成，因此可以通过模板类实现编译时遍历操作)</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;tuple&gt; 
+
+using namespace std;
+
+template&lt;int n, typename TupleType&gt;
+class tuple_print_helper
+&#123;
+public:
+    tuple_print_helper(const TupleType&amp; t) &#123;
+        tuple_print_helper&lt;n - 1, TupleType&gt; tp(t);
+        cout &lt;&lt; get&lt;n - 1&gt;(t) &lt;&lt; endl;
+    &#125;
+&#125;;
+
+template&lt;typename TupleType&gt;
+class tuple_print_helper&lt;0, TupleType&gt;
+&#123;
+public:
+    tuple_print_helper(const TupleType&amp;) &#123; &#125;
+&#125;;
+
+template&lt;typename T&gt;
+void tuple_print(const T&amp; t)
+&#123;
+    tuple_print_helper&lt;tuple_size&lt;T&gt;::value, T&gt; tph(t);
+&#125;
+
+int main()
+&#123;
+    auto t1 = make_tuple(1, 2, 3.56, &quot;test&quot;, 1.1f);
+    tuple_print(t1);
+
+    return 0;
+&#125;
+</code></pre>
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  
+                </div>
+              </span>
+            </span>
+          </span>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%9B%BE%E5%83%8F%E8%AF%BB%E5%8F%96%E5%BA%93%E5%90%88%E9%9B%86%E2%80%94%E2%80%94cv2,%20PIL,%20skimage%E4%B8%8Enumpy,%20pytorch(ToPILimage)/" target="_blank">图像读取库合集——cv2, PIL, skimage与numpy, pytorch(ToPILimage)</a>
-  
-    </h1>
-  
+      </a>
+    </div>
+    
 
-
-        <div class="article-info info-on-right">
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          Max well
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="http://example.com/2022/01/19/C++高级编程----模板的高级特性/" title="C++高级编程----模板的高级特性" target="_blank">http://example.com/2022/01/19/C++高级编程----模板的高级特性/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
-          
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
 
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/01/19/C++%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B----%E6%A8%A1%E6%9D%BF%E7%9A%84%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B20----%E6%95%B0%E5%80%BC%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.511Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
 
+
+<nav id="article-nav">
+  
+    <a href="/2022/01/19/VSCode%E9%85%8D%E7%BD%AE%E4%B9%8BOpencv4x%E7%BB%88%E6%9E%81%E5%A5%A5%E4%B9%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          VSCode配置之Opencv4x终极奥义
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/01/19/OpenCV----%E7%AE%80%E5%8D%95%E7%9B%AE%E6%A0%87%E6%8F%90%E5%8F%96%E5%92%8C%E5%88%86%E5%89%B2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">OpenCV----简单目标提取和分割</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B20----%E6%95%B0%E5%80%BC%E5%AD%97%E7%AC%A6%E4%B8%B2/" target="_blank">剑指OFFER系列之20----数值字符串</a>
-  
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B17----%E6%89%93%E5%8D%B0n%E4%BD%8D%E6%95%B4%E6%95%B0/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.399Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B17----%E6%89%93%E5%8D%B0n%E4%BD%8D%E6%95%B4%E6%95%B0/" target="_blank">剑指OFFER系列之17----打印n位整数</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B18----%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E8%8A%82%E7%82%B9/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.339Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B18----%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E8%8A%82%E7%82%B9/" target="_blank">剑指OFFER系列之18----删除重复节点</a>
-  
-    </h1>
-  
+<div id="SOHUCS" sid="C++高级编程----模板的高级特性" ></div> 
+<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+    window.changyan.api.config({
+        appid: "cyvRdX3ll",
+        conf: "8eecdc589cba82130de0b5f15d8a1c91"
+    });
+</script>
+</script>
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B12----%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.291Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B12----%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/" target="_blank">剑指OFFER系列之12----矩阵中的路径</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B25----%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%EF%BC%88%E6%8B%93%E5%B1%95%EF%BC%9A%E5%90%88%E5%B9%B6K%E4%B8%AA%E9%93%BE%E8%A1%A8%EF%BC%89/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.223Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B25----%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%EF%BC%88%E6%8B%93%E5%B1%95%EF%BC%9A%E5%90%88%E5%B9%B6K%E4%B8%AA%E9%93%BE%E8%A1%A8%EF%BC%89/" target="_blank">剑指OFFER系列之25----合并两个排序链表（拓展：合并K个链表）</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B36----%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.155Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B36----%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/" target="_blank">剑指OFFER系列之36----二叉搜索树与双向链表</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B31----%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%92%8C%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.059Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B31----%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%92%8C%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/" target="_blank">剑指OFFER系列之31----栈的压入和弹出序列</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B40----%E6%9C%80%E5%B0%8F%E7%9A%84K%E4%B8%AA%E6%95%B0/" class="archive-article-date">
-        <time datetime="2022-01-19T14:59:34.027Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/01/19/%E5%89%91%E6%8C%87OFFER%E7%B3%BB%E5%88%97%E4%B9%8B40----%E6%9C%80%E5%B0%8F%E7%9A%84K%E4%B8%AA%E6%95%B0/" target="_blank">剑指OFFER系列之40----最小的K个数</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2022/page/2/">2</a><a class="page-number" href="/archives/2022/page/3/">3</a><a class="page-number" href="/archives/2022/page/4/">4</a><a class="extend next" rel="next" href="/archives/2022/page/2/">Next &amp;raquo;</a>
-    </nav>
-  
 
 
           </div>
@@ -594,8 +854,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
