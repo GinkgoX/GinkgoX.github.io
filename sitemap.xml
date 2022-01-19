@@ -4,7 +4,7 @@
   <url>
     <loc>http://example.com/2022/01/10/opencv/</loc>
     
-    <lastmod>2022-01-15</lastmod>
+    <lastmod>2022-01-19</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -31,7 +31,7 @@
 
   <url>
     <loc>http://example.com/</loc>
-    <lastmod>2022-01-15</lastmod>
+    <lastmod>2022-01-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -39,63 +39,63 @@
   
   <url>
     <loc>http://example.com/tags/opencv/</loc>
-    <lastmod>2022-01-15</lastmod>
+    <lastmod>2022-01-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/dnn/</loc>
-    <lastmod>2022-01-15</lastmod>
+    <lastmod>2022-01-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/yolov3/</loc>
-    <lastmod>2022-01-15</lastmod>
+    <lastmod>2022-01-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2022-01-15</lastmod>
+    <lastmod>2022-01-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/VScode/</loc>
-    <lastmod>2022-01-15</lastmod>
+    <lastmod>2022-01-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/C/</loc>
-    <lastmod>2022-01-15</lastmod>
+    <lastmod>2022-01-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/Tensorflow/</loc>
-    <lastmod>2022-01-15</lastmod>
+    <lastmod>2022-01-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/Pytorch/</loc>
-    <lastmod>2022-01-15</lastmod>
+    <lastmod>2022-01-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/Ubuntu/</loc>
-    <lastmod>2022-01-15</lastmod>
+    <lastmod>2022-01-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
