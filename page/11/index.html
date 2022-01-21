@@ -224,137 +224,6 @@
             
 
   
-    <article id="post-数据结构与算法分析-C++描述 第9章 图论算法（最小生成树之Kruskal算法）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2019/05/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90-C++%E6%8F%8F%E8%BF%B0%20%E7%AC%AC9%E7%AB%A0%20%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95%EF%BC%88%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E4%B9%8BKruskal%E7%AE%97%E6%B3%95%EF%BC%89/" target="_blank">数据结构与算法分析-C++描述 第9章 图论算法（最小生成树之Kruskal算法）</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2019/05/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90-C++%E6%8F%8F%E8%BF%B0%20%E7%AC%AC9%E7%AB%A0%20%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95%EF%BC%88%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E4%B9%8BKruskal%E7%AE%97%E6%B3%95%EF%BC%89/" class="archive-article-date">
-        <time datetime="2019-05-10T02:10:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-10</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <span id="more"></span>
-
-<p><strong>背景介绍：</strong></p>
-<p>        在上一篇 <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37172182">数据结构与算法分析-C++描述 第9章 图论算法（最小生成树之Prim算法）</a>中介绍了最小生成树的Prim算法实现，该算法通过每次比较当前顶点与连接顶点的距离和上一顶点与连接顶点的距离寻找最小值的方式生成最小树。本篇将介绍实现最小生成树的另一贪心算法——Kruskal算法。</p>
-<p><strong>Kruskal算法语言描述：</strong></p>
-<p>       Kruskal算法的贪心策略是连续地按照最小的权边选择，并且所选的边不产生回路时就把它作为选定的边。形式上，Kruskal算法在处理一个森林——树的集合。开始的时候是<img src="https://private.codecogs.com/gif.latex?%7CV%7C" alt="|V|">棵单节点树，添加一边则合并两棵树，当算法结束时只剩下一棵树，即最小生成树。</p>
-<p>       实现步骤：</p>
-<p>       1）按权重从大到小排列边；</p>
-<p>       2）从最小权重边的两个顶点开始建立树；</p>
-<p>       3）若加入的边不连通，则合并两棵子树；【注：连通的本质是寻找两个子树是否有同一父亲结点，在图中指是否有共同最大连通顶点，如v4 -&gt; v7, v6 -&gt; v7, 当v4和v6连接时，因其有共同父亲结点构成连通 】</p>
-<p>      4）从剩余最小边合并子树，重复3）过程；</p>
-<p><strong>Kruskal算法行为描述：</strong></p>
-<p>        1，排序边并构建树，连接最小边为1的顶点；</p>
-<p><img src="https://img-blog.csdnimg.cn/20190510095951246.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3MTcyMTgy,size_16,color_FFFFFF,t_70"></p>
-<p>        2，连接最小边为2的顶点并判断是否连通，若不连通则合并两课子树；</p>
-<p><img src="https://img-blog.csdnimg.cn/2019051010020347.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3MTcyMTgy,size_16,color_FFFFFF,t_70"></p>
-<p> </p>
-<p>        3，连接最小边为3的顶点，判断是否连通，显然v2,v4连通，不合并该边；连接最小边为4的顶点，v1,v3连通，所以不合并该边，结果如图：</p>
-<p><img src="https://img-blog.csdnimg.cn/20190510100353192.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3MTcyMTgy,size_16,color_FFFFFF,t_70"></p>
-<p>        4，连接最小边为5的边，v3,v6连通，不合并该边，连接最小边为6的边：</p>
-<p> </p>
-<p><img src="https://img-blog.csdnimg.cn/20190510100621380.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3MTcyMTgy,size_16,color_FFFFFF,t_70"></p>
-<p>        5，依次进行，直到最小边为10时判断连通结束，最终结果如图：</p>
-<p> </p>
-<p><img src="https://img-blog.csdnimg.cn/20190510100833651.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3MTcyMTgy,size_16,color_FFFFFF,t_70"></p>
-<p>        当使用二叉堆时，Kruskal算法最坏情形时间运行时间为<img src="https://private.codecogs.com/gif.latex?O(%7CE%7C%5Clog%7CE%7C)" alt="O(|E|\log|E|)">,由于<img src="https://private.codecogs.com/gif.latex?%7CE%7C%20=%20O(%7CV%5E2%7C)" alt="|E| = O(|V^2|)">,所有实际运行时间为<img src="https://private.codecogs.com/gif.latex?O(%7CE%7C%5Clog%7CV%7C)" alt="O(|E|\log|V|)">。在实践中算法运行时间远快于该时间界。</p>
-<p>        一般情况，对于稠密的图通常使用Prim算法，因为一次比较可以更新一组距离权值；对于稀疏的图常用Kruskal算法，因为连通的情形更少，判断连通性将更快；</p>
-<p>**Kruskal算法编程实现： **</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//main.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;fstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">int</span> parent[N];</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> u,v,w;</span><br><span class="line">&#125;edges[N];</span><br><span class="line"></span><br><span class="line"><span class="comment">//initialize the parent</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">initParent</span><span class="params">(<span class="keyword">int</span> numEdage)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= numEdage; i++)&#123;</span><br><span class="line">		parent[i] = <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//find the vertex&#x27;s parent and squeeze the path</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findParent</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> temp;</span><br><span class="line">	<span class="keyword">for</span>(temp = i; parent[temp] &gt;= <span class="number">0</span>; temp = parent[temp]);</span><br><span class="line">	<span class="keyword">while</span>(temp != i)&#123;</span><br><span class="line">		<span class="keyword">int</span> t = parent[i];</span><br><span class="line">		parent[i] = temp;</span><br><span class="line">		i = t;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//merge the two vertex into a tree</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mergeVertex</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> r1 = <span class="built_in">findParent</span>(u);</span><br><span class="line">	<span class="keyword">int</span> r2 = <span class="built_in">findParent</span>(v);</span><br><span class="line">	<span class="keyword">int</span> tmp = parent[r1] + parent[r2];</span><br><span class="line">	<span class="keyword">if</span>(parent[r1] &gt; parent[r2])&#123;</span><br><span class="line">		parent[r1] = r2;</span><br><span class="line">		parent[r2] = tmp;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		parent[r2] = r1;</span><br><span class="line">		parent[r1] = tmp;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//kruskal algorithm</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">kruskal</span><span class="params">(<span class="keyword">int</span> numVertex, <span class="keyword">int</span> numEdage)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> u,v;</span><br><span class="line">	<span class="built_in">initParent</span>(numEdage);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numVertex; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		u = edges[i].u;</span><br><span class="line">		v = edges[i].v;</span><br><span class="line">		<span class="comment">//judege whether the two vertex in same union</span></span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">findParent</span>(u) != <span class="built_in">findParent</span>(v))&#123;</span><br><span class="line">			cout &lt;&lt; <span class="string">&quot;Edage info : (&quot;</span> &lt;&lt; u &lt;&lt; <span class="string">&quot;, &quot;</span> &lt;&lt; v &lt;&lt; <span class="string">&quot;, &quot;</span> &lt;&lt; edges[i].w &lt;&lt; <span class="string">&quot; )&quot;</span> &lt;&lt; endl;</span><br><span class="line">			sum += edges[i].w;</span><br><span class="line">			<span class="built_in">mergeVertex</span>(u, v);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//the compar function</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">largerThan</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span> * a, <span class="keyword">const</span> <span class="keyword">void</span> * b)</span></span>&#123;</span><br><span class="line">	<span class="comment">//convert Edge* into const void Edge*</span></span><br><span class="line">	Edge * e1 = (Edge *)a;</span><br><span class="line">	Edge * e2 = (Edge *)b;</span><br><span class="line">	<span class="keyword">return</span> e1-&gt;w - e2-&gt;w;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> numEdage, numVertex;</span><br><span class="line">	<span class="comment">//read data from file</span></span><br><span class="line">	<span class="function">ifstream <span class="title">fin</span><span class="params">(<span class="string">&quot;input.txt&quot;</span>)</span></span>;</span><br><span class="line">	fin &gt;&gt; numEdage &gt;&gt; numVertex;</span><br><span class="line">	<span class="comment">//update the edges</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numVertex; i++)&#123;</span><br><span class="line">		fin &gt;&gt; edges[i].u &gt;&gt; edges[i].v &gt;&gt; edges[i].w;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//qsort parameters: void qsort (void* base, size_t num, size_t size,int (*compar)(const void*,const void*));</span></span><br><span class="line">	<span class="built_in">qsort</span>(edges, numVertex, <span class="built_in"><span class="keyword">sizeof</span></span>(Edge), largerThan);</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;The MST is : &quot;</span> &lt;&lt; <span class="built_in">kruskal</span>( numVertex, numEdage) &lt;&lt; endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//input.txt</span></span><br><span class="line"><span class="number">7</span> <span class="number">12</span></span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">2</span></span><br><span class="line"><span class="number">1</span> <span class="number">3</span> <span class="number">4</span></span><br><span class="line"><span class="number">1</span> <span class="number">4</span> <span class="number">1</span></span><br><span class="line"><span class="number">2</span> <span class="number">4</span> <span class="number">3</span></span><br><span class="line"><span class="number">2</span> <span class="number">5</span> <span class="number">10</span></span><br><span class="line"><span class="number">3</span> <span class="number">4</span> <span class="number">2</span></span><br><span class="line"><span class="number">3</span> <span class="number">6</span> <span class="number">5</span></span><br><span class="line"><span class="number">4</span> <span class="number">5</span> <span class="number">7</span></span><br><span class="line"><span class="number">4</span> <span class="number">6</span> <span class="number">8</span></span><br><span class="line"><span class="number">4</span> <span class="number">7</span> <span class="number">4</span></span><br><span class="line"><span class="number">5</span> <span class="number">7</span> <span class="number">6</span></span><br><span class="line"><span class="number">6</span> <span class="number">7</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-<p> 实验结果：</p>
-<p><img src="https://img-blog.csdnimg.cn/20190510101005698.png"></p>
-<p><strong>practice makes perfect !</strong></p>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">数据结构与算法分析-C++描述 最小生成树 Kruskal算法 贪心算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/C//" class="article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2019/05/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90-C++%E6%8F%8F%E8%BF%B0%20%E7%AC%AC9%E7%AB%A0%20%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95%EF%BC%88%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E4%B9%8BKruskal%E7%AE%97%E6%B3%95%EF%BC%89/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-数据结构与算法分析-C++描述 第9章 图论算法（最小生成树之Prim算法）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -438,7 +307,19 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据结构与算法分析-C++描述 最小生成树 Prim算法 贪心算法</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构与算法分析</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">贪心算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">最小生成树</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Prim算法</a>
         		</li>
       		
 		</ul>
@@ -558,7 +439,19 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">数据结构与算法分析-C++描述 字梯游戏 Dijkstra应用 c++11标准库</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构与算法分析</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">字梯游戏</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Dijkstra应用</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++11标准库</a>
         		</li>
       		
 		</ul>
@@ -679,7 +572,19 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据结构与算法分析-C++描述 Floyd算法 动态规整 最短路径</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构与算法分析</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">动态规整</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Floyd算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">最短路径</a>
         		</li>
       		
 		</ul>
@@ -805,7 +710,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法分析-C++描述 Dijstra算法 单源最短路径</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构与算法分析</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Dijstra算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">单源最短路径</a>
         		</li>
       		
 		</ul>
@@ -914,7 +827,19 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据结构与算法分析-C++描述 有向图 广度优先搜索 深度优先搜索</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构与算法分析</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">广度优先搜索</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">深度优先搜索</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">有向图</a>
         		</li>
       		
 		</ul>
@@ -1037,7 +962,23 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据结构与算法分析-C++描述 图论算法 广度优先搜索 深度优先搜索 邻接表</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构与算法分析</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">图论算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">广度优先搜索</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">深度优先搜索</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">邻接表</a>
         		</li>
       		
 		</ul>
@@ -1147,7 +1088,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">数据结构与算法分析-C++描述 不相交类 迷宫生成</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构与算法分析</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">不相交类</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">迷宫生成</a>
         		</li>
       		
 		</ul>
@@ -1284,7 +1233,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法分析-C++描述 不相交类 动态等价问题</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构与算法分析</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">不相交类</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">动态等价问题</a>
         		</li>
       		
 		</ul>
@@ -1402,7 +1359,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构与算法分析-C++描述 桶排序 线性时间</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构与算法分析</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">桶排序</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">线性时间</a>
         		</li>
       		
 		</ul>
@@ -1424,6 +1389,141 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/2019/04/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90-C++%E6%8F%8F%E8%BF%B0%20%E7%AC%AC7%E7%AB%A0%20%E6%A1%B6%E6%8E%92%E5%BA%8F%EF%BC%88bucketSort%EF%BC%89/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-数据结构与算法分析-C++描述 第7章 间接排序（indirectionSort）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2019/04/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90-C++%E6%8F%8F%E8%BF%B0%20%E7%AC%AC7%E7%AB%A0%20%E9%97%B4%E6%8E%A5%E6%8E%92%E5%BA%8F%EF%BC%88indirectionSort%EF%BC%89/" target="_blank">数据结构与算法分析-C++描述 第7章 间接排序（indirectionSort）</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2019/04/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90-C++%E6%8F%8F%E8%BF%B0%20%E7%AC%AC7%E7%AB%A0%20%E9%97%B4%E6%8E%A5%E6%8E%92%E5%BA%8F%EF%BC%88indirectionSort%EF%BC%89/" class="archive-article-date">
+        <time datetime="2019-04-14T11:25:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-14</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<p><strong>间接排序（indirectionSort）:</strong></p>
+<p>        直接应用基于<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37172182/article/details/89284336">谢尔排序</a>、<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37172182/article/details/89293838">快速排序</a>等这些算法的函数模板时，如果要排序的Comparable对象很大时，有时效率是很低的，问题在于，重新排列的Comparable对象时，进行了太多的复制工作，如果Comparable对象很大且难以复制，则代价将是很大的。解决的办法是：生成一个指向Comparable对象的指针数组，然后重新排列这些指针。一旦确定了元素应该在的位置，就可以直接将该元素放在相应的位置上，而不必过多的中间复制操作。这需要使用称为<strong>中间置换（in-situ permutation）</strong>的算法。【用C++实现的时候需要一些新的语法】</p>
+<p><strong>行为描述：</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20190414185645451.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3MTcyMTgy,size_16,color_FFFFFF,t_70"></p>
+<p><strong>算法描述：</strong></p>
+<p>        第一步：生成指针数组。令a为要排序的数组，p为指针数组。初始化后p[i]指向a[i]；</p>
+<p>        第二步：使用p[i]所指的对象的值来确定p[i]的顺序并对p[i]排序[快速排序]。在数组a的对象完全不动，而数组p的指针重新排序。</p>
+<p>        第三步：移位实现p[i]回填到a[i]中；</p>
+<p><strong>C++特性：</strong></p>
+<p>        <strong>1）vector&lt;Comparable*&gt;不运行</strong></p>
+<p>        quickSort(p)重新排列指针时，quickSort模板算法为Comparable*，因此需要能够比较两个Comparable* 类型的“&lt;”操作符。这种操作符对于指针变量是存在的，但对指针所指向的Comparable值却什么都不做。</p>
+<p>    <strong>2）智能指针类</strong></p>
+<p>        包含指针动作的类有时候也称<strong>智能指针类（smart pointer classes）</strong>。这个类比普通指针高级一些，因为如果没有赋初始值时，将自动赋值为NULL。</p>
+<p>      **  3）重载operator&lt;**</p>
+<p>将&lt;用于所指的Comparable对象。</p>
+<p>      **  4）重载类型转换操作符**</p>
+<p>        operator Comparable *（）const将从一个Pointer&lt;Comparable&gt;转换为Comparable*类型，因此，p[i] = &amp;a[i]隐式转换成立；</p>
+<p>        <strong>5）指针减法运算</strong></p>
+<p>        nextj = p[j] - &amp;a[0] 表示p[j]与起始地址的偏移距离；</p>
+<p><strong>间接排序的性质：</strong></p>
+<p>        间接排序是由快速排序为解决内存不足而采取的改进算法，拥有快速排序的一般特性，其另一显著优势在于提高时间和空间利用率（减少复制操作次数）</p>
+<p><strong>间接排序实例：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//indirectionSort.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">Comparable</span>&gt;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pointer</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">//Pointer constructor</span></span><br><span class="line">	<span class="built_in">Pointer</span>(Comparable *p = <span class="literal">NULL</span>):<span class="built_in">pointee</span>(p)&#123;</span><br><span class="line">	</span><br><span class="line">	&#125;;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//operator&lt; overwrite</span></span><br><span class="line">	<span class="keyword">bool</span> <span class="keyword">operator</span>&lt;(<span class="keyword">const</span> Pointer &amp;p) <span class="keyword">const</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> (*pointee &lt; *p.pointee);</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="comment">//access the pointer value</span></span><br><span class="line">	<span class="keyword">operator</span> Comparable * ( ) <span class="keyword">const</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> pointee;</span><br><span class="line">	&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	Comparable *pointee;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;class Comparable&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">indirectionSort</span><span class="params">(vector&lt;Comparable&gt; &amp;v)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//quickSort vector v</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;class Comparable&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(vector&lt;Comparable&gt; &amp;v)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//find median in vector v from index left, center, right</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;class Comparable&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">const</span> Comparable &amp; <span class="title">median3</span><span class="params">(vector&lt;Comparable&gt; &amp;v, <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//quickSort the inner part</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;class Comparable&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(vector&lt;Comparable&gt; &amp;v, <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//backup sort when vector size is smaller than 10</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;class Compareable&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">inserationSort</span><span class="params">(vector&lt;Compareable&gt; &amp;v, <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//main function</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> arr[] = &#123;<span class="number">81</span>, <span class="number">94</span>, <span class="number">11</span>, <span class="number">96</span>, <span class="number">12</span>, <span class="number">35</span>, <span class="number">17</span>, <span class="number">95</span>, <span class="number">28</span>, <span class="number">58</span>, <span class="number">41</span>, <span class="number">75</span>, <span class="number">15</span>&#125;;</span><br><span class="line">	<span class="keyword">int</span> len = <span class="built_in"><span class="keyword">sizeof</span></span>(arr) / <span class="built_in"><span class="keyword">sizeof</span></span>(arr[<span class="number">0</span>]);</span><br><span class="line">	vector&lt;<span class="keyword">int</span>&gt; v;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; len; i++)&#123;</span><br><span class="line">		v.<span class="built_in">push_back</span>(arr[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;******* the original data ***********&quot;</span> &lt;&lt; endl;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">typename</span> vector&lt;<span class="keyword">int</span>&gt;::iterator itr = v.<span class="built_in">begin</span>(); itr != v.<span class="built_in">end</span>(); ++itr)&#123;</span><br><span class="line">		cout &lt;&lt; *itr &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;******* the sorted data ***********&quot;</span> &lt;&lt; endl;</span><br><span class="line">	<span class="built_in">indirectionSort</span>(v);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">typename</span> vector&lt;<span class="keyword">int</span>&gt;::iterator itr = v.<span class="built_in">begin</span>(); itr != v.<span class="built_in">end</span>(); ++itr)&#123;</span><br><span class="line">		cout &lt;&lt; *itr &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot; done .&quot;</span> &lt;&lt; endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;class Comparable&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">indirectionSort</span><span class="params">(vector&lt;Comparable&gt; &amp;v)</span></span>&#123;</span><br><span class="line">	vector&lt;Pointer&lt;Comparable&gt; &gt; <span class="built_in">p</span>(v.<span class="built_in">size</span>());</span><br><span class="line">	<span class="keyword">int</span> i, j, nextj;</span><br><span class="line">	<span class="comment">//copy vector v into p</span></span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; v.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">		p[i] = &amp;v[i];			<span class="comment">//background construt temp variable</span></span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	<span class="comment">//sort p</span></span><br><span class="line">	<span class="built_in">quickSort</span>(p);</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot; the sorted p is : &quot;</span>;</span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; v.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">		cout &lt;&lt; *p[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	<span class="comment">//restore p into v</span></span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; v.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(p[i] != &amp;v[i])&#123;		<span class="comment">//implicit convert Pointer&lt;Comparable&gt; p to Comparable* p</span></span><br><span class="line">			Comparable temp = v[i];</span><br><span class="line">			<span class="comment">//find the proper index of v[i]</span></span><br><span class="line">			<span class="keyword">for</span>(j = i; p[j] != &amp;v[i]; j = nextj)&#123;</span><br><span class="line">				nextj = p[j] - &amp;v[<span class="number">0</span>];	<span class="comment">//the distance betweent v[i] and v[0]</span></span><br><span class="line">				v[j] = *p[j];</span><br><span class="line">				p[j] = &amp;v[j];</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">//insert v[i]</span></span><br><span class="line">			v[j] = temp;</span><br><span class="line">			<span class="comment">//update p[j]/p[i]</span></span><br><span class="line">			p[j] = &amp;v[j];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;class Comparable&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(vector&lt;Comparable&gt; &amp;v)</span></span>&#123;</span><br><span class="line">	<span class="built_in">quickSort</span>(v, <span class="number">0</span>, v.<span class="built_in">size</span>() - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;class Comparable&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">const</span> Comparable &amp; <span class="title">median3</span><span class="params">(vector&lt;Comparable&gt; &amp;v, <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> center = (left + right) / <span class="number">2</span>;</span><br><span class="line">	<span class="comment">//cout &lt;&lt; v[left] &lt;&lt; &quot; , &quot; &lt;&lt; v[center] &lt;&lt; &quot; , &quot; &lt;&lt; v[right];</span></span><br><span class="line">	<span class="comment">//sort the left, center and right in order</span></span><br><span class="line">	<span class="keyword">if</span>(v[center] &lt; v[left])&#123;</span><br><span class="line">		<span class="built_in">swap</span>(v[left], v[center]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(v[right] &lt; v[left])&#123;</span><br><span class="line">		<span class="built_in">swap</span>(v[left], v[right]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(v[right] &lt; v[center])&#123;</span><br><span class="line">		<span class="built_in">swap</span>(v[center], v[right]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//cout &lt;&lt; &quot; : median is &quot; &lt;&lt; v[center] &lt;&lt; endl;</span></span><br><span class="line">	<span class="built_in">swap</span>(v[center], v[right <span class="number">-1</span>]);		<span class="comment">//place the median to the last index</span></span><br><span class="line">	<span class="keyword">return</span> v[right - <span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;class Comparable&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(vector&lt;Comparable&gt; &amp;v, <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(left + <span class="number">10</span> &lt;= right)&#123; 	<span class="comment">// using the quickSort when vector size is larger than 10</span></span><br><span class="line">		Comparable pivot = <span class="built_in">median3</span>(v, left, right);</span><br><span class="line">		<span class="keyword">int</span> i = left, j = right - <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(;;)&#123;</span><br><span class="line">			<span class="keyword">while</span>(v[++i] &lt; pivot)&#123;&#125;;	<span class="comment">//find the j&#x27;s warning mark</span></span><br><span class="line">			<span class="keyword">while</span>(pivot &lt; v[--j])&#123;&#125;;	<span class="comment">//find the i&#x27;s warning mark</span></span><br><span class="line">			<span class="keyword">if</span>(i &lt; j)&#123;</span><br><span class="line">				<span class="built_in">swap</span>(v[i], v[j]);		<span class="comment">//swap the warning mark</span></span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">swap</span>(v[i], v[right - <span class="number">1</span>]);		<span class="comment">//restore the pivot</span></span><br><span class="line">		<span class="built_in">quickSort</span>(v, left, i - <span class="number">1</span>);		<span class="comment">//iterative quickSort the left part</span></span><br><span class="line">		<span class="built_in">quickSort</span>(v, i + <span class="number">1</span>, right);		<span class="comment">//iterative quickSort the right part</span></span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;								<span class="comment">//using the inserationSort when vector size is smaller than 10</span></span><br><span class="line">		<span class="built_in">inserationSort</span>(v, left, right + <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;class Compareable&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">inserationSort</span><span class="params">(vector&lt;Compareable&gt; &amp;v, <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(left &lt; right)&#123;</span><br><span class="line">		<span class="keyword">int</span> j;</span><br><span class="line">		<span class="comment">//traverse the vector form left to right</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> p  = left; p &lt; right; p++)&#123;</span><br><span class="line">			Compareable temp = v[p];</span><br><span class="line">			<span class="comment">//find the proper location</span></span><br><span class="line">			<span class="keyword">for</span>(j = p; j &gt; <span class="number">0</span> &amp;&amp; temp &lt; v[j - <span class="number">1</span>]; j--)&#123;</span><br><span class="line">				v[j] = v[j - <span class="number">1</span>];</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">//insert into proper location</span></span><br><span class="line">			v[j] = temp;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>practice makes perfect !</strong></p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构与算法分析</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">间接排序</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">智能指针类</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">指针数组</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/C//" class="article-tag-list-link color4">C++</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2019/04/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90-C++%E6%8F%8F%E8%BF%B0%20%E7%AC%AC7%E7%AB%A0%20%E9%97%B4%E6%8E%A5%E6%8E%92%E5%BA%8F%EF%BC%88indirectionSort%EF%BC%89/">展开全文 >></a>
     </p>
     
 
@@ -1586,87 +1686,215 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">C++ Primer C   函数指针 函数指针数组</a>
+                <a href="javascript:void(0)" class="js-tag color4">C++</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">linux C++ Primer C   名称空间 makefile</a>
+                <a href="javascript:void(0)" class="js-tag color2">Primer</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">C++ Primer 函数重载 模板函数</a>
+                <a href="javascript:void(0)" class="js-tag color5">函数指针</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C++ Primer C   数组</a>
+                <a href="javascript:void(0)" class="js-tag color2">函数指针数组</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">C++ Primer C   友元函数 操作符重载</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C++ Primer C   类 继承 多态</a>
+                <a href="javascript:void(0)" class="js-tag color5">名称空间</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">C++ Primer 动态内存分配 类</a>
+                <a href="javascript:void(0)" class="js-tag color4">makefile</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">C++ Primer 友元类 try catch RTTI</a>
+                <a href="javascript:void(0)" class="js-tag color5">函数重载</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">C++ Primer iostream fstream 文件流</a>
+                <a href="javascript:void(0)" class="js-tag color5">模板函数</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">C++ Primer string类 STL 函数对象 算法</a>
+                <a href="javascript:void(0)" class="js-tag color3">数组</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">C++ Primer C   string struct string I/O</a>
+                <a href="javascript:void(0)" class="js-tag color5">友元函数</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">C++ Primer 面向对象 链表</a>
+                <a href="javascript:void(0)" class="js-tag color1">操作符重载</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">C++ Primer C   多重继承 纯虚函数</a>
+                <a href="javascript:void(0)" class="js-tag color2">类</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">c++ gprof 剖析 性能分析</a>
+                <a href="javascript:void(0)" class="js-tag color3">继承</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">c++ 多线程 条件变量 互斥体 原子操作</a>
+                <a href="javascript:void(0)" class="js-tag color3">多态</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">c++ 高效编程 对象池</a>
+                <a href="javascript:void(0)" class="js-tag color2">动态内存分配</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">c++ 哈希算法 数据结构 STL</a>
+                <a href="javascript:void(0)" class="js-tag color4">友元类</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">c++ 模板编程 元编程 变长参数模板</a>
+                <a href="javascript:void(0)" class="js-tag color5">try catch</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">c++ 类和对象</a>
+                <a href="javascript:void(0)" class="js-tag color5">RTTI</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CUDA Pytorch</a>
+                <a href="javascript:void(0)" class="js-tag color4">iostream</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">OpenCV Ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color3">fstream</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">文件流</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">string类</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">STL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">函数对象</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">string</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">string I/O</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">面向对象</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">链表</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">多重继承</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">纯虚函数</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">c++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">gprof</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">剖析</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">性能分析</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">条件变量</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">互斥体</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">原子操作</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">高效编程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">对象池</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">哈希算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">模板编程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">元编程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">变长参数模板</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">类和对象</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">CUDA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Pytorch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">OpenCV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Ubuntu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Caffe</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1678,235 +1906,111 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">TensorFlow</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">git github</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">text table form</a>
+                <a href="javascript:void(0)" class="js-tag color5">text</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java 数据类型 面向对象</a>
+                <a href="javascript:void(0)" class="js-tag color1">table</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">远程访问 虚拟环境</a>
+                <a href="javascript:void(0)" class="js-tag color5">form</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">LeetCode 数独有效性 桶排法</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">LeetCode 数独求解 回溯法</a>
+                <a href="javascript:void(0)" class="js-tag color5">数据类型</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">leetcode 算法</a>
+                <a href="javascript:void(0)" class="js-tag color3">Jupyter</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">LeetCode leetcode 算法 排列组合</a>
+                <a href="javascript:void(0)" class="js-tag color4">LeetCode</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Pytorch Jeston TX2 Pytorch1.x Opencv</a>
+                <a href="javascript:void(0)" class="js-tag color1">数独有效性</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">opencv GUI QT</a>
+                <a href="javascript:void(0)" class="js-tag color4">桶排法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">opencv 目标检测 yolov3 DNN</a>
+                <a href="javascript:void(0)" class="js-tag color5">数独求解</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">opencv 光消除 轮廓提取 连通组件分析 图像分割</a>
+                <a href="javascript:void(0)" class="js-tag color4">回溯法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">opencv ml svm bayes boost</a>
+                <a href="javascript:void(0)" class="js-tag color5">排列组合</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">生成器 迭代器 装饰器</a>
+                <a href="javascript:void(0)" class="js-tag color3">MANFOLD</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Pytorch ACM 特征可视化</a>
+                <a href="javascript:void(0)" class="js-tag color1">Jeston TX2</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Pytorch CNN建模</a>
+                <a href="javascript:void(0)" class="js-tag color1">Pytorch1.x</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Pytorch LeNet</a>
+                <a href="javascript:void(0)" class="js-tag color2">Opencv</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Pytorch Pytorch rnn</a>
+                <a href="javascript:void(0)" class="js-tag color2">Matlab</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Pytorch Pytorch DataLoader</a>
+                <a href="javascript:void(0)" class="js-tag color4">simulink</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Pytorch Pytorch squeeze() unsqueeze()</a>
+                <a href="javascript:void(0)" class="js-tag color5">S-函数</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">pytorch loss focalLoss diceLoss</a>
+                <a href="javascript:void(0)" class="js-tag color2">imhist</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">pytorh cafar10 cnn分类</a>
+                <a href="javascript:void(0)" class="js-tag color2">filter</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Pytorch ResNet CAFAR10</a>
+                <a href="javascript:void(0)" class="js-tag color4">滤波器</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Pytorch CAFAR10 ShuffleNet</a>
+                <a href="javascript:void(0)" class="js-tag color4">GUI</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">pytorch vgg</a>
+                <a href="javascript:void(0)" class="js-tag color3">QT</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">GAN DCGAN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">NLP Yelp dataset</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Radiomics</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TensorFlow实战 LeNet-5</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">TensorFlow实战 自编码器 autoencoder</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">TensorFlow实战 OpenCV GoogleLeNet pytohn</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TensorFlow实战 tensorflow ResNet</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">TensorFlow实战 resnet50 Keras</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">TensorFlow实战 denseNet tensorflow</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">TensorFlow实战 多层感知机（MLP）</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TensorFlow实战 CIFAR-10 L2正则 LRN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TensorFlow实战 Alexnet</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">TensorFlow实战 Alexnet ImageNet</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">TensorFlow实战 VGGNet</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TensorFlow实战 VGG进阶 图像风格迁移</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TensorFlow实战 tensorflow googleLeNet</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">pytorch tensorboardX</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Ubuntu Octave flatpak</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">arm gcc linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">显卡驱动 CUDANN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">openssh 系统安装 静态网关</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Ubuntu ssh putty</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Python 机器学习 unbuntu18.04 anaconda-navigator pydotplus graphviz</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Pytorch RTX 3090 nvidia-455 pytorch</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">vscode 后端开发</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">c++</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">VScode 中文乱码 输出台</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VS code 红色下划线</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">vscode opencv cmake</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">C++ Primer 结构体</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Collection ArrayLis Random</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">opencv</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">dnn</a>
+                <a href="javascript:void(0)" class="js-tag color5">目标检测</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1914,11 +2018,307 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+                <a href="javascript:void(0)" class="js-tag color4">DNN</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">目标检测 机器学习 Pycharm 服务器运行代码</a>
+                <a href="javascript:void(0)" class="js-tag color3">ml</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">svm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">bayes</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">boost</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">光消除</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">轮廓提取</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">连通组件分析</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">图像分割</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">生成器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">迭代器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">装饰器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ACM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">特征可视化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CNN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">LeNet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rnn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">DataLoader</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">squeeze</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">unsqueeze</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">pytorch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">loss</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">focalLoss</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">diceLoss</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ResNet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">CAFAR10</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">ShuffleNet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">vgg</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">GAN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">DCGAN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NLP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Yelp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">dataset</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Radiomics</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">TensorFlow实战</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">LeNet-5</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">自编码器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">autoencoder</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">TensorFlow实战 OpenCV GoogleLeNet python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">tensorflow</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">resnet50</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Keras</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">denseNet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">多层感知机</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">MLP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CIFAR-10</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">L2正则</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">LRN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Alexnet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ImageNet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">VGGNet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">VGG进阶</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">图像风格迁移</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">googleLeNet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">tensorboardX</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Octave</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">flatpak</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">arm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">gcc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">显卡驱动</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">CUDANN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">openssh</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统安装</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">静态网关</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">unbuntu18.04</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">anaconda-navigator</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">pydotplus</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">graphviz</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">putty</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RTX 3090</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nvidia-455</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">vscode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">后端开发</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1926,7 +2326,59 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">C++</a>
+                <a href="javascript:void(0)" class="js-tag color5">中文乱码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">输出台</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">VS code</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">红色下划线</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">opencv</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">cmake</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">结构体</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Collection</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ArrayLis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Random</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">dnn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Pycharm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">服务器运行代码</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1934,31 +2386,23 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Pytorch</a>
+                <a href="javascript:void(0)" class="js-tag color4">GPU</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color1">torch_geometric</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">CUDA Pytorch GPU</a>
+                <a href="javascript:void(0)" class="js-tag color2">cl.exe</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">torch_geometric cl.exe ERROR</a>
+                <a href="javascript:void(0)" class="js-tag color4">PYG</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">C++ Primer</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iostream</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">TensorFlow实战</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1970,10 +2414,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TensorFlow</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">RNN</a>
               </li>
              
@@ -1982,75 +2422,127 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">MINIST</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">剑指offer 回溯算法 矩阵路径</a>
+                <a href="javascript:void(0)" class="js-tag color5">Demo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">剑指offer n位数字 数组越界</a>
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">剑指OFFER 重复节点 链表</a>
+                <a href="javascript:void(0)" class="js-tag color1">setuptools</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">剑指offer 数值匹配</a>
+                <a href="javascript:void(0)" class="js-tag color3">剑指offer</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">剑指offer 合并链表 分治算法</a>
+                <a href="javascript:void(0)" class="js-tag color5">回溯算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">剑指offer 堆栈序列</a>
+                <a href="javascript:void(0)" class="js-tag color5">矩阵路径</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">剑指offer 深度优先 二叉搜索树的和</a>
+                <a href="javascript:void(0)" class="js-tag color5">n位数字</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">剑指offer 二叉搜索树 双向链表</a>
+                <a href="javascript:void(0)" class="js-tag color5">数组越界</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">剑指offer 最大堆 快排算法</a>
+                <a href="javascript:void(0)" class="js-tag color3">剑指OFFER</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">剑指offer 动态规划 数字翻译</a>
+                <a href="javascript:void(0)" class="js-tag color5">重复节点</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">剑指offer 最长子字符串</a>
+                <a href="javascript:void(0)" class="js-tag color5">数值匹配</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">剑指offer 分治算法 逆序对</a>
+                <a href="javascript:void(0)" class="js-tag color5">合并链表</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">剑指offer 二叉搜索树 深度优先</a>
+                <a href="javascript:void(0)" class="js-tag color5">分治算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">剑指offer 二叉树的深度 深度优先</a>
+                <a href="javascript:void(0)" class="js-tag color5">堆栈序列</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">滑动窗 双向队列</a>
+                <a href="javascript:void(0)" class="js-tag color5">深度优先</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数学期望 掷骰子</a>
+                <a href="javascript:void(0)" class="js-tag color3">二叉搜索树的和</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">二叉搜索树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">双向链表</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">最大堆</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">快排算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">动态规划</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数字翻译</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">最长子字符串</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">逆序对</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">二叉树的深度</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">滑动窗</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">双向队列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数学期望</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">掷骰子</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">扑克牌顺子</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2058,199 +2550,427 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">约瑟夫环 循环链表 递归</a>
+                <a href="javascript:void(0)" class="js-tag color5">约瑟夫环</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">opencv PIL numpy pytorch</a>
+                <a href="javascript:void(0)" class="js-tag color5">循环链表</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据结构与算法分析-C++描述 分值算法 运行时间 最近点对</a>
+                <a href="javascript:void(0)" class="js-tag color3">递归</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构与算法分析-C++描述 动态规整 最优二叉搜索树</a>
+                <a href="javascript:void(0)" class="js-tag color4">PIL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据结构与算法分析-C++描述 算法设计技巧 回溯算法 公路收费站问题</a>
+                <a href="javascript:void(0)" class="js-tag color1">numpy</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构与算法分析-C++描述 算法设计技巧 贪心算法 霍夫曼编码</a>
+                <a href="javascript:void(0)" class="js-tag color5">数据结构与算法分析</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构与算法分析-C++描述 算法设计技巧 随机化算法 跳跃表</a>
+                <a href="javascript:void(0)" class="js-tag color5">分值算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构与算法分析-C++描述 素数 厄拉多塞筛</a>
+                <a href="javascript:void(0)" class="js-tag color5">运行时间</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构与算法分析-C++描述 双向链表 泛型编程 gcc</a>
+                <a href="javascript:void(0)" class="js-tag color5">最近点对</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构与算法分析-C++描述 堆栈 ADT 计算器</a>
+                <a href="javascript:void(0)" class="js-tag color5">动态规整</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构与算法分析-C++描述 队列ADT 队列数组 队列链表</a>
+                <a href="javascript:void(0)" class="js-tag color3">最优二叉搜索树</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构与算法分析-C++描述 B树 分裂 融合</a>
+                <a href="javascript:void(0)" class="js-tag color2">算法设计技巧</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构与算法分析-C++描述 二叉树ADT 二叉查找树</a>
+                <a href="javascript:void(0)" class="js-tag color3">公路收费站问题</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构与算法分析-C++描述 伸展树 旋转</a>
+                <a href="javascript:void(0)" class="js-tag color5">贪心算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构与算法分析-C++描述 AVL树 泛型 旋转</a>
+                <a href="javascript:void(0)" class="js-tag color1">霍夫曼编码</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构与算法分析-C++描述 红黑树 旋转</a>
+                <a href="javascript:void(0)" class="js-tag color1">随机化算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构与算法分析-C++描述 散列表ADT 分离链接法</a>
+                <a href="javascript:void(0)" class="js-tag color4">跳跃表</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构与算法分析-C++描述 散列ADT 开放定址法 平方散列法 双散列</a>
+                <a href="javascript:void(0)" class="js-tag color3">素数</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构与算法分析-C++描述 二项队列ADT 合并 融合</a>
+                <a href="javascript:void(0)" class="js-tag color1">厄拉多塞筛</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构与算法分析-C++描述 优先队列ADT 二叉堆</a>
+                <a href="javascript:void(0)" class="js-tag color5">泛型编程</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构与算法分析-C++描述 最大（小）堆 上（下）滤</a>
+                <a href="javascript:void(0)" class="js-tag color3">堆栈</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据结构与算法分析-C++描述 左式堆ADT 零长路径 合并</a>
+                <a href="javascript:void(0)" class="js-tag color4">ADT</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构与算法分析-C++描述 斜堆ADT 合并（merge）</a>
+                <a href="javascript:void(0)" class="js-tag color4">计算器</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构与算法分析-C++描述 堆排序 大O时间</a>
+                <a href="javascript:void(0)" class="js-tag color1">队列ADT</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据结构与算法分析-C++描述 归并排序 递归算法 分而治之</a>
+                <a href="javascript:void(0)" class="js-tag color5">队列数组</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构与算法分析-C++描述 快速排序 枢纽元 运行时间</a>
+                <a href="javascript:void(0)" class="js-tag color5">队列链表</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构与算法分析-C++描述 插入排序 逆序 时间复杂度</a>
+                <a href="javascript:void(0)" class="js-tag color3">B树</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构与算法分析-C++描述 桶排序 线性时间</a>
+                <a href="javascript:void(0)" class="js-tag color3">分裂</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据结构与算法分析-C++描述 谢尔排序 增量序列</a>
+                <a href="javascript:void(0)" class="js-tag color3">融合</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构与算法分析-C++描述 间接排序 智能指针类 指针数组</a>
+                <a href="javascript:void(0)" class="js-tag color2">二叉树ADT</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构与算法分析-C++描述 不相交类 动态等价问题</a>
+                <a href="javascript:void(0)" class="js-tag color1">二叉查找树</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据结构与算法分析-C++描述 不相交类 迷宫生成</a>
+                <a href="javascript:void(0)" class="js-tag color4">伸展树</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构与算法分析-C++描述 Floyd算法 动态规整 最短路径</a>
+                <a href="javascript:void(0)" class="js-tag color3">旋转</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构与算法分析-C++描述 Dijstra算法 单源最短路径</a>
+                <a href="javascript:void(0)" class="js-tag color5">AVL树</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据结构与算法分析-C++描述 字梯游戏 Dijkstra应用 c++11标准库</a>
+                <a href="javascript:void(0)" class="js-tag color3">泛型</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构与算法分析-C++描述 图论算法 广度优先搜索 深度优先搜索 邻接表</a>
+                <a href="javascript:void(0)" class="js-tag color4">红黑树</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构与算法分析-C++描述 最小生成树 Kruskal算法 贪心算法</a>
+                <a href="javascript:void(0)" class="js-tag color2">散列表ADT</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构与算法分析-C++描述 最小生成树 Prim算法 贪心算法</a>
+                <a href="javascript:void(0)" class="js-tag color1">分离链接法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构与算法分析-C++描述 有向图 广度优先搜索 深度优先搜索</a>
+                <a href="javascript:void(0)" class="js-tag color1">散列ADT</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构与算法分析-C++描述 欧拉路径 欧拉回路 深度优先算法 Fleury算法</a>
+                <a href="javascript:void(0)" class="js-tag color1">开放定址法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">机器学习 机器学习 分类 kNN</a>
+                <a href="javascript:void(0)" class="js-tag color1">平方散列法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">机器学习 机器学习 KNN 手写字体识别</a>
+                <a href="javascript:void(0)" class="js-tag color4">双散列</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">机器学习 机器学习 决策树</a>
+                <a href="javascript:void(0)" class="js-tag color3">二项队列ADT</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Python 机器学习 决策树 ID3</a>
+                <a href="javascript:void(0)" class="js-tag color3">合并</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">机器学习 朴素贝叶斯 词性检测</a>
+                <a href="javascript:void(0)" class="js-tag color3">优先队列ADT</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">目标检测 TensorFlow Faster R-CNN</a>
+                <a href="javascript:void(0)" class="js-tag color4">二叉堆</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Faster R-CNN 目标检测</a>
+                <a href="javascript:void(0)" class="js-tag color2">最大（小）堆</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">NMS soft-NMS</a>
+                <a href="javascript:void(0)" class="js-tag color1">上（下）滤</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">目标检测 回归损失 GIoU DIoU CIoU</a>
+                <a href="javascript:void(0)" class="js-tag color2">左式堆ADT</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">零长路径</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">斜堆ADT</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">合并（merge）</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">堆排序</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">大O时间</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">归并排序</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">递归算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">分而治之</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">快速排序</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">枢纽元</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">插入排序</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">逆序</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">时间复杂度</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">桶排序</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">线性时间</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">谢尔排序</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">增量序列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">间接排序</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">智能指针类</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">指针数组</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">不相交类</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">动态等价问题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">迷宫生成</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Floyd算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">最短路径</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Dijstra算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">单源最短路径</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">字梯游戏</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Dijkstra应用</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">c++11标准库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">图论算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">广度优先搜索</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">深度优先搜索</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">邻接表</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小生成树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Kruskal算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Prim算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">有向图</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">欧拉路径</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">欧拉回路</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">深度优先算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Fleury算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">分类</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">kNN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">KNN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">手写字体识别</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">决策树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ID3</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">朴素贝叶斯</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">词性检测</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Faster R-CNN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NMS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">soft-NMS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">回归损失</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">GIoU</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DIoU</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">CIoU</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2258,15 +2978,35 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">机器学习 SVM</a>
+                <a href="javascript:void(0)" class="js-tag color4">Josephus</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构与算法分析-C++描述 Josephus 链表解法 递归解法</a>
+                <a href="javascript:void(0)" class="js-tag color5">链表解法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">统计学习方法 牛顿法 拟牛顿法 无约束最优化问题</a>
+                <a href="javascript:void(0)" class="js-tag color5">递归解法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">统计学习方法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">牛顿法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">拟牛顿法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">无约束最优化问题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">隐马尔可夫模型（HMM）</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2274,47 +3014,91 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">统计学习方法 统计学习方法概论</a>
+                <a href="javascript:void(0)" class="js-tag color4">统计学习方法概论</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">统计学习方法 感知机模型</a>
+                <a href="javascript:void(0)" class="js-tag color1">感知机模型</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">统计学习方法 感知机模型 编程实现</a>
+                <a href="javascript:void(0)" class="js-tag color5">编程实现</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">统计学习方法 k近邻法 kd树</a>
+                <a href="javascript:void(0)" class="js-tag color5">k近邻法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">统计学习方法 朴素贝叶斯法 贝叶斯估计</a>
+                <a href="javascript:void(0)" class="js-tag color4">kd树</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">统计学习方法 决策树</a>
+                <a href="javascript:void(0)" class="js-tag color2">朴素贝叶斯法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">统计学习方法 logistics回归</a>
+                <a href="javascript:void(0)" class="js-tag color1">贝叶斯估计</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">提升方法 AdaBoost GBDT Xgboost</a>
+                <a href="javascript:void(0)" class="js-tag color2">logistics回归</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">自动驾驶 计算机视觉 人工智能</a>
+                <a href="javascript:void(0)" class="js-tag color4">SVM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Ubuntu 18.04 无法上网 DHCP</a>
+                <a href="javascript:void(0)" class="js-tag color5">提升方法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据结构与算法分析-C++描述 随机数 汇编 C   猜数字</a>
+                <a href="javascript:void(0)" class="js-tag color4">AdaBoost</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">GBDT</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Xgboost</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">自动驾驶</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">计算机视觉</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">人工智能</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SLAM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Ubuntu18.04</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">无法上网</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DHCP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">随机数</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">猜数字</a>
               </li>
             
             <div class="clearfix"></div>
