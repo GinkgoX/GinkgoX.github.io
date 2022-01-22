@@ -6,23 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>《C++ Primer 第五版编程练习  -- 第五章》 | Maxwell</title>
+  <title>C++ Primer 第五版 第五章编程练习 | Maxwell</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="description" content="Practice make perfect. 　　Chapter 5 exercise 6: 　　　problem description: 　　　设计一个名为car的结构，用它存储下述有关汽车的信息：生产商（存储在字符数组或string对象中的字符串）、生产年份（整数）。编写一个程序，向用户请问有多少辆汽车。随后，程序使用new关键字来创建一个由相应数量的car结构组成的动态数组。接下来程序提示">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《C++ Primer 第五版编程练习  -- 第五章》">
-<meta property="og:url" content="http://example.com/2018/10/07/%E3%80%8AC++%20Primer%20%E7%AC%AC%E4%BA%94%E7%89%88%E7%BC%96%E7%A8%8B%E7%BB%83%E4%B9%A0%20%20--%20%E7%AC%AC%E4%BA%94%E7%AB%A0%E3%80%8B/index.html">
+<meta property="og:title" content="C++ Primer 第五版 第五章编程练习">
+<meta property="og:url" content="http://example.com/2018/10/07/C++%20Primer%20%E7%AC%AC%E4%BA%94%E7%89%88%20%E7%AC%AC%E4%BA%94%E7%AB%A0%E7%BC%96%E7%A8%8B%E7%BB%83%E4%B9%A0/index.html">
 <meta property="og:site_name" content="Maxwell">
 <meta property="og:description" content="Practice make perfect. 　　Chapter 5 exercise 6: 　　　problem description: 　　　设计一个名为car的结构，用它存储下述有关汽车的信息：生产商（存储在字符数组或string对象中的字符串）、生产年份（整数）。编写一个程序，向用户请问有多少辆汽车。随后，程序使用new关键字来创建一个由相应数量的car结构组成的动态数组。接下来程序提示">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2018-10-07T11:37:00.000Z">
-<meta property="article:modified_time" content="2022-01-21T13:08:07.805Z">
+<meta property="article:modified_time" content="2022-01-22T04:57:24.268Z">
 <meta property="article:author" content="Max well">
 <meta property="article:tag" content="C++">
-<meta property="article:tag" content="iostream">
 <meta property="article:tag" content="C++ Primer">
+<meta property="article:tag" content="iostream">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Maxwell" type="application/atom+xml">
@@ -221,14 +221,14 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-《C++ Primer 第五版编程练习  -- 第五章》" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-C++ Primer 第五版 第五章编程练习" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
     <h1 class="article-title" itemprop="name">
-      《C++ Primer 第五版编程练习  -- 第五章》
+      C++ Primer 第五版 第五章编程练习
     </h1>
   
 
@@ -240,7 +240,7 @@
               <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
         </span>
 
-<a href="/2018/10/07/%E3%80%8AC++%20Primer%20%E7%AC%AC%E4%BA%94%E7%89%88%E7%BC%96%E7%A8%8B%E7%BB%83%E4%B9%A0%20%20--%20%E7%AC%AC%E4%BA%94%E7%AB%A0%E3%80%8B/" class="archive-article-date">
+<a href="/2018/10/07/C++%20Primer%20%E7%AC%AC%E4%BA%94%E7%89%88%20%E7%AC%AC%E4%BA%94%E7%AB%A0%E7%BC%96%E7%A8%8B%E7%BB%83%E4%B9%A0/" class="archive-article-date">
         <time datetime="2018-10-07T11:37:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-07</time>
 </a>
 
@@ -279,7 +279,9 @@
 <p>　　　problem description:</p>
 <p>　　　设计一个名为car的结构，用它存储下述有关汽车的信息：生产商（存储在字符数组或string对象中的字符串）、生产年份（整数）。编写一个程序，向用户请问有多少辆汽车。随后，程序使用new关键字来创建一个由相应数量的car结构组成的动态数组。接下来程序提示输入每辆车的生产商（可由多个单词组成）和年份信息。请注意，这里需要特别小心，因为它将交替读取数值和字符串。最后，程序将显示每个结构的内容。</p>
 <p> </p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span>    <span class="comment">/*string I/O*/</span>    </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Car</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	string provider;</span><br><span class="line">	<span class="keyword">int</span> year;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> total_num = <span class="number">0</span>;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;How many cars do you wish to catalog ? &quot;</span> ;</span><br><span class="line">	cin &gt;&gt; total_num;</span><br><span class="line">	<span class="comment">/*allocate the dynamic struct*/</span></span><br><span class="line">	Car* car = <span class="keyword">new</span> Car[total_num];</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/*read I/O and save it*/</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; total_num; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">char</span> ch;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;Car # &quot;</span>&lt;&lt; i+<span class="number">1</span> &lt;&lt; endl;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;Please enter the provider : &quot;</span>;</span><br><span class="line">		<span class="comment">/*getchar() read Enter to exit, used for clearing the Enter input*/</span></span><br><span class="line">		<span class="built_in">getchar</span>();</span><br><span class="line">		<span class="built_in">getline</span>(cin, car[i].provider);</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;Please enter the made year : &quot;</span> ;</span><br><span class="line">		cin &gt;&gt; car[i].year;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/*traverse the struct*/</span></span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;Here is your collection : &quot;</span> &lt;&lt; endl;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; total_num; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; car[i].year &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt;car[i].provider &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*release the space*/</span></span><br><span class="line">	<span class="keyword">delete</span>[] car;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span>    <span class="comment">/*string I/O*/</span>    </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Car</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	string provider;</span><br><span class="line">	<span class="keyword">int</span> year;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&lt;! --more--&gt;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> total_num = <span class="number">0</span>;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;How many cars do you wish to catalog ? &quot;</span> ;</span><br><span class="line">	cin &gt;&gt; total_num;</span><br><span class="line">	<span class="comment">/*allocate the dynamic struct*/</span></span><br><span class="line">	Car* car = <span class="keyword">new</span> Car[total_num];</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/*read I/O and save it*/</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; total_num; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">char</span> ch;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;Car # &quot;</span>&lt;&lt; i+<span class="number">1</span> &lt;&lt; endl;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;Please enter the provider : &quot;</span>;</span><br><span class="line">		<span class="comment">/*getchar() read Enter to exit, used for clearing the Enter input*/</span></span><br><span class="line">		<span class="built_in">getchar</span>();</span><br><span class="line">		<span class="built_in">getline</span>(cin, car[i].provider);</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;Please enter the made year : &quot;</span> ;</span><br><span class="line">		cin &gt;&gt; car[i].year;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/*traverse the struct*/</span></span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;Here is your collection : &quot;</span> &lt;&lt; endl;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; total_num; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; car[i].year &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt;car[i].provider &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*release the space*/</span></span><br><span class="line">	<span class="keyword">delete</span>[] car;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     
 
     
@@ -315,7 +317,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="http://example.com/2018/10/07/《C++ Primer 第五版编程练习  -- 第五章》/" title="《C++ Primer 第五版编程练习  -- 第五章》" target="_blank">http://example.com/2018/10/07/《C++ Primer 第五版编程练习  -- 第五章》/</a>
+          <a href="http://example.com/2018/10/07/C++ Primer 第五版 第五章编程练习/" title="C++ Primer 第五版 第五章编程练习" target="_blank">http://example.com/2018/10/07/C++ Primer 第五版 第五章编程练习/</a>
         </li>
         
         <li>
@@ -341,11 +343,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iostream</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C++ Primer</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C++ Primer</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iostream</a>
         		</li>
       		
 		</ul>
@@ -401,7 +403,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2018/10/07/%E3%80%8AC++%20Primer%20%E7%AC%AC%E4%BA%94%E7%89%88%E7%BC%96%E7%A8%8B%E7%BB%83%E4%B9%A0%20%20--%20%E7%AC%AC%E4%BA%94%E7%AB%A0%E3%80%8B/" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2018/10/07/C++%20Primer%20%E7%AC%AC%E4%BA%94%E7%89%88%20%E7%AC%AC%E4%BA%94%E7%AB%A0%E7%BC%96%E7%A8%8B%E7%BB%83%E4%B9%A0/" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -454,7 +456,7 @@
 
 
 
-<div id="SOHUCS" sid="《C++ Primer 第五版编程练习  -- 第五章》" ></div> 
+<div id="SOHUCS" sid="C++ Primer 第五版 第五章编程练习" ></div> 
 <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
 <script type="text/javascript">
     window.changyan.api.config({
@@ -648,6 +650,14 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">C++ Primer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">iostream</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">函数重载</a>
               </li>
              
@@ -693,10 +703,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">RTTI</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iostream</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1084,6 +1090,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Radiomics</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">TensorFlow实战</a>
               </li>
              
@@ -1097,10 +1107,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">autoencoder</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Radiomics</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1152,15 +1158,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">VGGNet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">VGG进阶</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">图像风格迁移</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VGGNet</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1180,19 +1186,19 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">显卡驱动</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">CUDANN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">arm</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">gcc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">显卡驱动</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">CUDANN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1336,10 +1342,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">C++ Primer</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">VGG</a>
               </li>
              
@@ -1376,19 +1378,19 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">n位数字</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数组越界</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">回溯算法</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">矩阵路径</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">n位数字</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数组越界</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1404,10 +1406,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">堆栈序列</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">合并链表</a>
               </li>
              
@@ -1416,11 +1414,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">二叉搜索树</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">双向链表</a>
+                <a href="javascript:void(0)" class="js-tag color5">堆栈序列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1429,6 +1423,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">二叉搜索树的和</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">二叉搜索树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">双向链表</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1720,14 +1722,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">桶排序</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">线性时间</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">插入排序</a>
               </li>
              
@@ -1737,6 +1731,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">时间复杂度</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">桶排序</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">线性时间</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1944,11 +1946,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">统计学习方法概论</a>
+                <a href="javascript:void(0)" class="js-tag color1">条件随机场</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">条件随机场</a>
+                <a href="javascript:void(0)" class="js-tag color4">统计学习方法概论</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2000,6 +2002,18 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Ubuntu18.04</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">无法上网</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DHCP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">自动驾驶</a>
               </li>
              
@@ -2013,18 +2027,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">SLAM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Ubuntu18.04</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">无法上网</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DHCP</a>
               </li>
              
               <li class="article-tag-list-item">
